@@ -1,7 +1,9 @@
 import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
+import { IconButton } from "@mui/material";
 import "./Roompage.css";
 
 const PRoomPage = () => {
@@ -9,11 +11,83 @@ const PRoomPage = () => {
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+  const [isAudioOn, setIsAudioOn] = useState(true);
+  const [timer, setTimer] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
     setRemoteSocketId(id);
   }, []);
+
+  const handleTrackEvent = (event) => {
+    // Extract the remote stream from the event
+    const remoteStream = event.streams[0];
+    
+    // Update the state with the remote stream
+    setRemoteStream(remoteStream);
+  };
+
+  useEffect(() => {
+    if (remoteSocketId) {
+      const interval = setInterval(() => {
+        setElapsedTime(prevElapsedTime => prevElapsedTime + 1); // Increment elapsed time every second
+      }, 1000);
+      setTimer(interval);
+
+      // Clean up the interval when component unmounts or remoteSocketId changes
+      return () => clearInterval(interval);
+    }
+  }, [remoteSocketId]);
+
+  const toggleAudioStream = () => {
+    if (myStream) {
+        myStream.getTracks().forEach((track) => {
+            if (track.kind === "audio") {
+                track.enabled = !track.enabled;
+            }
+        });
+        setIsAudioOn(!isAudioOn);
+    }
+};
+
+const checkLocalStorage = () => {
+  // Get the value from localStorage
+  const value = localStorage.getItem('dendcall');
+
+  // Check if the value is '0'
+  if (value === '0') {
+    // Call your function here
+    handleEndCall();
+  }
+};
+
+// Call the function when the component mounts
+// useEffect(() => {
+//   checkLocalStorage();
+// }, []);
+
+const handleEndCall = () => {
+  // Clear the local stream
+  const pcallstatus = 0; // Assuming the server returns the ID in the response
+  localStorage.setItem('pendcall', pcallstatus);
+  if (myStream) {
+    myStream.getTracks().forEach(track => {
+      track.stop();
+    });
+    setMyStream(null);
+  }
+  // Clear the remote stream
+  setRemoteStream(null);
+  // Clear the timer
+  clearInterval(timer);
+  setTimer(null);
+  // Navigate back to Home
+  
+  navigate('/patient');
+};
 
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -115,8 +189,9 @@ const PRoomPage = () => {
     <div className="RoomCnt">
       <h1>Room Page</h1>
       <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
+      {myStream && <IconButton onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</IconButton>}
+      {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
+      {remoteSocketId && myStream && <button onClick={handleEndCall}>End Call</button>}
       {myStream && (
         <>
           <h1>My Stream</h1>
@@ -143,6 +218,18 @@ const PRoomPage = () => {
       )}
     </div>
   );
+};
+
+const formatTime = (timeInSeconds) => {
+  const hours = Math.floor(timeInSeconds / 3600);
+  const minutes = Math.floor((timeInSeconds % 3600) / 60);
+  const seconds = Math.floor(timeInSeconds % 60);
+
+  const formattedHours = String(hours).padStart(2, '0');
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(seconds).padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
 export default PRoomPage;

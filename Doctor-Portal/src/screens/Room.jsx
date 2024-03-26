@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ReactPlayer from "react-player";
 import axios from 'axios';
 import peer from "../service/peer";
+import { IconButton } from "@mui/material";
 import { useSocket } from "../context/SocketProvider";
 import "./Roompage.css";
 
@@ -19,7 +20,9 @@ const RoomPage = () => {
   const [callTime, setCallTime] = useState('');
   const [error, setError] = useState('');
   const [timer, setTimer] = useState(null);
+  const [isAudioOn, setIsAudioOn] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -80,6 +83,60 @@ const RoomPage = () => {
     },
     [sendStreams]
   );
+  const checkLocalStorage = () => {
+    // Get the value from localStorage
+    const value = localStorage.getItem('pendcall');
+  
+    // Check if the value is '0'
+    if (value === '0') {
+      // Call your function here
+      handleEndCall();
+    }
+  };
+  
+  // Call the function when the component mounts
+  // useEffect(() => {
+  //   checkLocalStorage();
+  // }, []);
+
+
+  const handleTrackEvent = (event) => {
+    // Extract the remote stream from the event
+    const remoteStream = event.streams[0];
+    
+    // Update the state with the remote stream
+    setRemoteStream(remoteStream);
+  };
+
+  const toggleAudioStream = () => {
+    if (myStream) {
+        myStream.getTracks().forEach((track) => {
+            if (track.kind === "audio") {
+                track.enabled = !track.enabled;
+            }
+        });
+        setIsAudioOn(!isAudioOn);
+    }
+};
+
+const handleEndCall = () => {
+  // Clear the local stream
+  const dcallstatus = 0; // Assuming the server returns the ID in the response
+  localStorage.setItem('dendcall', dcallstatus);
+  if (myStream) {
+    myStream.getTracks().forEach(track => {
+      track.stop();
+    });
+    setMyStream(null);
+  }
+  // Clear the remote stream
+  setRemoteStream(null);
+  // Clear the timer
+  clearInterval(timer);
+  setTimer(null);
+  // Navigate back to Home
+  navigate('/home');
+};
 
   const handleNegoNeeded = useCallback(async () => {
     const offer = await peer.getOffer();
@@ -208,14 +265,14 @@ const RoomPage = () => {
     <div className="RoomCnt">
       
       <div className="player-container">
-      <p>Timer: {formatTime(elapsedTime)}</p>
-      <h1>Room Page</h1>
       <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>Call</button>}
+      {myStream && <p>Timer: {formatTime(elapsedTime)}</p>}
+      {myStream && <IconButton onClick={sendStreams}>SS</IconButton>}
+      {myStream && <IconButton onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</IconButton>}
+      {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
+      {remoteSocketId && myStream && <button onClick={handleEndCall}>End Call</button>}
       {myStream && (
         < >
-          <h1>My Stream</h1>
           <ReactPlayer
             playing
             height="100px"
@@ -226,7 +283,6 @@ const RoomPage = () => {
       )}
       {remoteStream && (
         <>
-          <h1>Remote Stream</h1>
           <ReactPlayer
             playing
             height="100px"
