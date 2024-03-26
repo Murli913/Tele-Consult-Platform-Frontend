@@ -7,7 +7,7 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 5px;
+    margin: 10px 10px 0px 10px;
     border-radius: 14px;
     height: 60px;
     box-shadow: 2px 2px 10px #9bafaf;
@@ -26,19 +26,14 @@ body{
     cursor: pointer;
 }
 
-.nav-contents{
+/* .nav-contents{
     display: flex;
     gap: 40px;
     align-items: center;
     margin-right: 50px;
-}
+} */
 
-.txt{
-    color: black;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-}
+
 
 .dropdown-content {
     font-size: 16px;
