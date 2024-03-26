@@ -19,18 +19,13 @@ return(
             <div className="logo-title">
                 <h1>eSwasthya</h1>
             </div>
-            <div className="nav-contents">
-                <Link to="/home" className='home-btn txt'>Dashboard</Link>
-                <Link to="/history" className='history-btn txt'>History</Link>
-                <Link to="/book" className='book-btn txt'>Book Now</Link>          
-            </div>
             <div className='usr-logo' onClick={toggleDropdown}>
                 <FaRegUserCircle />
                 {showDropdown && (
                 <div className="dropdown-content">
                     <Link to="/profile">Profile</Link>
                     <Link to="/settings">Settings</Link>
-                    <Link to="/logout">Logout</Link>
+                    <Link to="/logout">Logout</Link>    
                 </div>
                 )}
             </div>
@@ -39,4 +34,5 @@ return(
     </div>
 );
 }
+
 export default Navbar;

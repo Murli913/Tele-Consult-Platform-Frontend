@@ -4,7 +4,7 @@ function HomePage(){
 
     return (
         <div className="home-content">
-            <div className="left-box">
+            {/* <div className="left-box">
                 <h3>Upcoming Appointments</h3>
             </div>
             <div className="right-box">
@@ -14,7 +14,7 @@ function HomePage(){
                 <div className="right-top">
                     <h3>Past Appointments</h3>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -6,6 +6,7 @@ import Navbar from './navbar';
 import HomePage from './Home';
 import History from './history';
 import BookNow from './book';
+import Sidebar from './sidebar';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function AppContent() {
 
   return (
     <>
-      {location.pathname !== "/" && <Navbar />}
+      {location.pathname !== "/" && <Navbar /> }
+      {location.pathname !== "/" && <Sidebar />}
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
