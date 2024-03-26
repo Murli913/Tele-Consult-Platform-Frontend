@@ -6,6 +6,7 @@ import MainDash from '../MainDash/MainDash';
 import PatientHistorys from '../Pages/PatientsHistorys/PatientHistorys';
 import ViewAppointment from '../Pages/ViewAppointment/ViewAppointment';
 import Client from '../Webrtc/Client';
+import EditAppointment from '../Pages/EditAppointment/EditAppointment';
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/patienthistory" element={<PatientHistorys />} />
       <Route path="/webrtc" element={<Client />} />
+      <Route path="/editappointment" element={<EditAppointment />} />
       <Route path="/appointments/:id" element={<ViewAppointment />} />
 
     </Routes>
