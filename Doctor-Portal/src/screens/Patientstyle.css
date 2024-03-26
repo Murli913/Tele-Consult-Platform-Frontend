@@ -1,0 +1,41 @@
+/* Patientscreen.css */
+
+.PatientCnt {
+    max-width: 400px;
+    margin-top: 200px;
+    margin-left: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .PatientCnt label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .PatientCnt input[type="email"],
+  .PatientCnt input[type="text"],
+  .PatientCnt select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .PatientCnt button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .PatientCnt button:hover {
+    background-color: #0056b3;
+  }
+  

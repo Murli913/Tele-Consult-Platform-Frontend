@@ -1,0 +1,72 @@
+body{
+    background-color: rgb(215, 250, 248);
+}
+
+.nav-bar{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 5px;
+    border-radius: 14px;
+    height: 60px;
+    box-shadow: 2px 2px 10px #9bafaf;
+}
+
+.logo-title{
+    margin-left: 50px;
+}
+
+.usr-logo{
+    margin-right: 50px;
+    font-size: 25px;
+}
+
+.usr-logo:hover{
+    cursor: pointer;
+}
+
+.nav-contents{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.txt{
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dropdown-content {
+    font-size: 16px;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    top: 75px;
+    right: 30px;
+    display: none;
+    flex-direction: column; /* Align items vertically */
+    border-radius: 12px;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 6px 0;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .usr-logo:hover .dropdown-content {
+    display: block;
+  }
+  

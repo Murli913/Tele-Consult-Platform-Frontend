@@ -1,0 +1,70 @@
+.sidenav {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 130px;
+  left: -200px;
+  background-color: #333;
+  padding-top: 40px;
+  border-radius: 0px;
+  transition: left 0.3s ease;
+}
+
+.sidenav.open {
+  left: 0;
+}
+
+.toggle-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  background-color: #333;
+  width: 250px;
+  left: -200px;
+  height: 50px;
+  border-color: #fff;
+  border-radius: 0px;
+  padding: 20px;
+  color: #fff;
+}
+
+.toggle-btn.open {
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sidenavitem {
+  list-style-type: none;
+  padding: 0;
+}
+
+#sidenavitem li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#sidenavitem li a i {
+  padding: 7px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#sidenavitem li:hover {
+  background-color: #d54747;
+}
+
+/* Add styling for active navigation item */
+#sidenavitem li.active {
+  background-color: #d54747;
+}

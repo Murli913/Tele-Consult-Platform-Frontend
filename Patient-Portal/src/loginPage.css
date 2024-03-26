@@ -1,0 +1,85 @@
+body{
+    background-color: white;
+}
+
+.login-box{
+    width: 700px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 180px auto;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 1px 5px 15px gray ;
+}
+
+.images{
+    width: 50%;
+    padding: 5px 5px 0px 5px;
+}
+
+.sample-img{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.content{
+    border: none;
+    width: 50%;
+}
+
+.log, .reg{
+    background-color: lightgray;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 12px;
+    margin: 5px;
+}
+
+
+
+.log:hover, .reg:hover{
+    cursor: pointer;
+    background-color: rgb(148, 148, 148);
+}
+
+
+
+
+.input-log-text, .input-reg-text{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid lightgray;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 15px 70px 0px 5px;
+    /* display: flex; */
+    /* align-items: center; */
+}
+
+.input-text:focus {
+    outline: none; 
+    /* border-color: transparent; Set border color to transparent on focus */
+  }
+
+.login-btn, .reg-btn{
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 12px 50px;
+    border-radius: 50px;
+    font-size: 13px;
+    margin: 25px;
+    transition: 0.3s;
+}
+
+.login-btn:hover{
+    cursor: pointer;
+    background-color: rgb(190, 190, 190);
+    color: black;
+}
+
+.sign-up{
+    color: blue;
+    text-decoration: none;
+}

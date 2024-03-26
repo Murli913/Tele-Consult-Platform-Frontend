@@ -1,0 +1,55 @@
+/* Appointmentstyle.css */
+
+.appointment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .appointment-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .appointment-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .appointment-item {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #a90000;
+    transition: transform 0.3s ease;
+  }
+  
+  .appointment-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointment-details {
+    font-size: 16px;
+  }
+  
+  .appointment-details div {
+    margin-bottom: 5px;
+  }
+  
+  .appointment-details .patient-name {
+    font-weight: bold;
+  }
+  
+  .appointment-details .doctor-name {
+    font-style: italic;
+  }
+  
+  .appointment-details .call-time {
+    color: #666;
+  }
+  

@@ -1,0 +1,71 @@
+/* IncomingStyle.css */
+
+.incomingCallContainer {
+  margin-top: 100px;
+  margin-left: 500px;
+  width: 100%;
+  margin-right: 500px;
+}
+
+.incomingCallCard {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.incomingCallText {
+  font-weight: bold;
+}
+
+.patientIdLabel {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.patientId {
+  margin-top: 5px;
+  font-size: 16px;
+  color: rgb(0, 0, 0); /* Change color as needed */
+}
+
+.acceptButton,
+.rejectButton,
+.scheduleButton {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.acceptButton {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.rejectButton {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.scheduleButton {
+  background-color: #007bff; /* Blue */
+  color: white;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.scheduleForm {
+  margin-top: 20px;
+}
+
+.scheduleForm input {
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

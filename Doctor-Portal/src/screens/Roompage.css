@@ -1,0 +1,70 @@
+/* RoomPage.css */
+
+.RoomCnt {
+  display: flex;
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  justify-content: space-evenly;
+}
+
+h1 {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+} */
+
+.Input {
+  width: 100%;
+  margin-left: 200px;
+  margin-top:7px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 30px;
+  background-color: #f6f5f3;
+
+}
+
+.Input form input{
+  width:500px;
+}
+
+
+.player-container {
+  margin-left: 200px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.schcall {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.schcall input {
+  margin: 3px;
+  width: 177px;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+.schcall button {
+  margin: 5px;
+}
