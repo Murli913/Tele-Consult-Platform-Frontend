@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Appointment.css'; // Import your CSS file for styling
-
+import axios from 'axios';
+import { Button } from '@mui/material';
 const Appointments = () => {
   // Dummy data for appointments (replace with your actual data)
-  const [appointments, setAppointments] = useState([
-    { id: 1, patientName: 'John Doe', doctorName: 'Dr. Smith', date: '2024-03-22', time: '10:00 AM' },
-    { id: 2, patientName: 'Jane Smith', doctorName: 'Dr. Brown', date: '2024-03-24', time: '2:00 PM' },
-   
+  const [appointments, setAppointments] = useState([]);
   
-    // Add more appointments as needed
-  ]);
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = async () => {
+    const result = await axios.get("http://localhost:8080/appointment/appointment");
+    setAppointments(result.data);
+    console.log("appointment", result.data);
+  };
 
   // State for form input fields
   const [formData, setFormData] = useState({
@@ -41,9 +46,9 @@ const Appointments = () => {
 
   return (
     <div className="appointments-container">
-      <h2>Add Appointment</h2>
+     
 
-      {/* Form to add new appointment */}
+      {/* Form to add new appointment
       <form onSubmit={handleSubmit} className="appointment-form">
         <div className="form-group">
           <label htmlFor="patientName">Patient Name:</label>
@@ -90,10 +95,11 @@ const Appointments = () => {
           />
         </div>
         <button type="submit" className="btn-submit">Add Appointment</button>
-      </form>
-
+      </form> */}
+ <h2>Appointments</h2>
+        <Button> Add Appointment</Button>
       <div className={`appointments-list-container ${appointments.length > 2 ? 'sliding' : ''}`}>
-        <h2>Appointments</h2>
+       
 
         {/* Table to display appointments */}
         <table className="appointments-table">
@@ -109,10 +115,10 @@ const Appointments = () => {
           <tbody>
             {appointments.map(appointment => (
               <tr key={appointment.id}>
-                <td>{appointment.patientName}</td>
-                <td>{appointment.doctorName}</td>
-                <td>{appointment.date}</td>
-                <td>{appointment.time}</td>
+                <td>{appointment.patientname}</td>
+                <td>{appointment.doctorname}</td>
+                <td>{appointment.dptdate}</td>
+                <td>{appointment.apttime}</td>
                 <td className="action-column">
                   {/* Link to view appointment */}
                   <Link to={`/appointments/${appointment.id}`} className="action-linkk">View</Link> |{' '}

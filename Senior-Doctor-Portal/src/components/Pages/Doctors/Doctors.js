@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Doctors.css'; // Import your CSS file for styling
+import axios from 'axios';
 
 const Doctors = () => {
   // Dummy data for doctors (replace with your actual data)
-  const [doctors, setDoctors] = useState([
-    { id: 1, gender: 'Male', name: 'Dr. John Doe', phoneNumber: '123-456-7890' },
-    { id: 2, gender: 'Female', name: 'Dr. Jane Smith', phoneNumber: '987-654-3210' },
-    { id: 3, gender: 'Female', name: 'Dr. Jane Smith', phoneNumber: '987-654-3210' },
-    { id: 4, gender: 'Female', name: 'Dr. Jane Smith', phoneNumber: '987-654-3210' },
-    { id: 5, gender: 'Female', name: 'Dr. Jane Smith', phoneNumber: '987-654-3210' },
-    // Add more doctors as needed
-  ]);
+  const [doctors, setDoctors] = useState([]);
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = async () => {
+  const result = await axios.get("http://localhost:8080/doctor/supervisor/1");
+    setDoctors(result.data);
+  
+  };
 
   // Function to handle doctor removal
-  const handleRemoveDoctor = (id) => {
-    setDoctors(doctors.filter(doctor => doctor.id !== id));
+  const handleRemoveDoctor = async (id) => {
+    await axios.delete(`http://localhost:8080/doctor/doctor/${id}`);
+    loadUsers();
   };
 
   return (

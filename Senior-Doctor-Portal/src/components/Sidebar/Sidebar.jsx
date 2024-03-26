@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { UilSignOutAlt, UilBars } from "@iconscout/react-unicons";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -9,10 +9,14 @@ import { BiSolidDashboard } from "react-icons/bi";
 const Sidebar = () => {
   const [selected, setSelected] = useState(null);
   const [expanded, setExpanded] = useState(true);
-
+const navigate=useNavigate();
   const toggleSidebar = () => {
     setExpanded(!expanded);
   };
+  const gotologin = () => {
+    navigate("/login");
+  };
+
 
   return (
     <>
@@ -44,7 +48,7 @@ const Sidebar = () => {
          
           <div className="menuItem" onClick={() => setSelected(null)}>
             <UilSignOutAlt />
-            <span>Signout</span>
+            <Link to="/login"><span>Signout</span></Link>
           </div>
         </div>
       </div>
