@@ -7,7 +7,7 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([
     { id: 1, patientName: 'John Doe', doctorName: 'Dr. Smith', date: '2024-03-22', time: '10:00 AM' },
     { id: 2, patientName: 'Jane Smith', doctorName: 'Dr. Brown', date: '2024-03-24', time: '2:00 PM' },
-    { id: 3, patientName: 'Jane Smith', doctorName: 'Dr. Brown', date: '2024-03-24', time: '2:00 PM' },
+   
   
     // Add more appointments as needed
   ]);
