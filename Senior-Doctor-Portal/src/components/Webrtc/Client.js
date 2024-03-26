@@ -215,8 +215,8 @@ function Client() {
                             ) : (
                                 <VideoOffIcon fontSize="large" color="secondary" />
                             )}
-                        </IconButton>
-                        <IconButton onClick={toggleAudioStream}>
+                        </IconButton>onClick={toggleAudioStream}
+                        <IconButton >
                             {isAudioOn ? (
                                 <MicIcon fontSize="large" color="primary" />
                             ) : (
