@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Appointment.css'; // Import your CSS file for styling
 import axios from 'axios';
 import { Button } from '@mui/material';
 const Appointments = () => {
   // Dummy data for appointments (replace with your actual data)
   const [appointments, setAppointments] = useState([]);
-  
+  const navigate=useNavigate();
   useEffect(() => {
     loadUsers();
   }, []);
@@ -43,6 +43,10 @@ const Appointments = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const gotoaddappointment = () => {
+   navigate("/addappointment");
+  };
+
 
   return (
     <div className="appointments-container">
@@ -97,7 +101,7 @@ const Appointments = () => {
         <button type="submit" className="btn-submit">Add Appointment</button>
       </form> */}
  <h2>Appointments</h2>
-        <Button> Add Appointment</Button>
+        <Button onClick={gotoaddappointment}> Add Appointment</Button>
       <div className={`appointments-list-container ${appointments.length > 2 ? 'sliding' : ''}`}>
        
 
