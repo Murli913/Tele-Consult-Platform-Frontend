@@ -83,30 +83,6 @@ const RoomPage = () => {
     },
     [sendStreams]
   );
-  const checkLocalStorage = () => {
-    // Get the value from localStorage
-    const value = localStorage.getItem('pendcall');
-  
-    // Check if the value is '0'
-    if (value === '0') {
-      // Call your function here
-      handleEndCall();
-    }
-  };
-  
-  // Call the function when the component mounts
-  // useEffect(() => {
-  //   checkLocalStorage();
-  // }, []);
-
-
-  const handleTrackEvent = (event) => {
-    // Extract the remote stream from the event
-    const remoteStream = event.streams[0];
-    
-    // Update the state with the remote stream
-    setRemoteStream(remoteStream);
-  };
 
   const toggleAudioStream = () => {
     if (myStream) {
@@ -119,24 +95,37 @@ const RoomPage = () => {
     }
 };
 
-const handleEndCall = () => {
-  // Clear the local stream
-  const dcallstatus = 0; // Assuming the server returns the ID in the response
-  localStorage.setItem('dendcall', dcallstatus);
+const handleNavigateHome = () => {
+  // Perform cleanup actions
   if (myStream) {
     myStream.getTracks().forEach(track => {
       track.stop();
     });
     setMyStream(null);
   }
+
   // Clear the remote stream
   setRemoteStream(null);
+
   // Clear the timer
   clearInterval(timer);
   setTimer(null);
-  // Navigate back to Home
-  navigate('/home');
+
+  // Navigate to the home page
+  navigate("/home"); // Adjust path as per your routing setup
+
+  // Remove the event listener for "navigate:home"
+  socket.off("navigate:home", handleNavigateHome);
 };
+
+// Subscribe to the "navigate:home" event
+socket.on("navigate:home", handleNavigateHome);
+
+const handleEndCall = () => {
+  // Emit end call event to the server
+  socket.emit("call:ended", { to: remoteSocketId });
+};
+
 
   const handleNegoNeeded = useCallback(async () => {
     const offer = await peer.getOffer();
