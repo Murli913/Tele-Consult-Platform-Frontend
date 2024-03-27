@@ -4,51 +4,47 @@ import './PatientHistorys.css'; // Import your CSS file for styling
 import axios from 'axios';
 
 const PatientHistorys = () => {
-  // Dummy data for patient history (replace with your actual data)
   const [patientHistory, setPatientHistory] = useState([]);
 
   useEffect(() => {
-    loadUsers();
+    loadPatientHistory();
   }, []);
 
-  const loadUsers = async () => {
-  const result = await axios.get("http://localhost:8080/callhistory/seniordoctors/1");
-    setPatientHistory(result.data);
-    console.log("Doctors", result.data);
-  };
-
-  // Function to render detailed view of patient details
-  const renderDetailView = (patientId) => {
-    // Code to display detailed view of patient details
-    console.log(`Viewing details for patient with ID ${patientId}`);
+  const loadPatientHistory = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/callhistory/seniordoctors/1");
+      setPatientHistory(response.data);
+      console.log("Patient History", response.data);
+    } catch (error) {
+      console.error("Error fetching patient history:", error);
+    }
   };
 
   return (
     <div className="patient-history-container">
       <h2>Patient History</h2>
 
-      {/* Table to display patient history */}
       <table className="patient-history-table">
         <thead>
           <tr>
+            <th>Consultant ID</th>
             <th>Patient ID</th>
-         
-            <th>Consultant-Date</th>
-            <th>Consultant-Time</th>
+            <th>Doctor ID</th>
+            <th>Consultant Date</th>
+            <th>Consultant Time</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {patientHistory.map(patient => (
-            <tr key={patient.id}>
-              <td>{patient.id}</td>
-             
-              <td>{patient.callDate}</td>
-              <td>{patient.callTime}</td>
-
+          {patientHistory.map(patientt => (
+            <tr key={patientt.id}>
+              <td>{patientt.id}</td>
+              <td>{patientt.patient.id}</td>
+              <td>{patientt.doctor.id}</td>
+              <td>{patientt.callDate}</td>
+              <td>{patientt.callTime}</td>
               <td className="action-column">
-                {/* Link to view patient details */}
-                <button onClick={() => renderDetailView(patient.id)} className="action-link">View</button>
+                <Link to={`/viewpatienthistory/${patientt.id}`} className="action-link">View</Link>
               </td>
             </tr>
           ))}
