@@ -12,37 +12,12 @@ const Appointments = () => {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/appointment/appointment");
+    const result = await axios.get("http://localhost:8080/callhistory/getappointment/2");
     setAppointments(result.data);
     console.log("appointment", result.data);
   };
 
-  // State for form input fields
-  const [formData, setFormData] = useState({
-    patientName: '',
-    doctorName: '',
-    date: '',
-    time: '',
-  });
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add new appointment to the list
-    const newAppointment = {
-      id: appointments.length + 1, // Generate ID dynamically (you might use a better approach)
-      ...formData,
-    };
-    setAppointments([...appointments, newAppointment]);
-    // Reset form fields
-    setFormData({ patientName: '', doctorName: '', date: '', time: '' });
-  };
-
-  // Function to handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
   const gotoaddappointment = () => {
    navigate("/addappointment");
   };
@@ -109,20 +84,20 @@ const Appointments = () => {
         <table className="appointments-table">
           <thead>
             <tr>
-              <th>Patient Name</th>
-              <th>Doctor Name</th>
-              <th>Date</th>
-              <th>Time</th>
+              <th>Appointment-id</th>
+              <th>Call-Date</th>
+              <th>Call-Time</th>
+              <th>Patient-Id</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {appointments.map(appointment => (
               <tr key={appointment.id}>
-                <td>{appointment.patientname}</td>
-                <td>{appointment.doctorname}</td>
-                <td>{appointment.dptdate}</td>
-                <td>{appointment.apttime}</td>
+                <td>{appointment.id}</td>
+                <td>{appointment.callDate}</td>
+                <td>{appointment.callTime}</td>
+                <td>{appointment.patient.id}</td>
                 <td className="action-column">
                   {/* Link to view appointment */}
                   <Link to={`/appointments/${appointment.id}`} className="action-linkk">View</Link> |{' '}

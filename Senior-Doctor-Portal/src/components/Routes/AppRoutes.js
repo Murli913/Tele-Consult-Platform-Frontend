@@ -9,6 +9,7 @@ import Client from '../Webrtc/Client';
 import EditAppointment from '../Pages/EditAppointment/EditAppointment';
 import Login from '../Login/Login';
 import AddAppointment from '../Pages/AddAppointment/AddAppointment';
+import ViewPatientHistory from '../Pages/ViewPatientHistory/ViewPatientHistory';
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
       <Route path="/appointments/:id" element={<ViewAppointment />} />
       <Route path="/login" element={<Login />} />
       <Route path="/addappointment" element={<AddAppointment />} />
+      <Route path="/viewpatienthistory/:id"   element={<ViewPatientHistory />} />
 
     </Routes>
   );
