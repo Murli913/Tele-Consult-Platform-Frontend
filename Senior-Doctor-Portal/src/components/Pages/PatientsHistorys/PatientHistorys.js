@@ -12,7 +12,7 @@ const PatientHistorys = () => {
   }, []);
 
   const loadUsers = async () => {
-  const result = await axios.get("http://localhost:8080/callhistory/getpatienthistory/1");
+  const result = await axios.get("http://localhost:8080/callhistory/seniordoctors/1");
     setPatientHistory(result.data);
     console.log("Doctors", result.data);
   };
