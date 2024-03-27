@@ -6,6 +6,12 @@ import peer from "../service/peer";
 import { IconButton } from "@mui/material";
 import { useSocket } from "../context/SocketProvider";
 import "./Roompage.css";
+import { BsRecordCircle } from "react-icons/bs";
+import { FaRegStopCircle } from "react-icons/fa";
+import { IoMdMic } from "react-icons/io";
+import { IoMdMicOff } from "react-icons/io";
+import { MdDownloading } from "react-icons/md";
+import { ImPhoneHangUp } from "react-icons/im";
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -23,6 +29,7 @@ const RoomPage = () => {
   const [isAudioOn, setIsAudioOn] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [recording, setRecording] = useState(null); 
+  const [isrd, setrd] = useState(false);
 
   const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
@@ -264,10 +271,20 @@ const handleEndCall = () => {
     }
   };
 
+  const toggleRecording = () => {
+    if (!isrd) {
+      handleStartRecording();
+    } else {
+      handleStopRecording();
+    }
+};
+
   const handleStartRecording = () => {
     // Check if MediaRecorder is available and myStream is set
-    if (MediaRecorder.isTypeSupported('audio/webm') && myStream) {
-      const mediaRecorder = new MediaRecorder(myStream, { mimeType: 'audio/webm' });
+    setrd(true);
+    if (MediaRecorder.isTypeSupported('audio/webm') && myStream && remoteStream) {
+      const combinedStream = new MediaStream([...myStream.getAudioTracks(), ...remoteStream.getAudioTracks()]);
+      const mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'audio/webm' });
 
       // Event handler for when data is available
       mediaRecorder.ondataavailable = (event) => {
@@ -288,6 +305,7 @@ const handleEndCall = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
     }
+    setrd(false);
   };
 
   const handleDownloadRecording = () => {
@@ -306,15 +324,16 @@ const handleEndCall = () => {
     <div className="RoomCnt">
       
       <div className="player-container">
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <p>Timer: {formatTime(elapsedTime)}</p>}
-      {myStream && <IconButton onClick={sendStreams}>SS</IconButton>}
-      {myStream && <IconButton onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</IconButton>}
-      {myStream && <IconButton onClick={handleStartRecording}>Start Recording</IconButton>}
-      {myStream && <IconButton onClick={handleStopRecording}>Stop Recording</IconButton>}
-      {myStream && <IconButton onClick={handleDownloadRecording}>Download Recording</IconButton>}
+      <h4>{remoteSocketId ? "" : "No one in room"}</h4>
+      {myStream && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
+      {myStream && <button className="endbtn" onClick={sendStreams}>SS</button>}
+      {myStream && <IconButton className="str" onClick={toggleAudioStream}>{isAudioOn ?  <IoMdMicOff /> : <IoMdMic />}</IconButton>}
+      {myStream && <IconButton className="str" color="primary" aria-label="record" onClick={toggleRecording}>
+                            {isrd ? <FaRegStopCircle /> : <BsRecordCircle />}
+                        </IconButton>}
+      {myStream && <IconButton className="str" onClick={handleDownloadRecording}><MdDownloading /></IconButton>}
       {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
-      {remoteSocketId && myStream && <button onClick={handleEndCall}>End Call</button>}
+      {remoteSocketId && myStream && <button className="endbtn" onClick={handleEndCall}><ImPhoneHangUp /></button>}
       {myStream && (
         < >
           <ReactPlayer
