@@ -22,20 +22,13 @@ const PRoomPage = () => {
     setRemoteSocketId(id);
   }, []);
 
-  const handleTrackEvent = (event) => {
-    // Extract the remote stream from the event
-    const remoteStream = event.streams[0];
-    
-    // Update the state with the remote stream
-    setRemoteStream(remoteStream);
-  };
-
   useEffect(() => {
     if (remoteSocketId) {
       const interval = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1); // Increment elapsed time every second
       }, 1000);
       setTimer(interval);
+      console.log(remoteSocketId);
 
       // Clean up the interval when component unmounts or remoteSocketId changes
       return () => clearInterval(interval);
@@ -53,40 +46,35 @@ const PRoomPage = () => {
     }
 };
 
-const checkLocalStorage = () => {
-  // Get the value from localStorage
-  const value = localStorage.getItem('dendcall');
-
-  // Check if the value is '0'
-  if (value === '0') {
-    // Call your function here
-    handleEndCall();
-  }
-};
-
-// Call the function when the component mounts
-// useEffect(() => {
-//   checkLocalStorage();
-// }, []);
-
-const handleEndCall = () => {
-  // Clear the local stream
-  const pcallstatus = 0; // Assuming the server returns the ID in the response
-  localStorage.setItem('pendcall', pcallstatus);
+const handleNavigateLobby = () => {
+  // Perform cleanup actions
   if (myStream) {
     myStream.getTracks().forEach(track => {
       track.stop();
     });
     setMyStream(null);
   }
+
   // Clear the remote stream
   setRemoteStream(null);
+
   // Clear the timer
   clearInterval(timer);
   setTimer(null);
-  // Navigate back to Home
-  
-  navigate('/patient');
+
+  // Navigate to the home page
+  navigate("/patient"); // Adjust path as per your routing setup
+
+  // Remove the event listener for "navigate:home"
+  socket.off("navigate:home", handleNavigateLobby);
+};
+
+// Subscribe to the "navigate:home" event
+socket.on("navigate:home", handleNavigateLobby);
+
+const handleEndCall = () => {
+  // Emit end call event to the server
+  socket.emit("call:ended", { to: remoteSocketId });
 };
 
   const handleCallUser = useCallback(async () => {

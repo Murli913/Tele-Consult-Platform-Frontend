@@ -35,4 +35,20 @@ io.on("connection", (socket) => {
     console.log("peer:nego:done", ans);
     io.to(to).emit("peer:nego:final", { from: socket.id, ans });
   });
+
+  socket.on("call:ended", ({to}) => {
+    const receiverid = to;
+    const senderid = socket.id;
+    console.log(receiverid);
+    console.log(senderid);
+    if(receiverid)
+    {
+      io.to(to).emit("navigate:home");
+    }
+    if(senderid)
+    {
+      io.to(socket.id).emit("navigate:home");
+    }
+  })
+
 });
