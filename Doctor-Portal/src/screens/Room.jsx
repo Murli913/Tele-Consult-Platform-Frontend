@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReactPlayer from "react-player";
 import axios from 'axios';
@@ -22,6 +22,9 @@ const RoomPage = () => {
   const [timer, setTimer] = useState(null);
   const [isAudioOn, setIsAudioOn] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [recording, setRecording] = useState(null); 
+
+  const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -46,7 +49,7 @@ const RoomPage = () => {
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
-      video: true,
+      video: false,
     });
     const offer = await peer.getOffer();
     socket.emit("user:call", { to: remoteSocketId, offer });
@@ -58,7 +61,7 @@ const RoomPage = () => {
       setRemoteSocketId(from);
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
-        video: true,
+        video: false,
       });
       setMyStream(stream);
       console.log(`Incoming Call`, from, offer);
@@ -261,6 +264,44 @@ const handleEndCall = () => {
     }
   };
 
+  const handleStartRecording = () => {
+    // Check if MediaRecorder is available and myStream is set
+    if (MediaRecorder.isTypeSupported('audio/webm') && myStream) {
+      const mediaRecorder = new MediaRecorder(myStream, { mimeType: 'audio/webm' });
+
+      // Event handler for when data is available
+      mediaRecorder.ondataavailable = (event) => {
+        setRecording(event.data);
+      };
+
+      // Start recording
+      mediaRecorder.start();
+
+      // Save MediaRecorder instance to reference
+      mediaRecorderRef.current = mediaRecorder;
+    } else {
+      console.error('MediaRecorder is not supported or myStream is not set');
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+    }
+  };
+
+  const handleDownloadRecording = () => {
+    if (recording) {
+      const blob = new Blob([recording], { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'recording.webm';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  };
   return (
     <div className="RoomCnt">
       
@@ -269,13 +310,16 @@ const handleEndCall = () => {
       {myStream && <p>Timer: {formatTime(elapsedTime)}</p>}
       {myStream && <IconButton onClick={sendStreams}>SS</IconButton>}
       {myStream && <IconButton onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</IconButton>}
+      {myStream && <IconButton onClick={handleStartRecording}>Start Recording</IconButton>}
+      {myStream && <IconButton onClick={handleStopRecording}>Stop Recording</IconButton>}
+      {myStream && <IconButton onClick={handleDownloadRecording}>Download Recording</IconButton>}
       {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
       {remoteSocketId && myStream && <button onClick={handleEndCall}>End Call</button>}
       {myStream && (
         < >
           <ReactPlayer
             playing
-            height="100px"
+            height="0px"
             width="200px"
             url={myStream}
           />
@@ -285,7 +329,7 @@ const handleEndCall = () => {
         <>
           <ReactPlayer
             playing
-            height="100px"
+            height="0px"
             width="200px"
             url={remoteStream}
           />

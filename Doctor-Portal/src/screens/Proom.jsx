@@ -95,7 +95,7 @@ const handleEndCall = () => {
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
-      video: true,
+      video: false,
     });
     const offer = await peer.getOffer();
     socket.emit("user:call", { to: remoteSocketId, offer });
@@ -107,7 +107,7 @@ const handleEndCall = () => {
       setRemoteSocketId(from);
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
-        video: true,
+        video: false,
       });
       setMyStream(stream);
       console.log(`Incoming Call`, from, offer);
@@ -201,7 +201,7 @@ const handleEndCall = () => {
           <ReactPlayer
             playing
             muted
-            height="100px"
+            height="0px"
             width="200px"
             url={myStream}
           />
@@ -213,7 +213,7 @@ const handleEndCall = () => {
           <ReactPlayer
             playing
             muted
-            height="100px"
+            height="0px"
             width="200px"
             url={remoteStream}
           />
