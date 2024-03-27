@@ -113,9 +113,31 @@ socket.on("navigate:home", () => {
 
   navigate("/home"); // Adjust path as per your routing setup
 });
+const cid = localStorage.getItem('CallId');
+  console.log(cid);
 
 const handleEndCall = () => {
   // Emit end call event to the server
+  const now = new Date();
+  const endtime = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Kolkata",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(now);
+
+  axios.put(`http://localhost:8080/callhistory/${cid}/updateendtime/${endtime}`)
+    .then(() => {
+      // Set a delay of 2 seconds before making the next API call
+      setTimeout(() => {
+        const doctorId = localStorage.getItem('loggedInDoctorId');
+        axios.put(`http://localhost:8080/doctor/${doctorId}/reject-call`);
+      }, 2000); // Delay of 2000 milliseconds (2 seconds)
+    })
+    .catch(error => {
+      console.error("Error updating end time:", error);
+    });
   socket.emit("call:ended", { to: remoteSocketId });
 };
 
@@ -175,8 +197,6 @@ const handleEndCall = () => {
     handleNegoNeedIncomming,
     handleNegoNeedFinal,
   ]);
-  const cid = localStorage.getItem('CallId');
-  console.log(cid);
   useEffect(() => {
     const fetchData = async () => {
       try {
