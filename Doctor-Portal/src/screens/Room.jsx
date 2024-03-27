@@ -95,8 +95,8 @@ const RoomPage = () => {
     }
 };
 
-const handleNavigateHome = () => {
-  // Perform cleanup actions
+// Register event handler for "navigate:home" outside of the handleEndCall function
+socket.on("navigate:home", () => {
   if (myStream) {
     myStream.getTracks().forEach(track => {
       track.stop();
@@ -111,20 +111,14 @@ const handleNavigateHome = () => {
   clearInterval(timer);
   setTimer(null);
 
-  // Navigate to the home page
   navigate("/home"); // Adjust path as per your routing setup
-
-  // Remove the event listener for "navigate:home"
-  socket.off("navigate:home", handleNavigateHome);
-};
-
-// Subscribe to the "navigate:home" event
-socket.on("navigate:home", handleNavigateHome);
+});
 
 const handleEndCall = () => {
   // Emit end call event to the server
   socket.emit("call:ended", { to: remoteSocketId });
 };
+
 
 
   const handleNegoNeeded = useCallback(async () => {
@@ -185,9 +179,6 @@ const handleEndCall = () => {
   console.log(cid);
   useEffect(() => {
     const fetchData = async () => {
-
-      
-      
       try {
         // Make an API call to fetch patient ID
         const response = await axios.get(`http://localhost:8080/callhistory/${cid}/patientId`);

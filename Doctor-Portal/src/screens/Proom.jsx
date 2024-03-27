@@ -46,8 +46,8 @@ const PRoomPage = () => {
     }
 };
 
-const handleNavigateLobby = () => {
-  // Perform cleanup actions
+// Register event handler for "navigate:home" outside of the handleEndCall function
+socket.on("navigate:home", () => {
   if (myStream) {
     myStream.getTracks().forEach(track => {
       track.stop();
@@ -62,20 +62,14 @@ const handleNavigateLobby = () => {
   clearInterval(timer);
   setTimer(null);
 
-  // Navigate to the home page
   navigate("/patient"); // Adjust path as per your routing setup
-
-  // Remove the event listener for "navigate:home"
-  socket.off("navigate:home", handleNavigateLobby);
-};
-
-// Subscribe to the "navigate:home" event
-socket.on("navigate:home", handleNavigateLobby);
+});
 
 const handleEndCall = () => {
   // Emit end call event to the server
   socket.emit("call:ended", { to: remoteSocketId });
 };
+
 
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
