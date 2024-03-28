@@ -1,13 +1,18 @@
-import './sidebar.css'
-import { Link } from 'react-router-dom';
-function Sidebar() {
+import './sidebar.css';
+import { MdDashboard } from "react-icons/md";
+import { GoHistory } from "react-icons/go";
+import { GoPlusCircle } from "react-icons/go";
+import { BiLogOutCircle } from "react-icons/bi";
 
-    return(
+function Sidebar() {
+    return (
         <div className="side-content">
-            <Link to="/home" className='home-btn txt'>Dashboard</Link><br />
-            <Link to="/history" className='history-btn txt'>History</Link><br />
-            <Link to="/book" className='book-btn txt'>Book Now</Link><br />
-            <Link to="/" className='logout-btn txt'>Logout</Link>
+            <div className="top-buttons">
+                <button className='btn btn-home' onClick={() => { window.location.href = "/home"; }}><MdDashboard />Dashboard</button>
+                <button className='btn btn-history' onClick={() => { window.location.href = "/history"; }}><GoHistory />History</button>
+                <button className='btn btn-bnow' onClick={() => { window.location.href = "/book"; }}><GoPlusCircle />Book Now</button>
+            </div>
+            <button className='btn logout-btn txt' onClick={() => { window.location.href = "/"; }}><BiLogOutCircle />Logout</button>
         </div>
     );
 }

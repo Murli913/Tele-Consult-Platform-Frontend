@@ -1,18 +1,64 @@
-.side-content{
-   position: fixed;
-   background-color: white;
-   border-radius: 12px;
-   width: 18%;
-   height: 80%;
-   top: 100px;
-   margin: 0px 10px;
-   box-shadow: 2px 2px 10px #9bafaf;
+.side-content {
+    position: fixed;
+    background-color: white;
+    border-radius: 12px;
+    width: 200px;
+    height: calc(100vh - 120px);
+    top: 90px;
+    margin: 0px 10px;
+    box-shadow: 2px 2px 10px #9bafaf;
+    display: flex;
+    flex-direction: column;
 }
 
-.txt{
-    margin: 20px 20px;
-    color: black;
-    text-decoration: none;
+.top-buttons {
+    margin-bottom: auto; /* Pushes the container to the top */
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: white ;
     font-size: 16px;
-    font-weight: 600;
-}   
+    border: none;
+    border-radius: 12px;
+    margin: 20px 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    transition: background-color 0.3s ease-in;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: #EFEFEFEF;
+}
+.btn svg {
+    transition: transform 0.3s ease; /* Added transition effect for icon zoom */
+}
+
+.btn:hover svg {
+    transform: scale(1.4); /* Zooms in the icon */
+}
+
+.logout-btn {
+    margin-bottom: 30px; /* Pushes the logout button to the bottom */
+}
+
+.btn-home{
+    padding-right: 60px;
+}
+
+.btn-history{
+    padding-right: 88px;
+}
+
+.btn-bnow{
+    padding-right: 65px;
+}
+
+.logout-btn{
+    
+    padding-right: 70px;
+}
