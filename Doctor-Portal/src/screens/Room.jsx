@@ -12,6 +12,8 @@ import { IoMdMic } from "react-icons/io";
 import { IoMdMicOff } from "react-icons/io";
 import { MdDownloading } from "react-icons/md";
 import { ImPhoneHangUp } from "react-icons/im";
+import { RxAvatar } from "react-icons/rx";
+import { IoSend } from "react-icons/io5";
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -325,15 +327,22 @@ const handleEndCall = () => {
       
       <div className="player-container">
       <h4>{remoteSocketId ? "" : "No one in room"}</h4>
+      <div className="avatar"><RxAvatar /></div>
+      <div className="duration">
       {myStream && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
-      {myStream && <button className="endbtn" onClick={sendStreams}>SS</button>}
+      </div>
+      <div className="trio">
       {myStream && <IconButton className="str" onClick={toggleAudioStream}>{isAudioOn ?  <IoMdMicOff /> : <IoMdMic />}</IconButton>}
       {myStream && <IconButton className="str" color="primary" aria-label="record" onClick={toggleRecording}>
                             {isrd ? <FaRegStopCircle /> : <BsRecordCircle />}
                         </IconButton>}
       {myStream && <IconButton className="str" onClick={handleDownloadRecording}><MdDownloading /></IconButton>}
+      </div>
       {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
+      <div className="duo">
       {remoteSocketId && myStream && <button className="endbtn" onClick={handleEndCall}><ImPhoneHangUp /></button>}
+      {myStream && <button className="sendbtn" onClick={sendStreams}><IoSend /></button>}
+      </div>
       {myStream && (
         < >
           <ReactPlayer
