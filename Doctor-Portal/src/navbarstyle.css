@@ -6,6 +6,9 @@
   font-family: "Spartan", sans-serif;
 }
 
+body {
+  background-color: rgb(215,250,248);
+}
 html {
   scroll-behavior: smooth;
 }
@@ -35,7 +38,7 @@ h6 {
 }
 
 p {
-  font-size: 16px;
+  font-size: 20px;
   color: #000000;
   margin: 5px 0 5px 0;
 }
@@ -76,7 +79,7 @@ button.white{
     align-items: center;
     justify-content: space-between;
     padding: 10px 70px;
-    height: 80px;
+    height: 60px;
     background-color:rgb(255, 255, 255);
     box-shadow: 0 0px 5px rgba(129, 133, 129, 0.86);
     z-index: 999;
@@ -87,7 +90,7 @@ button.white{
 #logo
 {
     display: block;
-    margin-right: 850px;
+    margin-right: 800px;
     padding: 10px;
     justify-content: space-around;
     align-content: center;

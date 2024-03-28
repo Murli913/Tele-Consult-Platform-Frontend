@@ -10,21 +10,23 @@
   display: flex;
   margin-bottom: 20px;
   border: 1px solid #ccc; /* Add border for a clean separation */
-  border-radius: 10px; /* Add border radius for rounded corners */
+  border-radius: 10px;
+  height: 50px; /* Add border radius for rounded corners */
   overflow: hidden; /* Hide overflow to prevent button from overflowing */
 }
 
 .search-bar input {
   flex: 1; /* Take up remaining space */
-  padding: 10px;
+  padding: 5px;
+  height: 50px;
   /* Increase padding for better spacing */
   border: none; /* Remove default input border */
   outline: none; /* Remove default input focus outline */
 }
 
-.search-bar button {
+.searchbtn {
   padding: 10px 16px; /* Increase padding for better button size */
-  background-color: #007bff;
+  background-color: #333;
   color: #fff;
   border: none;
   border-radius: 0 5px 5px 0; /* Rounded corners only on the right side */
@@ -32,8 +34,9 @@
   transition: background-color 0.3s ease;
 }
 
-.search-bar button:hover {
-  background-color: #0056b3;
+.searchbtn:hover {
+  background-color: #00b33c;
+  color: #000000;
 }
 
 
@@ -48,7 +51,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #d2e9fd;
+  background-color: #f9f9f9;
   color: #000000;
   border-radius: 10px;
   padding: 10px;
@@ -70,10 +73,10 @@
   margin-left: 10px;
 }
 
-.call-btn {
+.callbtn {
   padding: 8px 16px;
-  background-color: #ffffff;
-  color: #141313;
+  background-color: #333;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   margin-right: 10px;
@@ -83,7 +86,7 @@
   transition: background-color 0.3s ease;
 }
 
-.call-btn:hover {
-  background-color: #000000;
-  color: #f9f9f9;
+.callbtn:hover {
+  background-color: #ece4b7;
+  color: #000000;
 }

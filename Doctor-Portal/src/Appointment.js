@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+import './Appointmentstyle.css';
 
 const Appointment = () => {
   const [appointmentList, setAppointmentList] = useState([]);
@@ -49,7 +49,7 @@ const Appointment = () => {
               <div>Date: {appointment.callDate}</div>
             </div>
             <div className="right">
-              <button onClick={() => handleViewPrescription(appointment.patient.id, appointment.patient.name, appointment.prescription)}>View</button>
+              <button className="viewbtn" onClick={() => handleViewPrescription(appointment.patient.id, appointment.patient.name, appointment.prescription)}>View</button>
             </div>
           </div>
         ))}
