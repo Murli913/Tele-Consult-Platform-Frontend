@@ -24,6 +24,7 @@ function AppContent() {
   return (
     <>
       {location.pathname !== "/" && <Navbar /> }
+      <div style={{ display: 'flex' }}>
       {location.pathname !== "/" && <Sidebar />}
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -31,6 +32,7 @@ function AppContent() {
         <Route path="/history" element={<History />} />
         <Route path="/book" element={<BookNow />} />
       </Routes>
+      </div>
     </>
   );
 }

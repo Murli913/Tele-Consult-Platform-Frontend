@@ -1,6 +1,9 @@
+import './history.css';
 function History(){
     return (
-        <div>Iam History Page</div>
+        <div className="history-content">
+            <h2 className="history-title">Previous Consultations</h2>
+        </div>
     );
 }
 
