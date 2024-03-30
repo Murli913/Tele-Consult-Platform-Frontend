@@ -105,14 +105,14 @@ const Patientscreen = () => {
       <div className="mainpad">
             <div className="acceptside">
               <button><SlOptions /></button>
-              <button><IoIosCall /></button>
+              <button className="acpt"><IoIosCall /></button>
             </div>
             <div className="okside">
               <button><MdHome /></button>
             </div>
             <div className="rejectside">
               <button><SlOptions /></button>
-              <button><MdCallEnd /></button>
+              <button className="rejt"><MdCallEnd /></button>
             </div>
       </div>
       <div className="dialpad">

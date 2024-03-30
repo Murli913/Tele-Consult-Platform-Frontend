@@ -8,23 +8,25 @@
   border-top-right-radius: 35px;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  height: 490px;
+  height: 520px;
   width:220px;
+  background-color: rgb(34, 34, 34);
 }
 
 .PatientCnt {
     width: 200px;
     margin: 5px;
     padding: 20px;
-    border-top: 30px solid #ccc;
-    border-bottom: 35px solid #ccc;
-    border-left: 10px solid #ccc;
-    border-right: 10px solid #ccc;
+    border-top: 30px solid #000000;
+    border-bottom: 25px solid #000000;
+    border-left: 10px solid #000000;
+    border-right: 10px solid #000000;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    height: 250px;
+    height: 280px;
+    background-color: #e9ebd9;
   }
   
   .PatientCnt label {
@@ -78,10 +80,18 @@
   }
   .acceptside button {
     padding: 5px 5px 5px 5px;
-    height: 20px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 15px;
+    background-color: black;
+    color: #fff;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #b6b6b6;
+  }
+
+  .acpt svg {
+    color: green;
   }
 
   .okside {
@@ -97,10 +107,14 @@
 
   .okside button{
     padding: 5px 5px 5px 5px;
-    height: 47px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 15px;
+    border: 5px solid silver;
+    background-color: black;
+    color: #fff;
   }
 
   .rejectside {
@@ -113,10 +127,18 @@
   }
   .rejectside button {
     padding: 5px 5px 5px 5px;
-    height: 20px;
+    height: 22px;
     display: flex;
     align-items: center;
+    border-radius: 15px;
     justify-content: center;
+    background-color: black;
+    color: #fff;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #b6b6b6;
+  }
+
+  .rejt svg {
+    color: red;
   }
 
   .dialpad {
@@ -137,11 +159,12 @@
 
   .firstcolumn button {
     padding: 5px 5px 5px 5px;
+    border-radius: 15px;
+    background-color: black;
+    color: #fff;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #b6b6b6;
   }
 
-  .firstcolumn button p {
-    font-size: 10px;
-  }
 
   sub {
     font-size:x-small;
@@ -157,6 +180,10 @@
   }
   .secondcolumn button {
     padding: 5px 5px 5px 5px;
+    border-radius: 15px;
+    background-color: black;
+    color: #fff;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #b6b6b6;
   }
 
 
@@ -171,6 +198,10 @@
 
   .thirdcolumn button {
     padding: 5px 5px 5px 5px;
+    border-radius: 15px;
+    background-color: black;
+    color: #fff;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #b6b6b6;
   }
 
   
