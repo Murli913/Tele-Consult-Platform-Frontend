@@ -1,16 +1,34 @@
 /* Patientscreen.css */
 
+.featurephn {
+  margin-left: 600px;
+  margin-top: 100px;
+  border: 5px solid black;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  height: 490px;
+  width:220px;
+}
+
 .PatientCnt {
-    max-width: 400px;
-    margin-top: 200px;
-    margin-left: 600px;
+    width: 200px;
+    margin: 5px;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-top: 30px solid #ccc;
+    border-bottom: 35px solid #ccc;
+    border-left: 10px solid #ccc;
+    border-right: 10px solid #ccc;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 250px;
   }
   
   .PatientCnt label {
-    font-size: 16px;
+    font-size: 10px;
     font-weight: bold;
   }
   
@@ -18,24 +36,141 @@
   .PatientCnt input[type="text"],
   .PatientCnt select {
     width: 100%;
-    padding: 10px;
-    margin: 8px 0;
+    padding: 2px;
+    margin: 2px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
   .PatientCnt button {
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 10px;
   }
   
   .PatientCnt button:hover {
     background-color: #0056b3;
   }
+
+  .numpad {
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 220px;
+  }
+  .mainpad {
+    margin: 2px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+  }
+  .acceptside {
+    height: 50px;
+    width: 66.7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .acceptside button {
+    padding: 5px 5px 5px 5px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .okside {
+    height: 50px;
+    width: 66.7px;
+    justify-content: space-around;
+    margin-left: 10px;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .okside button{
+    padding: 5px 5px 5px 5px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rejectside {
+    height: 50px;
+    width: 66.7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 5px;
+  }
+  .rejectside button {
+    padding: 5px 5px 5px 5px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dialpad {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .firstcolumn {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 66.7px;
+    padding: 2px;
+    justify-content: space-around;
+  }
+
+  .firstcolumn button {
+    padding: 5px 5px 5px 5px;
+  }
+
+  .firstcolumn button p {
+    font-size: 10px;
+  }
+
+  sub {
+    font-size:x-small;
+  }
+
+  .secondcolumn {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 66.7px;
+    padding: 2px;
+    justify-content: space-around;
+  }
+  .secondcolumn button {
+    padding: 5px 5px 5px 5px;
+  }
+
+
+  .thirdcolumn {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 66.7px;
+    padding: 2px;
+    justify-content: space-around;
+  }
+
+  .thirdcolumn button {
+    padding: 5px 5px 5px 5px;
+  }
+
   
