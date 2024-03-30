@@ -11,6 +11,11 @@ import { CiLock } from "react-icons/ci";
 import { IoBatteryChargingOutline } from "react-icons/io5";
 import { PiVibrate } from "react-icons/pi";
 import { FaAsterisk } from "react-icons/fa";
+import { RiDualSim1Line } from "react-icons/ri";
+import { RiDualSim2Line } from "react-icons/ri";
+import { FaSignal } from "react-icons/fa";
+import { MdBattery5Bar } from "react-icons/md";
+import { MdPhoneMissed } from "react-icons/md";
 
 const Patientscreen = () => {
   const [email, setEmail] = useState("");
@@ -81,6 +86,17 @@ const Patientscreen = () => {
   return (
     <div className="featurephn">
     <div className="PatientCnt">
+      <div className="fnavbar">
+        <div className="simcards">
+          <RiDualSim1Line />
+          <RiDualSim2Line />
+          <MdPhoneMissed />
+        </div>
+        <div className="battery">
+          <FaSignal />
+          <MdBattery5Bar />
+        </div>
+      </div>
       <form onSubmit={handleSubmitForm}>
         <label htmlFor="email">Phone Number</label>
         <input
