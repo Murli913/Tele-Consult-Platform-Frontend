@@ -329,7 +329,7 @@ const handleEndCall = () => {
       <h4>{remoteSocketId ? "" : "No one in room"}</h4>
       <div className="avatar"><RxAvatar /></div>
       <div className="duration">
-      {myStream && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
+      {myStream && remoteSocketId && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
       </div>
       <div className="trio">
       {myStream && <IconButton className="str" onClick={toggleAudioStream}>{isAudioOn ?  <IoMdMicOff /> : <IoMdMic />}</IconButton>}
