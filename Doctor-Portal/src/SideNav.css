@@ -2,11 +2,11 @@
   width: 250px;
   height: 100%;
   position: fixed;
-  top: 130px;
+  top: 125px;
   left: -200px;
   background-color: #333;
   padding-top: 40px;
-  border-radius: 0px;
+  border-radius: 10px;
   transition: left 0.3s ease;
 }
 
@@ -19,16 +19,17 @@
   justify-content: flex-end;
   align-items: center;
   position: fixed;
-  top: 80px;
+  top: 70px;
   left: 0px;
   background-color: #333;
   width: 250px;
   left: -200px;
   height: 50px;
   border-color: #fff;
-  border-radius: 0px;
+  border-radius: 10px;
   padding: 20px;
   color: #fff;
+  transition: left 0.3s ease;
 }
 
 .toggle-btn.open {

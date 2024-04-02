@@ -17,7 +17,7 @@ return(
     <div>
         <nav className="nav-bar">
             <div className="logo-title">
-                <h1>eSwasthya</h1>
+                <Link to="/home" className='title-logo'>eSwasthya</Link>
             </div>
             <div className='usr-logo' onClick={toggleDropdown}>
                 <FaRegUserCircle />

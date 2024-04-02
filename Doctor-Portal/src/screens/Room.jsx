@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReactPlayer from "react-player";
 import axios from 'axios';
@@ -6,6 +6,14 @@ import peer from "../service/peer";
 import { IconButton } from "@mui/material";
 import { useSocket } from "../context/SocketProvider";
 import "./Roompage.css";
+import { BsRecordCircle } from "react-icons/bs";
+import { FaRegStopCircle } from "react-icons/fa";
+import { IoMdMic } from "react-icons/io";
+import { IoMdMicOff } from "react-icons/io";
+import { MdDownloading } from "react-icons/md";
+import { ImPhoneHangUp } from "react-icons/im";
+import { RxAvatar } from "react-icons/rx";
+import { IoSend } from "react-icons/io5";
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -22,6 +30,10 @@ const RoomPage = () => {
   const [timer, setTimer] = useState(null);
   const [isAudioOn, setIsAudioOn] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [recording, setRecording] = useState(null); 
+  const [isrd, setrd] = useState(false);
+
+  const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -46,7 +58,7 @@ const RoomPage = () => {
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
-      video: true,
+      video: false,
     });
     const offer = await peer.getOffer();
     socket.emit("user:call", { to: remoteSocketId, offer });
@@ -58,7 +70,7 @@ const RoomPage = () => {
       setRemoteSocketId(from);
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
-        video: true,
+        video: false,
       });
       setMyStream(stream);
       console.log(`Incoming Call`, from, offer);
@@ -113,9 +125,31 @@ socket.on("navigate:home", () => {
 
   navigate("/home"); // Adjust path as per your routing setup
 });
+const cid = localStorage.getItem('CallId');
+  console.log(cid);
 
 const handleEndCall = () => {
   // Emit end call event to the server
+  const now = new Date();
+  const endtime = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Kolkata",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(now);
+
+  axios.put(`http://localhost:8080/callhistory/${cid}/updateendtime/${endtime}`)
+    .then(() => {
+      // Set a delay of 2 seconds before making the next API call
+      setTimeout(() => {
+        const doctorId = localStorage.getItem('loggedInDoctorId');
+        axios.put(`http://localhost:8080/doctor/${doctorId}/reject-call`);
+      }, 2000); // Delay of 2000 milliseconds (2 seconds)
+    })
+    .catch(error => {
+      console.error("Error updating end time:", error);
+    });
   socket.emit("call:ended", { to: remoteSocketId });
 };
 
@@ -175,8 +209,6 @@ const handleEndCall = () => {
     handleNegoNeedIncomming,
     handleNegoNeedFinal,
   ]);
-  const cid = localStorage.getItem('CallId');
-  console.log(cid);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -241,21 +273,81 @@ const handleEndCall = () => {
     }
   };
 
+  const toggleRecording = () => {
+    if (!isrd) {
+      handleStartRecording();
+    } else {
+      handleStopRecording();
+    }
+};
+
+  const handleStartRecording = () => {
+    // Check if MediaRecorder is available and myStream is set
+    setrd(true);
+    if (MediaRecorder.isTypeSupported('audio/webm') && myStream && remoteStream) {
+      const combinedStream = new MediaStream([...myStream.getAudioTracks(), ...remoteStream.getAudioTracks()]);
+      const mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'audio/webm' });
+
+      // Event handler for when data is available
+      mediaRecorder.ondataavailable = (event) => {
+        setRecording(event.data);
+      };
+
+      // Start recording
+      mediaRecorder.start();
+
+      // Save MediaRecorder instance to reference
+      mediaRecorderRef.current = mediaRecorder;
+    } else {
+      console.error('MediaRecorder is not supported or myStream is not set');
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+    }
+    setrd(false);
+  };
+
+  const handleDownloadRecording = () => {
+    if (recording) {
+      const blob = new Blob([recording], { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'recording.webm';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  };
   return (
     <div className="RoomCnt">
       
       <div className="player-container">
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <p>Timer: {formatTime(elapsedTime)}</p>}
-      {myStream && <IconButton onClick={sendStreams}>SS</IconButton>}
-      {myStream && <IconButton onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</IconButton>}
+      <h4>{remoteSocketId ? "" : "No one in room"}</h4>
+      <div className="avatar"><RxAvatar /></div>
+      <div className="duration">
+      {myStream && remoteSocketId && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
+      </div>
+      <div className="trio">
+      {myStream && <IconButton className="str" onClick={toggleAudioStream}>{isAudioOn ?  <IoMdMicOff /> : <IoMdMic />}</IconButton>}
+      {myStream && <IconButton className="str" color="primary" aria-label="record" onClick={toggleRecording}>
+                            {isrd ? <FaRegStopCircle /> : <BsRecordCircle />}
+                        </IconButton>}
+      {myStream && <IconButton className="str" onClick={handleDownloadRecording}><MdDownloading /></IconButton>}
+      </div>
       {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
-      {remoteSocketId && myStream && <button onClick={handleEndCall}>End Call</button>}
+      <div className="duo">
+      {remoteSocketId && myStream && <button className="endbtn" onClick={handleEndCall}><ImPhoneHangUp /></button>}
+      {myStream && <button className="sendbtn" onClick={sendStreams}><IoSend /></button>}
+      </div>
       {myStream && (
         < >
           <ReactPlayer
             playing
-            height="100px"
+            height="0px"
             width="200px"
             url={myStream}
           />
@@ -265,7 +357,7 @@ const handleEndCall = () => {
         <>
           <ReactPlayer
             playing
-            height="100px"
+            height="0px"
             width="200px"
             url={remoteStream}
           />

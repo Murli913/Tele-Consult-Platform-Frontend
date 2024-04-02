@@ -1,0 +1,91 @@
+.book-content {
+    position: fixed;
+    background-color: white;
+    border-radius: 12px;
+    width: calc(100% - 250px); /* Adjusted width */
+    height: calc(100vh - 120px);
+    top: 90px;
+    margin-left: 230px; /* Adjusted to accommodate the sidebar width */
+    margin-right: 20px; /* Added margin from the right end */
+    box-shadow: 2px 2px 10px #9bafaf;
+    overflow-y: auto; /* Add scrollbar if content overflows vertically */
+    /* display: flex; Use flexbox to arrange form elements vertically */
+    /* align-items: center; Center items vertically */
+    /* justify-content: center; Center items horizontally */
+    /* flex-direction: column; Stack form elements vertically */
+}
+
+.form{
+    text-align: left;
+    margin-top: 40px;
+}
+
+    /* .form-group2{
+        
+        /* margin-left: 20px; */
+    /* } */ 
+
+.label1 {
+    display: block;
+    font-size: 16px;
+    font-weight:600 ;
+    margin: 10px 30px;
+}
+.label2{
+    font-size: 16px;
+    font-weight:600 ;
+    margin: 10px 0px 10px 30px;
+    /* margin: 20px 20px; */
+}
+
+
+input[type="text"],textarea{
+    padding: 10px;
+    margin-left: 60px;
+    width: 70%;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+input[type="date"], select{
+    /* padding: 10px; */
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* input[type="date"]{
+    padding: px;
+} */
+
+
+
+select:hover, input[type="date"]{
+    cursor: pointer;
+}
+
+
+input[type="date"]{
+    margin-left: 30px;
+    padding: 10px 25px;
+}
+
+.book-btn{
+    /* position: absolute; */
+    padding: 12px 30px;
+    margin: 30px;
+    border: none;
+    border-radius: 50px;
+    background-color: orange;
+    color: black;
+    font-size: 14px;
+    position: fixed;
+    right: 50px;
+    /* bottom: 50px; */
+}       
+
+.book-btn:hover{
+    cursor: pointer;
+    background-color: rgb(253, 186, 61);
+}

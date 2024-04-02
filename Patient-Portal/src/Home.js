@@ -1,20 +1,20 @@
+import React from 'react';
 import './Home.css';
 
-function HomePage(){
-
+function HomePage() {
     return (
         <div className="home-content">
-            {/* <div className="left-box">
-                <h3>Upcoming Appointments</h3>
+            <div className="top-content">
+                <div className="top-left">
+                    <h3 className='head'>Upcoming Appointments</h3>
+                </div>
+                <div className="top-right">
+                    <h3 className='head'>Past Consultations</h3>
+                </div>
             </div>
-            <div className="right-box">
-                <div className="right-bottom">
-                    <h3>Top Doctors</h3>
-                </div>
-                <div className="right-top">
-                    <h3>Past Appointments</h3>
-                </div>
-            </div> */}
+            <div className="bottom-content">
+                <h3 className='head'>Top Doctors</h3>
+            </div>
         </div>
     );
 }
