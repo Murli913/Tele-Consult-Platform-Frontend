@@ -5,8 +5,41 @@
   margin: auto;
   padding: 20px;
 }
+.searchfilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
+.searchbar input{
+  margin: 0px;
+  height: 30px;
+}
+
+.searchbar button{
+  height: 30px;
+  align-items: center;
+}
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+}
+
+.filters select{
+  padding: 0px;
+  margin: 2px;
+  border-radius: 5px;
+}
 .appointments {
   display: flex;
   top: 0;
