@@ -41,7 +41,7 @@ const DoctorLogin = () => {
     <div className='dcontainer'>
       <h2>Doctor Login</h2>
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form className='loginform' onSubmit={handleSubmit}>
         <div className='dc1'>
           <label htmlFor="phoneNumber">Phnnumbr:</label>
           <input
@@ -51,7 +51,7 @@ const DoctorLogin = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
-        <div className='dc1'>
+        <div className='dc2'>
           <label htmlFor="password">Password:</label>
           <input
             type="password"

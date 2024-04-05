@@ -14,6 +14,7 @@ import { MdDownloading } from "react-icons/md";
 import { ImPhoneHangUp } from "react-icons/im";
 import { RxAvatar } from "react-icons/rx";
 import { IoSend } from "react-icons/io5";
+import bg from './videos1/bg2.mp4';
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -323,6 +324,11 @@ const handleEndCall = () => {
     }
   };
   return (
+    <div className="douter">
+      <video autoPlay loop muted className="background-video">
+        <source src={bg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     <div className="RoomCnt">
       
       <div className="player-container">
@@ -424,6 +430,7 @@ const handleEndCall = () => {
       )}
       </div>
       
+    </div>
     </div>
   );
 };

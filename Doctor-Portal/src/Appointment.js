@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Appointmentstyle.css';
+import bg from './videos/bg2.mp4';
 
 const Appointment = () => {
   const [appointmentList, setAppointmentList] = useState([]);
@@ -83,6 +84,11 @@ const Appointment = () => {
     navigate('/prescription', { state: { patientId, patientName, prescription } });
   };
   return (
+    <div className='outer'>
+      <video autoPlay loop muted className="background-video">
+        <source src={bg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     <div className='container'>
       <div className='searchfilter'>
       <div className='searchbar'>
@@ -108,7 +114,7 @@ const Appointment = () => {
       </div>
       </div>
       <hr />
-      <div className="call-history">
+      <div className="callhistory">
         {appointmentList.map(appointment => (
           <div key={appointment.id} className="card">
             <div className="left">
@@ -122,6 +128,7 @@ const Appointment = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

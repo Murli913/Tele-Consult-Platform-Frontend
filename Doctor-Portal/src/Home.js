@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import bg from './videos/bg2.mp4';
 
 const Home = () => {
   const [searchStartTime, setSearchStartTime] = useState('');
@@ -61,6 +62,11 @@ const Home = () => {
   };
 
   return (
+    <div className='outer'>
+      <video autoPlay loop muted className="background-video">
+        <source src={bg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     <div className="container">
       <div className="search-bar">
         <input 
@@ -78,7 +84,7 @@ const Home = () => {
         <button className="searchbtn" onClick={handleSearch}>Search</button>
       </div>
       <h3>Today's Calls:</h3><hr/>
-      <div className="call-history">
+      <div className="callhistory">
         {filteredCallHistory.map(call => (
           <div key={call.id} className="card">
             <div className="left">
@@ -94,6 +100,7 @@ const Home = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };
