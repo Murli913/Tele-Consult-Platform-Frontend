@@ -36,15 +36,15 @@ const PatientHistorys = () => {
           </tr>
         </thead>
         <tbody>
-          {patientHistory.map(patientt => (
-            <tr key={patientt.id}>
-              <td>{patientt.id}</td>
-              <td>{patientt.patient.id}</td>
-              <td>{patientt.doctor.id}</td>
-              <td>{patientt.callDate}</td>
-              <td>{patientt.callTime}</td>
+          {patientHistory.map(patient => (
+            <tr key={patient.id}>
+              <td>{patient.id}</td>
+              <td>{patient.patient.id}</td>
+              <td>{patient.doctor.id}</td>
+              <td>{patient.callDate}</td>
+              <td>{patient.callTime}</td>
               <td className="action-column">
-                <Link to={`/viewpatienthistory/${patientt.id}`} className="action-link">View</Link>
+                <Link to={`/viewpatienthistory/${patient.id}`} className="action-link">View</Link>
               </td>
             </tr>
           ))}
