@@ -95,9 +95,9 @@ function HomePage() {
                                         <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
                                         </div>
                                         <div className="modal-body">
-                                            <div className="modal-info">
+                                            <div className="modal-info" style={{ textAlign: 'left' }}   >
                                                 <p><b>Qualification: </b>MBBS</p>
-                                                <p><b>No. of patietns: </b>203</p>
+                                                <p><b>No. of patients: </b>203</p>
                                                 <p><b>Rating: </b>4.3/5</p>
                                             </div>
                                             <div className="modal-graphs">
@@ -115,27 +115,6 @@ function HomePage() {
                         Dr. Maharshi Patel (MBBS)
                         </h4>
                         <button onClick={openModal} className='view-btn'>View Statistics</button>
-                            {/* {showModal && (
-                                <div className="modal-overlay">
-                                    <div className="modal">
-                                        <div className="modal-header">
-                                        <h2 className='doc-name'><img src   ="./images/maharshi.jpg" className='doc-img' alt="" /> Dr. Maharshi Patel</h2>
-                                        <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="modal-info">
-                                                <p><b>Qualification: </b>MBBS</p>
-                                                <p><b>No. of patietns: </b>203</p>
-                                                <p><b>Rating: </b>4.3/5</p>
-                                            </div>
-                                            <div className="modal-graphs">
-
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            )} */}
                 </div>
                 <div className='bt-content'>
                     <h4 className='up-apt doc-name'> 
@@ -143,54 +122,12 @@ function HomePage() {
                         Dr. Maharshi Patel (MBBS)
                         </h4>
                         <button onClick={openModal} className='view-btn'>View Statistics</button>
-                            {/* {showModal && (
-                                <div className="modal-overlay">
-                                    <div className="modal">
-                                        <div className="modal-header">
-                                        <h2 className='doc-name'><img src   ="./images/maharshi.jpg" className='doc-img' alt="" /> Dr. Maharshi Patel</h2>
-                                        <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="modal-info">
-                                                <p><b>Qualification: </b>MBBS</p>
-                                                <p><b>No. of patietns: </b>203</p>
-                                                <p><b>Rating: </b>4.3/5</p>
-                                            </div>
-                                            <div className="modal-graphs">
-
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            )} */}
                 </div>
                 <div className='bt-content'>
                     <h4 className='up-apt doc-name'> 
                     <img src="./images/maharshi.jpg" className='doc-img' alt="" />
                         Dr. Maharshi Patel (MBBS)</h4>
                         <button onClick={openModal} className='view-btn'>View Statistics</button>
-                            {/* {showModal && (
-                                <div className="modal-overlay">
-                                    <div className="modal">
-                                        <div className="modal-header">
-                                        <h2 className='doc-name'><img src   ="./images/maharshi.jpg" className='doc-img' alt="" /> Dr. Maharshi Patel</h2>
-                                        <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="modal-info">
-                                                <p><b>Qualification: </b>MBBS</p>
-                                                <p><b>No. of patietns: </b>203</p>
-                                                <p><b>Rating: </b>4.3/5</p>
-                                            </div>
-                                            <div className="modal-graphs">
-
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            )} */}
                 </div>
                     
             </div>
