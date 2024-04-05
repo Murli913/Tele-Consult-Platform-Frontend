@@ -9,10 +9,33 @@
     /* padding: 5px; */
     width: calc(100% - 250px); ;
     height: calc(100vh - 120px);
-    text-align: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .history-title{
     margin: 30px;
     text-decoration: underline;
 }
+
+.hist-content{
+    /* display: flex;
+    flex-direction: column; */
+    background-color: #faeed1b1;
+    margin: 5px 30px;
+    border-radius: 12px;
+    text-align: left;
+    padding: 5px 20px;
+}
+
+.hist-apt {
+    margin: 5px;
+}
+
+.hist-title {
+    box-shadow: 1px 1px black;
+}
+
+

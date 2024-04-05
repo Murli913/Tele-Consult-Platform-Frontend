@@ -1,66 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
+import { FaGooglePlusG } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState('login');
+  const [isActive, setIsActive] = useState(false);
+  const containerRef = useRef(null);
+  const registerBtnRef = useRef(null);
+  const loginBtnRef = useRef(null);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Perform validation for login
-    if (username === 'admin' && password === 'password') {
-      console.log('Login successful');
-      // You can redirect the user to another page or perform any other action upon successful login
-    } else {
-      setError('Invalid username or password');
-    }
+  const handleSignClick = () => {
+    navigate('/home');
   };
 
-  const handleRegister = () => {
-    // Perform validation for registration
-    if (password !== confirmPassword) {
-      setError("Passwords don't match");
-    } else {
-      console.log('Registration successful');
-      // You can handle the registration logic here
-    }
-  };
+  useEffect(() => {
+    const container = containerRef.current;
+    const registerBtn = registerBtnRef.current;
+    const loginBtn = loginBtnRef.current;
+
+    const handleRegisterClick = () => {
+      setIsActive(true);
+    };
+
+    const handleLoginClick = () => {
+      setIsActive(false);
+    };
+
+    registerBtn.addEventListener('click', handleRegisterClick);
+    loginBtn.addEventListener('click', handleLoginClick);
+
+    
+
+    // Clean up event listeners
+    return () => {
+      registerBtn.removeEventListener('click', handleRegisterClick);
+      loginBtn.removeEventListener('click', handleLoginClick);
+    };
+  }, []);
 
   return (
-    <div className='login-box'>
-      <div className='images'>
-        <img src="./images/sample.avif" className='sample-img' alt="" />
+    <div className='login-box' ref={containerRef}>
+      <div className={`form-container sign-up ${isActive ? 'active' : ''}`}>
+        <form>
+          <h1>Create Account</h1>
+          <div className="social-icons">
+            <FaGooglePlusG />
+          </div>
+          <input type="text" placeholder="Name"/>
+          <input type="email" placeholder="Email"/>
+          <input type="password" placeholder="Password"/>
+          <span>or use your email for registration</span>
+          <button ref={registerBtnRef}>Sign Up</button>
+        </form>
       </div>
-      <div className="content">
-        <h1>Welcome!</h1>
-        <button className={activeTab === 'login' ? 'log active' : 'log'} onClick={() => setActiveTab('login')}>Login</button>
-        <button className={activeTab === 'register' ? 'reg active' : 'reg'} onClick={() => setActiveTab('register')}>Register</button>
-
-        {activeTab === 'login' && (
-          <div className="log-content">
-            <input type="text" className='input-log-text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/><br />
-            <input type="password" className='input-log-text' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/><br />
-            <button className='login-btn' onClick={handleLogin}>LOGIN</button>
-            {error && <p className="error">{error}</p>}
+      <div className={`form-container sign-in ${isActive ? '' : 'active'}`}>
+        <form>
+          <h1>Sign In</h1>
+          <div className="social-icons">
+            <FaGooglePlusG />
           </div>
-        )}
-
-        {activeTab === 'register' && (
-          <div className="reg-content">
-            <input type="text" className='input-reg-text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/><br />
-            <input type="password" className='input-reg-text' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/><br />
-            <input type="password" className='input-reg-text' placeholder='Confirm Password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/><br />
-            <input type="text" className='input-reg-text' placeholder='Mobile Number' value={mobile} onChange={(e) => setMobile(e.target.value)}/><br />
-            <button className='reg-btn' onClick={handleRegister}>REGISTER</button>
-            {error && <p className="error">{error}</p>}
+          <span>or use your email password</span>
+          <input type="email" placeholder="Username"/>
+          <input type="password" placeholder="Password"/>
+          <a href="#">Forget Your Password?</a>
+          <button ref={loginBtnRef} onClick={handleSignClick} >Sign In</button>
+        </form>
+      </div>
+      <div className="toggle-container">
+        <div className="toggle">
+          <div className="toggle-panel toggle-left">
+            <h1>Welcome Back!</h1>
+            <p>Enter your personal details to use all of site features</p>
+            <button className={`hidden ${isActive ? '' : 'active'}`} ref={loginBtnRef} >Sign In</button>
           </div>
-        )}
+          <div className="toggle-panel toggle-right">
+            <h1>Hello, Friend!</h1>
+            <p>Register with your personal details to use all of site features</p>
+            <button className={`hidden ${isActive ? 'active' : ''}`} ref={registerBtnRef}>Sign Up</button>
+          </div>
+        </div>
       </div>
     </div>
   );
-} 
+}
 
 export default LoginPage;

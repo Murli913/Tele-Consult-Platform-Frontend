@@ -11,7 +11,7 @@
     flex-direction: column;
 }
 
-.top-buttons {
+.top-buttons {  
     margin-bottom: auto; /* Pushes the container to the top */
 }
 
