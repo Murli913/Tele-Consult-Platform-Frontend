@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
 import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import bg from './videos/bg.mp4'; 
 
 function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -40,8 +41,13 @@ function LoginPage() {
   }, []);
 
   return (
-    <div className='login-box' ref={containerRef}>
-      <div className={`form-container sign-up ${isActive ? 'active' : ''}`}>
+    <div className="screen">
+      <video autoPlay loop muted className="background-video">
+        <source src={bg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className='login-box' ref={containerRef}>
+      {/* <div className={`form-container sign-up ${isActive ? 'active' : ''}`}>
         <form>
           <h1>Create Account</h1>
           <div className="social-icons">
@@ -53,7 +59,7 @@ function LoginPage() {
           <span>or use your email for registration</span>
           <button ref={registerBtnRef}>Sign Up</button>
         </form>
-      </div>
+      </div> */}
       <div className={`form-container sign-in ${isActive ? '' : 'active'}`}>
         <form>
           <h1>Sign In</h1>
@@ -82,6 +88,8 @@ function LoginPage() {
         </div>
       </div>
     </div>
+    </div>
+    
   );
 }
 

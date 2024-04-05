@@ -1,14 +1,25 @@
 *{
     /* margin: 0; */
     padding: 0;
-    box-sizing: border-box;
+    /* box-sizing: border-box;  */
     /* font-family: 'Montserrat', sans-serif; */
 }
 
 
 
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Ensure the video stays behind other content */
+  }
+
+
 .login-box{
-    background-color: #fff;
+    background-color: #ffffffd4;
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
@@ -19,17 +30,20 @@
 }
 
 .login-box{
+    box-sizing: border-box;
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
-    margin: 100px auto;
+    margin: 130px 330px;
 }
 
 .login-box span{
+    
     font-size: 12px;
 }
 
 .login-box a{
+    
     color: #333;
     font-size: 13px;
     text-decoration: none;
@@ -37,6 +51,7 @@
 }
 
 .login-box button{
+    
     background-color: #9d86bc;
     color: #fff;
     font-size: 12px;
@@ -55,8 +70,13 @@
     border-color: #fff;
 }
 
+.login-box button:hover{
+    background-color: #9676bc;
+}
+
 .login-box form{
-    background-color: #fff;
+    
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,17 +86,20 @@
 }
 
 .login-box input{
-    background-color: #eee;
-    border: none;
+    box-sizing: border-box;
+    background-color: #eeeeee5f;
+    border: 1px solid lightgray;
     margin: 8px 0;
     padding: 10px 15px;
     font-size: 13px;
     border-radius: 8px;
     width: 100%;
     outline: none;
+    /* box-shadow: 1px 1px rgba(28, 28, 28, 0.35); */
 }
 
 .form-container{
+    
     position: absolute;
     top: 0;
     height: 100%;
@@ -84,6 +107,7 @@
 }
 
 .sign-in{
+    
     left: 0;
     width: 50%;
     z-index: 2;
@@ -117,6 +141,7 @@
 }
 
 .social-icons svg{
+    box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 50%;
     display: flex;
@@ -135,6 +160,7 @@
 }
 
 .toggle-container{
+    
     position: absolute;
     top: 0;
     left: 50%;
@@ -153,7 +179,8 @@
 }
 
 .toggle{
-    background-color: #9d86bc;
+    
+    background-color: rgb(157, 134, 188);
     height: 100%;
     /* background: linear-gradient(to right, #5c6bc0, #512da8); */
     color: #fff;
@@ -170,6 +197,7 @@
 }
 
 .toggle-panel{
+    box-sizing: border-box;
     position: absolute;
     width: 50%;
     height: 100%;
