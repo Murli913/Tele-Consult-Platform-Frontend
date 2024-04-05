@@ -1,43 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ViewPatientHistory.css'; // Import your CSS file for styling
+import axios from 'axios';
 
-const ViewPatientHistory = ({ patient }) => {
-  // Check if patient data is available
-  if (!patient) {
-    return <div>Loading...</div>; // You can add loading indicator or message
-  }
+const ViewPatientHistory = ({ match }) => {
+  const [patientHistory, setPatientHistory] = useState([]);
+
+  useEffect(() => {
+    loadPatientHistory();
+  }, []);
+
+  const loadPatientHistory = async () => {
+    try {
+      if (!match.params || !match.params.id) {
+        console.error("Patient ID not found in URL");
+        return;
+      }
+      const response = await axios.get(`http://localhost:8080/callhistory/${match.params.id}`);
+      setPatientHistory(response.data);
+      console.log("Patient History", response.data);
+    } catch (error) {
+      console.error("Error fetching patient history:", error);
+    }
+  };
+  
 
   return (
     <div className="view-patient-history-container">
       <h2>View Patient History</h2>
 
-      {/* Patient details form */}
-      <form className="patient-details-form">
-        <div className="form-group">
-          <label htmlFor="patientId">Patient ID:</label>
-          <input type="text" id="patientId" value={patient?.patient?.id || ''} readOnly />
-        </div>
-        <div className="form-group">
-          <label htmlFor="doctorId">Doctor ID:</label>
-          <input type="text" id="doctorId" value={patient?.doctor?.id || ''} readOnly />
-        </div>
-        <div className="form-group">
-          <label htmlFor="callDate">Consultant Date:</label>
-          <input type="text" id="callDate" value={patient?.callDate || ''} readOnly />
-        </div>
-        <div className="form-group">
-          <label htmlFor="callTime">Consultant Time:</label>
-          <input type="text" id="callTime" value={patient?.callTime || ''} readOnly />
-        </div>
-        <div className="form-group">
-          <label htmlFor="prescription">Prescription:</label>
-          <textarea id="prescription" value={patient?.prescription || ''} readOnly />
-        </div>
+      <table className="view-patient-history-table">
+        <thead>
+          <tr>
+            <th>Consultant ID</th>
+            <th>Patient ID</th>
+            <th>Doctor ID</th>
+            <th>Consultant Date</th>
+            <th>Consultant Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patientHistory.map(patient => (
+            <tr key={patient.id}>
+              <td>{patient.id}</td>
+              <td>{patient.patient.id}</td>
+              <td>{patient.doctor.id}</td>
+              <td>{patient.callDate}</td>
+              <td>{patient.callTime}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-        {/* Button to navigate back to patient history */}
-        <Link to="/patient-history" className="back-button">Back to Patient History</Link>
-      </form>
+      <Link to="/patienthistory" className="back-link">Back to Patient History</Link>
     </div>
   );
 };

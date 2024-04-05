@@ -75,9 +75,9 @@ const Home = () => {
           value={searchEndTime}
           onChange={e => setSearchEndTime(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button className="searchbtn" onClick={handleSearch}>Search</button>
       </div>
-      <h3>Today's Call Bookings:</h3><hr/>
+      <h3>Today's Calls:</h3><hr/>
       <div className="call-history">
         {filteredCallHistory.map(call => (
           <div key={call.id} className="card">
@@ -89,7 +89,7 @@ const Home = () => {
             </div>
             <div className="right">
               {/* Pass patient email and doctor name as arguments to handleCallButtonClick */}
-              <button onClick={() => handleCallButtonClick(call.patient.name, call.doctor.phoneNumber)}>Call</button>
+              {/* <button className= "callbtn"onClick={() => handleCallButtonClick(call.patient.name, call.doctor.phoneNumber)}>Call</button> */}
             </div>
           </div>
         ))}

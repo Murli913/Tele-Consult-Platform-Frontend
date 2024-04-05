@@ -5,10 +5,9 @@ const Navbar = () => {
 
     return ( 
         <section id="header">
-            <img src="/images/logoprofile.JPG" width="100px" height="80px" alt=""/>
+            {/* <img src="/images/logoprofile.JPG" width="100px" height="80px" alt=""/> */}
             <div id="logo">
-            <p>Aziz</p>
-            <p>Doctor ID</p>
+            <p>e-Swasthya</p>
             </div>
             <div>
                 <ul id="navbar">

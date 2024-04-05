@@ -49,12 +49,44 @@ button:hover {
 
 
 .player-container {
-  margin-left: 200px;
+  margin-left: 300px;
   background-color: rgb(32, 32, 32);
+  width:600px;
+  border: 5px solid #51504e;
+  border-radius: 20px;
+  height: 600px;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 7px;
 }
 
+.avatar {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.avatar svg {
+  color: rgb(19, 159, 214);
+  font-size: 120px;
+}
+
+.duration {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.trio {
+  display: flex;
+  margin-top: 240px;
+  justify-content: space-evenly;
+}
+
+.duo {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-evenly;
+}
 .str {
   background-color: aqua;
 }
@@ -73,9 +105,23 @@ button:hover {
   text-align: center;
 }
 
+.sendbtn{
+  width: 70px;
+  height: 30px;
+  padding: 2px 0px 0px 0px;
+  border-radius: 12px;
+  background-color: rgb(7, 212, 82);
+  text-align: center;
+}
+
 .endbtn svg{
   color: white;
-  font-size: 30px;
+  font-size: 25px;
+}
+
+.sendbtn svg{
+  color: white;
+  font-size: 20px;
 }
 
 .schcall {
