@@ -2,6 +2,7 @@ import './navbar.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from "react-icons/fa";
+import { MdPhoneInTalk } from "react-icons/md";
 
 
 
@@ -19,6 +20,7 @@ return(
             <div className="logo-title">
                 <Link to="/home" className='title-logo'>eSwasthya</Link>
             </div>
+            <button className='btn-talk' onClick={() => { window.location.href = "/"; }}><MdPhoneInTalk />Talk with DOC!</button>
             <div className='usr-logo' onClick={toggleDropdown}>
                 <FaRegUserCircle />
                 {showDropdown && (

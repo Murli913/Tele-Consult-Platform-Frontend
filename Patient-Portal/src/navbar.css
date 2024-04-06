@@ -39,14 +39,31 @@ body{
     cursor: pointer;
 }
 
-/* .nav-contents{
+.btn-talk{
     display: flex;
-    gap: 40px;
     align-items: center;
-    margin-right: 50px;
-} */
+    gap: 10px;
+    background-color: white ;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    margin: 20px 10px;
+    padding: 12px 15px;
+    transition: background-color 0.3s ease-in;
+}
 
+.btn-talk:hover{
+  cursor: pointer;
+  background-color: #EFEFEFEF;
+}
 
+.btn-talk svg {
+  transition: transform 0.3s ease; /* Added transition effect for icon zoom */
+}
+
+.btn-talk:hover svg {
+  transform: scale(1.4); /* Zooms in the icon */
+}
 
 .dropdown-content {
     font-size: 16px;
