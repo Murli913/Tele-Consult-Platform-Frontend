@@ -20,7 +20,7 @@ return(
             <div className="logo-title">
                 <Link to="/home" className='title-logo'>eSwasthya</Link>
             </div>
-            <button className='btn-talk' onClick={() => { window.location.href = "/"; }}><MdPhoneInTalk />Talk with DOC!</button>
+            <button className='btn-talk' onClick={() => { window.location.href = "/client"; }}><MdPhoneInTalk />Talk with DOC!</button>
             <div className='usr-logo' onClick={toggleDropdown}>
                 <FaRegUserCircle />
                 {showDropdown && (
