@@ -18,30 +18,32 @@
 
 /* Style scrollbar */
 .book-content::-webkit-scrollbar {
-    width: 10px; /* Set the width of the scrollbar */
+    width: 8px; 
+    background-color: transparent; 
+    scroll-margin-right: 30px;
 }
 
 /* Track */
 .book-content::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Set the background color of the track */
+    background: transparent; /* Set the background color of the track */
 }
 
 /* Handle */
 .book-content::-webkit-scrollbar-thumb {
-    background: #888; /* Set the color of the scrollbar handle */
-    border-radius: 5px; /* Set the border radius of the scrollbar handle */
+    background: #b9b9b9; 
+    border-radius: 5px;  /* Set the border radius of the scrollbar handle */
 }
 
 /* Handle on hover */
 .book-content::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Change color of scrollbar handle on hover */
+    background: #555;/* Change color of scrollbar handle on hover */
 }
 
 
 
 .form{
     text-align: left;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
     /* .form-group2{
@@ -96,9 +98,11 @@ input[type="date"]{
 }
 
 .book-btn{
-    /* position: absolute; */
+    position: absolute;
+    right: 10px;
+    /* bottom: 5px; */
     padding: 12px 30px;
-    margin: 30px 10px 30px 980px;
+    margin: 20px 30px;
     border: none;
     border-radius: 50px;
     background-color: orange;
