@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className=" flex flex-row justify-between p-5 md:px-32 px-5 bg-backgroundColor shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
           <div className=" flex flex-row items-center cursor-pointer">
             <Link to="home" spy={true} smooth={true} duration={500}>
-              <h1 className=" text-2xl font-semibold">WellnessVista.</h1>
+              <h1 className=" text-2xl font-semibold">Tele-Consult.</h1>
             </Link>
           </div>
 
@@ -81,6 +81,16 @@ const Navbar = () => {
             >
               Blog
             </Link>
+            <Link
+            to="login"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className=" hover:text-hoverColor transition-all cursor-pointer"
+            onClick={closeMenu}
+          >
+            Login
+          </Link>
           </nav>
 
           <div className=" hidden lg:flex">
@@ -156,6 +166,16 @@ const Navbar = () => {
             onClick={closeMenu}
           >
             Blog
+          </Link>
+          <Link
+            to="login"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className=" hover:text-hoverColor transition-all cursor-pointer"
+            onClick={closeMenu}
+          >
+            Login
           </Link>
 
           <div className=" lg:hidden">
