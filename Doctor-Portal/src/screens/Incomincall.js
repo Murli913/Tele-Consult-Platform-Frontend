@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "./IncomingStyle.css";
+import bg from './videos1/bg2.mp4';
  // Import your CSS file for styling
 
 const IncomingCall = ({ doctorId }) => {
@@ -150,6 +151,11 @@ const IncomingCall = ({ doctorId }) => {
   }, []);
 
   return (
+    <div className='outer'>
+      <video autoPlay loop muted className="background-video">
+        <source src={bg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     <div className="incomingCallContainer">
       <h4>Incoming Call</h4><hr />
       {error && <p>{error}</p>}
@@ -186,6 +192,7 @@ const IncomingCall = ({ doctorId }) => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

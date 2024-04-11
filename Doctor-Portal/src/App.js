@@ -20,9 +20,9 @@ function App() {
   return (
     <div className="App">
       
-      {location.pathname !== "/patient" && location.pathname !== "/" && location.pathname !== "/p/room/:roomId" && <Navbar /> }
+      {location.pathname !== "/patient" && location.pathname !== "/" && !location.pathname.startsWith("/p/room/") && <Navbar /> }
       <div style={{ display: 'flex' }}>
-        {location.pathname !== "/patient" && location.pathname !== "/" && location.pathname !== "/p/room/:roomId" && <SideNav />}
+        {location.pathname !== "/patient" && location.pathname !== "/" && !location.pathname.startsWith("/p/room/") && <SideNav />}
         
         <Routes>
           <Route path="/home" element={<Home/>}/>

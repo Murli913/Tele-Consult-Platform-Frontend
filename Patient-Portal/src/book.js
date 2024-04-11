@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './book.css';
+import { GoPlusCircle } from "react-icons/go";
 
 function BookNow() {
     const [selectedDoctor, setSelectedDoctor] = useState('');
@@ -67,7 +68,7 @@ function BookNow() {
                         ))}
                     </select>
                 </div>
-                <button className='book-btn' type="submit">Book Appointment</button>
+                <button className='book-btn' type="submit">Book Appointment<GoPlusCircle /></button>
             </form>
         </div>
     );

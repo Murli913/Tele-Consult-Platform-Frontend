@@ -9,15 +9,41 @@
     margin-right: 20px; /* Added margin from the right end */
     box-shadow: 2px 2px 10px #9bafaf;
     overflow-y: auto; /* Add scrollbar if content overflows vertically */
-    /* display: flex; Use flexbox to arrange form elements vertically */
-    /* align-items: center; Center items vertically */
-    /* justify-content: center; Center items horizontally */
-    /* flex-direction: column; Stack form elements vertically */
+    
 }
+
+.head{
+    text-decoration: underline;
+}
+
+/* Style scrollbar */
+.book-content::-webkit-scrollbar {
+    width: 8px; 
+    background-color: transparent; 
+    scroll-margin-right: 30px;
+}
+
+/* Track */
+.book-content::-webkit-scrollbar-track {
+    background: transparent; /* Set the background color of the track */
+}
+
+/* Handle */
+.book-content::-webkit-scrollbar-thumb {
+    background: #b9b9b9; 
+    border-radius: 5px;  /* Set the border radius of the scrollbar handle */
+}
+
+/* Handle on hover */
+.book-content::-webkit-scrollbar-thumb:hover {
+    background: #555;/* Change color of scrollbar handle on hover */
+}
+
+
 
 .form{
     text-align: left;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
     /* .form-group2{
@@ -72,20 +98,31 @@ input[type="date"]{
 }
 
 .book-btn{
-    /* position: absolute; */
+    position: absolute;
+    right: 10px;
+    /* bottom: 5px; */
     padding: 12px 30px;
-    margin: 30px;
+    margin: 20px 30px;
     border: none;
     border-radius: 50px;
     background-color: orange;
     color: black;
-    font-size: 14px;
-    position: fixed;
-    right: 50px;
-    /* bottom: 50px; */
-}       
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease-in;
+}
+
+.book-btn svg{
+    transition: transform 0.2s ease-in;
+}
+
+.book-btn:hover svg{
+    transform: scale(1.4);
+}
 
 .book-btn:hover{
     cursor: pointer;
-    background-color: rgb(253, 186, 61);
+    background-color: rgb(255, 181, 42);
 }

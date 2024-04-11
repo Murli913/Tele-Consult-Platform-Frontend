@@ -236,6 +236,7 @@ const handleEndCall = () => {
     //     </>
     //   )}
     // </div>
+    <div className="pouter">
         <div className="rfeaturephn">
         <div className="rPatientCnt">
           <div className="rfnavbar">
@@ -297,6 +298,7 @@ const handleEndCall = () => {
                 <button>#<sub><PiVibrate /></sub></button>
             </div> 
           </div>
+        </div>
         </div>
         </div>
   );

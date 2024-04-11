@@ -84,6 +84,7 @@ const Patientscreen = () => {
   }, [socket, handleJoinRoom]);
 
   return (
+    <div className="pouter">
     <div className="featurephn">
     <div className="PatientCnt">
       <div className="fnavbar">
@@ -151,6 +152,7 @@ const Patientscreen = () => {
             <button>#<sub><PiVibrate /></sub></button>
         </div> 
       </div>
+    </div>
     </div>
     </div>
   );
