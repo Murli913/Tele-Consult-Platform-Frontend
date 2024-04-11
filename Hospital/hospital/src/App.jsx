@@ -5,6 +5,7 @@ import About from './components/About'
 import Services from './components/Services'
 import Doctors from './components/Doctors'
 import Blogs from './components/Blogs'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Blogs />
         </div>
   </main>
+  <Footer />
   </>
   )
 }
