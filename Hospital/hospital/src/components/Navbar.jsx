@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-scroll";
-
+import Contact from "../models/Contact";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
