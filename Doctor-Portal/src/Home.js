@@ -124,7 +124,7 @@ useEffect(() => {
       labels: labels,
       datasets: [
         {
-          label: "My First dataset", // Setting up the label for the dataset
+          label: "Call Counts", // Setting up the label for the dataset
           backgroundColor: "rgb(255, 99, 132)", // Setting up the background color for the dataset
           borderColor: "rgb(255, 99, 132)", // Setting up the border color for the dataset
           data: callCounts, // Setting up the data for the dataset
@@ -200,8 +200,8 @@ return (
           </div>
         </div>
         <div className="chart-container">
-            <h3>Call Statistics Chart</h3>
-            {data && <Line data={data} />} {/* Conditional rendering */}
+            {/* <h3>Call Statistics</h3> */}
+            {data && <Line data={data} width={300} height={210} options={{ maintainAspectRatio: false }} />} {/* Conditional rendering */}
         </div>
       </div>
       <Modal
