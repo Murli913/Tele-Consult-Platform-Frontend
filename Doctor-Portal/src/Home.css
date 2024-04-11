@@ -11,38 +11,137 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1; /* Ensure the video stays behind other content */
-}
-.container {
-  width: 80%;
-  margin: 150px 350px;
-  padding: 20px;
+  z-index: -1; 
 }
 
-.search-bar {
+.mainpage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.calendar-container {
+  width: 300px;
+  /* box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); */
+  border-radius: 20px;
+  border-bottom: 2px solid black;
+  /* border-top: 2px solid black; */
+  margin-top: 5px;
+  padding: 0px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  font-size: 16px;
+}
+
+.calendar-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-weekdays {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.calendar-weekdays div {
+  width: calc(100% / 7);
+  text-align: center;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  height: 200px;
+}
+
+.calendar-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-day.empty {
+  background-color: #ffffff;
+}
+
+.calendar-day.selected {
+  background-color: #0cb352;
+  color: #fff;
+}
+
+
+.rightnav{
+  margin-left: 79.7%;
+  border: 2px solid rgb(137, 136, 136);
+  border-radius: 20px;
+  display: flex;
+  height: 670px;
+  background-color: #fff;
+  flex-direction: column;
+}
+
+.chart-container {
+  margin-top: 5px;
+  width: 308px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 210px;
+}
+
+
+
+
+.container0 {
+  width: 100%;
+  margin-left: 300px;
+  padding: 10px;
+  border: 2px solid #000000;
+  
+}
+
+/* .search-bar {
   display: flex;
   margin-bottom: 20px;
-  border: 1px solid #ccc; /* Add border for a clean separation */
+  border: 1px solid #ccc; 
   border-radius: 10px;
-  height: 50px; /* Add border radius for rounded corners */
-  overflow: hidden; /* Hide overflow to prevent button from overflowing */
+  height: 50px; 
+  overflow: hidden; 
 }
 
 .search-bar input {
-  flex: 1; /* Take up remaining space */
+  flex: 1; 
   padding: 5px;
   height: 50px;
-  /* Increase padding for better spacing */
-  border: none; /* Remove default input border */
-  outline: none; /* Remove default input focus outline */
+  
+  border: none; 
+  outline: none; 
 }
 
 .searchbtn {
-  padding: 10px 16px; /* Increase padding for better button size */
+  padding: 10px 16px; 
   background-color: #333;
   color: #fff;
   border: none;
-  border-radius: 0 5px 5px 0; /* Rounded corners only on the right side */
+  border-radius: 0 5px 5px 0; 
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -57,7 +156,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 65px;
+  margin-left: 150px;
+  width:20px;
   position: relative;
 }
 
@@ -76,7 +176,7 @@
 }
 
 .card:hover {
-  box-shadow: 0px 0px 10px rgb(0, 0, 0); /* Add box shadow on hover */
+  box-shadow: 0px 0px 10px rgb(0, 0, 0); 
 }
 
 .left {
@@ -85,7 +185,7 @@
 
 .right {
   margin-left: 10px;
-}
+} */
 
 .callbtn {
   padding: 8px 16px;
@@ -103,4 +203,128 @@
 .callbtn:hover {
   background-color: #ece4b7;
   color: #000000;
+} 
+
+/* Modal styles */
+.modal {
+  position: absolute;
+  border: 2px solid #000;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px solid black;
+  width: 600px;
+  margin: auto;
+  padding: 20px;
+  color: white;
 }
+
+.close-button {
+  margin-left: 530px;
+  background-color: rgb(255, 255, 255);
+  color: red;
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 5px; /* Add padding to the button for better click area */
+}
+
+.close-button svg {
+  font-size: 25px;
+  transition: font-size 0.3s; /* Add transition for smooth size change */
+}
+
+.close-button:hover svg {
+  font-size: 30px; /* Increase font size on hover */
+}
+
+.close-button:hover {
+  background-color: lightgray; /* Change background color on hover */
+}
+
+
+
+/* Overlay styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content styles */
+/* Modal content styles */
+.modal-callhistory {
+  max-height: 300px; /* Set a maximum height for the modal content */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
+}
+
+/* Scrollbar styles */
+.modal-callhistory::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+/* Track styles */
+.modal-callhistory::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+/* Thumb styles */
+.modal-callhistory::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Border radius of the scrollbar thumb */
+}
+
+/* Handle on hover */
+.modal-callhistory::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+
+/* Modal card styles */
+.modal-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid #4c4c4c;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Left section styles */
+.left {
+  flex: 1;
+}
+
+/* Right section styles */
+.right {
+  margin-left: 10px; /* Add some space between left and right sections */
+}
+
+/* Patient name styles */
+.modal-patient-name {
+  color: #000;
+  font-weight: bold;
+}
+
+/* Doctor name styles */
+.modal-doctor-name {
+  color: #000;
+  font-style: italic;
+}
+
+/* Call time styles */
+.modal-call-time {
+  color: #888;
+}
+
+
+
