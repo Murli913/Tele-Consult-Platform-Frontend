@@ -8,6 +8,7 @@ import History from './history';
 import BookNow from './book';
 import Sidebar from './sidebar';
 import Client from './client';
+import ProfilePage from './profile';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function AppContent() {
         <Route path="/history" element={<History />} />
         <Route path="/book" element={<BookNow />} />
         <Route path='/client' element={<Client />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Routes>
       </div>
     </>

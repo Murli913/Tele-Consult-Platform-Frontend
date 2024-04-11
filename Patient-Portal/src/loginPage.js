@@ -9,14 +9,42 @@ function LoginPage() {
   const containerRef = useRef(null);
   const registerBtnRef = useRef(null);
   const loginBtnRef = useRef(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSignClick = () => {
-    navigate('/home');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Send login request to backend
+    try {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        // const errorMessage = await response.text();
+        throw new Error('Login failed');
+      }
+      const data = await response.json();
+      const { patientId } = data;
+
+      // Set patient's ID in localStorage
+      localStorage.setItem('loggedInPatientId', patientId);
+      navigate('/home');
+     // Redirect to Home.js or any desired route
+    } catch (error) {
+      setError('Invalid phone number or password');
+    }
   };
 
   useEffect(() => {
-    const container = containerRef.current;
+    // const container = containerRef.current;
     const registerBtn = registerBtnRef.current;
     const loginBtn = loginBtnRef.current;
 
@@ -61,16 +89,17 @@ function LoginPage() {
         </form>
       </div> */}
       <div className={`form-container sign-in ${isActive ? '' : 'active'}`}>
-        <form>
+      {error && <p style={{position:'absolute', top:'30px', left:'90px', color:'red'}}>{error}</p>}
+        <form onSubmit={handleSubmit}>
           <h1>Sign In</h1>
           <div className="social-icons">
             <FaGooglePlusG />
           </div>
           <span>or use your email password</span>
-          <input type="email" placeholder="Username"/>
-          <input type="password" placeholder="Password"/>
+          <input type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+          <input type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
           <a href="#">Forget Your Password?</a>
-          <button ref={loginBtnRef} onClick={handleSignClick} >Sign In</button>
+          <button type='submit' ref={loginBtnRef}>Sign In</button>
         </form>
       </div>
       <div className="toggle-container">
