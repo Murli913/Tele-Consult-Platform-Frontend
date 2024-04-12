@@ -80,17 +80,17 @@ const HealthCheck = () => {
     calculateBMICategory(bmiResult);
   };
 
-  const calculateBMICategory = (bmi) => {
-    if (bmi < 18.5) {
-      setBMICategory('Underweight');
-    } else if (bmi >= 18.5 && bmi < 25) {
-      setBMICategory('Normal weight');
-    } else if (bmi >= 25 && bmi < 30) {
-      setBMICategory('Overweight');
-    } else {
-      setBMICategory('Obese');
-    }
-  };
+//   const calculateBMICategory = (bmi) => {
+//     if (bmi < 18.5) {
+//       setBMICategory('Underweight');
+//     } else if (bmi >= 18.5 && bmi < 25) {
+//       setBMICategory('Normal weight');
+//     } else if (bmi >= 25 && bmi < 30) {
+//       setBMICategory('Overweight');
+//     } else {
+//       setBMICategory('Obese');
+//     }
+//   };
 
   const calculateTargetHeartRateZones = () => {
     const maxHeartRate = 220 - age;
@@ -275,13 +275,13 @@ const HealthCheck = () => {
     <div className="result-item">
       <strong>Your BMI category is:</strong> {bmiCategory}
     </div>
-    {/* <div className="result-item">
+    <div className="result-item">
       <strong>Your target heart rate zones:</strong>
       <ul>
         <li>Lower Zone: {targetHeartRateZones.lowerZone} bpm</li>
         <li>Upper Zone: {targetHeartRateZones.upperZone} bpm</li>
       </ul>
-    </div> */}
+    </div>
     <div className="result-item">
       <strong>Your recommended daily protein intake is:</strong> {proteinIntake} grams/day
     </div>
