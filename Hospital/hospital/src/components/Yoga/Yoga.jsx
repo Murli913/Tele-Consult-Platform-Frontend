@@ -7,24 +7,24 @@ import { FaArrowRight } from "react-icons/fa";
 
 const Yoga = () => {
   const data = [
-    {
-      img: "/src/assets/img/yogagif1.gif",
-      name: "Dhanurasana Pose",
-      specialties: " It helps in weight loss and boosts digestion and blood circulation.",
+    // {
+    //   img: "/src/assets/img/yogagif1.gif",
+    //   name: "Dhanurasana Pose",
+    //   specialties: " It helps in weight loss and boosts digestion and blood circulation.",
       
-    },
-    {
-      img: "/src/assets/img/yogagif2.gif",
-      name: "Triangle pose",
-      specialties: "It help relieve back pain and help with emotional baggage too.",
+    // },
+    // {
+    //   img: "/src/assets/img/yogagif2.gif",
+    //   name: "Triangle pose",
+    //   specialties: "It help relieve back pain and help with emotional baggage too.",
      
-    },
-    {
-      img: "/src/assets/img/yogagif3.gif",
-      name: "Paschimottanasana Pose",
-      specialties: "It help relieve back pain and help with emotional baggage too.",
+    // },
+    // {
+    //   img: "/src/assets/img/yogagif3.gif",
+    //   name: "Paschimottanasana Pose",
+    //   specialties: "It help relieve back pain and help with emotional baggage too.",
       
-    },
+    // },
     {
       img: "/src/assets/img/yogagif4.gif",
       name: "Camel pose",
