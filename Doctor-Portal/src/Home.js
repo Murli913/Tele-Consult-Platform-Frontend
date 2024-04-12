@@ -13,10 +13,15 @@ const Home = () => {
   const [searchStartTime, setSearchStartTime] = useState('');
   const [searchEndTime, setSearchEndTime] = useState('');
   const [filteredCallHistory, setFilteredCallHistory] = useState([]);
+  const [unfilteredCallHistory, setunFilteredCallHistory] = useState([]);
   const [selectdate, setselectdate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [callStatistics, setCallStatistics] = useState({});
   const [data, setData] = useState(null);
+  const [patientId, setPatientId] = useState(null);
+  const [patientName, setPatientName] = useState("Patient");
+  const [incomingCall, setIncomingCall] = useState(null);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate(); // Hook for navigation
 
@@ -99,7 +104,7 @@ useEffect(() => {
       statistics[i] = 0;
     }
     let maxi = 0;
-    filteredCallHistory.forEach(call => {
+    unfilteredCallHistory.forEach(call => {
       const callHour = parseInt(call.callTime.split(":")[0]);
       if (!isNaN(callHour) && callHour >= 7 && callHour <= 23) {
         statistics[callHour]++;
@@ -110,7 +115,7 @@ useEffect(() => {
     setCallStatistics(statistics);
   };
   calculateStatistics();
-}, [filteredCallHistory, callStatistics]);
+}, [unfilteredCallHistory, callStatistics]);
 
 useEffect(() => {
     const hourLabels = [];
@@ -124,7 +129,7 @@ useEffect(() => {
       labels: labels,
       datasets: [
         {
-          label: "Call Counts", // Setting up the label for the dataset
+          label: "Calls Attended", // Setting up the label for the dataset
           backgroundColor: "rgb(255, 99, 132)", // Setting up the background color for the dataset
           borderColor: "rgb(255, 99, 132)", // Setting up the border color for the dataset
           data: callCounts, // Setting up the data for the dataset
@@ -148,6 +153,13 @@ const handleDayClick = async (date) => {
         date: formattedDate // Pass the selected date to the backend API
       }
     });
+
+    const unfilteredresponse = await axios.get(`http://localhost:8080/callhistory/doctor/un/${doctorId}`, {
+      params: {
+        date: formattedDate // Pass the selected date to the backend API
+      }
+    });
+    setunFilteredCallHistory(unfilteredresponse.data);
     setFilteredCallHistory(response.data);
     
   } catch (error) {
@@ -158,6 +170,51 @@ const handleDayClick = async (date) => {
 const closeModal = () => {
   setIsModalOpen(false);
 };
+
+useEffect(() => {
+  const fetchIncomingCall = async () => {
+    try {
+
+      const doctorId = localStorage.getItem('loggedInDoctorId');
+      if (!doctorId) {
+          console.error('Doctor ID not found.');
+          return;
+      }
+      // Fetch the incoming call details for the logged-in doctor
+      const response = await axios.get(`http://localhost:8080/doctor/${doctorId}/incoming-call`);
+      console.log(response.data);
+      setIncomingCall(response.data);
+    } catch (error) {
+      setError('Error fetching incoming call details');
+    }
+  };
+
+  fetchIncomingCall();
+}, []);
+
+useEffect(() => {
+  if (incomingCall) {
+    // Extract the patient's ID from the phone number in incoming call
+    const fetchPatientId = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/patient/id?phoneNumber=${incomingCall}`);
+        console.log(response.data.id);
+        console.log(response.data.name);
+        if (response.data.name === null) {
+          setPatientName('Patient');
+        } else {
+          setPatientName(response.data.name);
+        }
+        
+        setPatientId(response.data.id);
+      } catch (error) {
+        setError('Error fetching patient ID');
+      }
+    };
+
+    fetchPatientId();
+  }
+}, [incomingCall]);
 
 // Define chart options separately
 
@@ -202,6 +259,21 @@ return (
         <div className="chart-container">
             {/* <h3>Call Statistics</h3> */}
             {data && <Line data={data} width={300} height={210} options={{ maintainAspectRatio: false }} />} {/* Conditional rendering */}
+        </div>
+        <div className="incomingCallContainer1">
+          <h4 className='incomingcallh4'>Incoming Call</h4><hr />
+          {error && <p>{error}</p>}
+          <br />
+          {incomingCall && (
+        <div className="incomingCallCard1">
+          {patientId && (
+            <div>
+              <p className="patientIdLabel1">Patient ID: {patientId}</p>
+              <p className="patientIdLabel1">Patient Name: {patientName}</p>
+            </div>
+          )}
+        </div>
+      )}
         </div>
       </div>
       <Modal
