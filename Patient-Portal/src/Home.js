@@ -81,6 +81,7 @@ function HomePage() {
             </div>
             <div className="bottom-content">
                 <h3 className='head'>Top Doctors</h3>
+                <div className="bt-parent">
                 <div className='bt-content'>
                     <h4 className='up-apt doc-name'> 
                     <img src="./images/maharshi.jpg" className='doc-img' alt="" />
@@ -129,7 +130,7 @@ function HomePage() {
                         Dr. Maharshi Patel (MBBS)</h4>
                         <button onClick={openModal} className='view-btn'>View Statistics</button>
                 </div>
-                    
+                </div>                    
             </div>
         </div>
     );

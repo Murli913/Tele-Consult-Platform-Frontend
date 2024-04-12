@@ -42,6 +42,7 @@ function History() {
     return (
         <div className="history-content">
             <h2 className="history-title">Previous Consultations</h2>
+            <div className="sub-parent">
             <div className='hist-content'>
                 {/* <div className="hist-bar"> */}
                     <h4 className='hist-apt'>Appointment ID: 576934</h4>
@@ -174,6 +175,8 @@ function History() {
                     {/* {showModal && renderModal()} */}
                 </div>
             </div>
+            </div>
+            
             
             
         </div>

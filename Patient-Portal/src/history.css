@@ -7,32 +7,12 @@
     border-radius: 12px;
     box-shadow: 2px 2px 10px #9bafaf;
     width: calc(100% - 250px); ;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 135px);
     text-align: center;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    padding-bottom: 15px;
 }
-
-.history-content::-webkit-scrollbar {
-    width: 8px; 
-    background-color: transparent; 
-    scroll-margin-right: 30px;   
-}
-
-.history-content::-webkit-scrollbar-track{
-    background: transparent; 
-}
-
-.history-content::-webkit-scrollbar-thumb{
-    background: #b9b9b9; 
-    border-radius: 5px; 
-}
-
-.history-content::-webkit-scrollbar-thumb:hover{
-    background: #555; 
-}
-
 
 .history-title{
     margin: 0px 30px;
@@ -43,12 +23,36 @@
     background-color: #fff;
 }
 
+.sub-parent{
+    overflow-y: auto;
+}
+
+.sub-parent::-webkit-scrollbar {
+    width: 8px; 
+    /* background-color: white;  */
+    scroll-margin-right: 30px;   
+}
+
+.sub-parent::-webkit-scrollbar-track{
+    background: transparent;
+    border-radius: 10px; 
+}
+
+.sub-parent::-webkit-scrollbar-thumb{
+    background: #b9b9b9; 
+    border-radius: 5px; 
+}
+
+.sub-parent::-webkit-scrollbar-thumb:hover{
+    background: #7e7e7e; 
+}
+
 .hist-content{
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #faeed1b1;
-    margin: 5px 30px;
+    margin: 14px 30px;
     border-radius: 12px;
     text-align: left;
     padding: 10px 20px;
