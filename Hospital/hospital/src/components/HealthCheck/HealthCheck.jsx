@@ -80,28 +80,28 @@ const HealthCheck = () => {
     calculateBMICategory(bmiResult);
   };
 
-  const calculateBMICategory = (bmi) => {
-    if (bmi < 18.5) {
-      setBMICategory('Underweight');
-    } else if (bmi >= 18.5 && bmi < 25) {
-      setBMICategory('Normal weight');
-    } else if (bmi >= 25 && bmi < 30) {
-      setBMICategory('Overweight');
-    } else {
-      setBMICategory('Obese');
-    }
-  };
-
-//   const calculateTargetHeartRateZones = () => {
-//     const maxHeartRate = 220 - age;
-//     const heartRateReserve = maxHeartRate - parseInt(restingHeartRate);
-//     const lowerZone = Math.round(0.5 * heartRateReserve) + parseInt(restingHeartRate);
-//     const upperZone = Math.round(0.85 * heartRateReserve) + parseInt(restingHeartRate);
-//     setTargetHeartRateZones({
-//       lowerZone,
-//       upperZone
-//     });
+//   const calculateBMICategory = (bmi) => {
+//     if (bmi < 18.5) {
+//       setBMICategory('Underweight');
+//     } else if (bmi >= 18.5 && bmi < 25) {
+//       setBMICategory('Normal weight');
+//     } else if (bmi >= 25 && bmi < 30) {
+//       setBMICategory('Overweight');
+//     } else {
+//       setBMICategory('Obese');
+//     }
 //   };
+
+  const calculateTargetHeartRateZones = () => {
+    const maxHeartRate = 220 - age;
+    const heartRateReserve = maxHeartRate - parseInt(restingHeartRate);
+    const lowerZone = Math.round(0.5 * heartRateReserve) + parseInt(restingHeartRate);
+    const upperZone = Math.round(0.85 * heartRateReserve) + parseInt(restingHeartRate);
+    setTargetHeartRateZones({
+      lowerZone,
+      upperZone
+    });
+  };
 
   const calculateProteinIntake = () => {
     const proteinIntakeResult = Math.round(weight * 0.8);
