@@ -223,7 +223,7 @@ const HealthCheck = () => {
         <option value="extraActive">Extra active (very hard exercise, physical job)</option>
       </select>
     </label>
-    {/* <label className="block">
+    <label className="block">
       Resting Heart Rate:
       <input
         type="number"
@@ -231,7 +231,7 @@ const HealthCheck = () => {
         value={restingHeartRate}
         onChange={(e) => setRestingHeartRate(parseInt(e.target.value))}
       />
-    </label> */}
+    </label>
     <button onClick={calculateBMR} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center">
       <FontAwesomeIcon icon={faUtensils} className="mr-2" /> Calculate BMR and Generate Meal Plan
     </button>
@@ -275,13 +275,13 @@ const HealthCheck = () => {
     <div className="result-item">
       <strong>Your BMI category is:</strong> {bmiCategory}
     </div>
-    <div className="result-item">
+    {/* <div className="result-item">
       <strong>Your target heart rate zones:</strong>
       <ul>
         <li>Lower Zone: {targetHeartRateZones.lowerZone} bpm</li>
         <li>Upper Zone: {targetHeartRateZones.upperZone} bpm</li>
       </ul>
-    </div>
+    </div> */}
     <div className="result-item">
       <strong>Your recommended daily protein intake is:</strong> {proteinIntake} grams/day
     </div>
