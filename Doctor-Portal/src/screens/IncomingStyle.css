@@ -1,20 +1,24 @@
 /* IncomingStyle.css */
-.outer {
+.outer2 {
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 1000px;
+  background: #76b852;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #4d7833, #f1f3f1);
 }
-.background-video {
+/* .background-video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1; /* Ensure the video stays behind other content */
-}
+  z-index: -1; 
+} */
 .incomingCallContainer {
-  width: 40%;
+  width: 50%;
+  height: 30%;
   margin: 50px 450px;
   padding: 20px;
 }

@@ -8,6 +8,8 @@ const Appointment = () => {
   const [appointmentList, setAppointmentList] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [calldate, setCallDate] = useState(0);
+  const appointmentsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const [year, setYear] = useState(new Date().getFullYear());
   // Get location object
@@ -73,7 +75,11 @@ const Appointment = () => {
         console.error('Error fetching appointments:', error);
       }
     };
+    const indexOfLastAppointment = currentPage * appointmentsPerPage;
+  const indexOfFirstAppointment = indexOfLastAppointment - appointmentsPerPage;
+  const currentAppointments = appointmentList.slice(indexOfFirstAppointment, indexOfLastAppointment);
 
+  const paginate = pageNumber => setCurrentPage(pageNumber);
     fetchAppointments();
   }, [selectedMonth, calldate, year]);
   const handleViewPrescription = (patientId, patientName, prescription) => {
@@ -83,12 +89,9 @@ const Appointment = () => {
     console.log({prescription});
     navigate('/prescription', { state: { patientId, patientName, prescription } });
   };
+  
   return (
-    <div className='outer'>
-      <video autoPlay loop muted className="background-video">
-        <source src={bg} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className='outer1'>
     <div className='container'>
       <div className='searchfilter'>
       <div className='searchbar'>
@@ -128,6 +131,7 @@ const Appointment = () => {
           </div>
         ))}
       </div>
+      
     </div>
     </div>
   );

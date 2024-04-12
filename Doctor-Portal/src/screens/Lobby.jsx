@@ -44,6 +44,7 @@ const LobbyScreen = () => {
   }, [socket, handleJoinRoom]);
 
   return (
+    <div className="outer3">
     <div className="LobbyCnt">
       <form onSubmit={handleSubmitForm}>
         <label htmlFor="email">Email ID</label>
@@ -65,6 +66,7 @@ const LobbyScreen = () => {
         <br />
         <button>Join</button>
       </form>
+    </div>
     </div>
   );
 };

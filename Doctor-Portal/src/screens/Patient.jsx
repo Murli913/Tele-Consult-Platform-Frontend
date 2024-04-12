@@ -98,7 +98,7 @@ const Patientscreen = () => {
           <MdBattery5Bar />
         </div>
       </div>
-      <form onSubmit={handleSubmitForm}>
+      <form>
         <label htmlFor="email">Phone Number</label>
         <input
           type="text"
@@ -115,7 +115,7 @@ const Patientscreen = () => {
           ))}
         </select>
         <br />
-        <button>Join</button>
+        {/* <button onClick={handleSubmitForm}>Join</button> */}
       </form>
     </div>
     <div className="numpad">
@@ -125,7 +125,7 @@ const Patientscreen = () => {
               <button className="acpt"><IoIosCall /></button>
             </div>
             <div className="okside">
-              <button><MdHome /></button>
+              <button onClick={handleSubmitForm}><MdHome /></button>
             </div>
             <div className="rejectside">
               <button><SlOptions /></button>

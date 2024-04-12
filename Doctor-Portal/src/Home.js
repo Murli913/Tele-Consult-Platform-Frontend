@@ -223,10 +223,6 @@ useEffect(() => {
 
 return (
   <div className='outer'>
-    <video autoPlay loop muted className="background-video">
-      <source src={bg} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
     <div className='mainpage'>
       <div className='rightnav'>
         <div className="calendar-container">
