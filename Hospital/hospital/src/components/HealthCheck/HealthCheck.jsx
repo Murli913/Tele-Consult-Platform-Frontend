@@ -80,17 +80,17 @@ const HealthCheck = () => {
     calculateBMICategory(bmiResult);
   };
 
-//   const calculateBMICategory = (bmi) => {
-//     if (bmi < 18.5) {
-//       setBMICategory('Underweight');
-//     } else if (bmi >= 18.5 && bmi < 25) {
-//       setBMICategory('Normal weight');
-//     } else if (bmi >= 25 && bmi < 30) {
-//       setBMICategory('Overweight');
-//     } else {
-//       setBMICategory('Obese');
-//     }
-//   };
+  const calculateBMICategory = (bmi) => {
+    if (bmi < 18.5) {
+      setBMICategory('Underweight');
+    } else if (bmi >= 18.5 && bmi < 25) {
+      setBMICategory('Normal weight');
+    } else if (bmi >= 25 && bmi < 30) {
+      setBMICategory('Overweight');
+    } else {
+      setBMICategory('Obese');
+    }
+  };
 
   const calculateTargetHeartRateZones = () => {
     const maxHeartRate = 220 - age;
@@ -103,10 +103,10 @@ const HealthCheck = () => {
     });
   };
 
-  const calculateProteinIntake = () => {
-    const proteinIntakeResult = Math.round(weight * 0.8);
-    setProteinIntake(proteinIntakeResult);
-  };
+//   const calculateProteinIntake = () => {
+//     const proteinIntakeResult = Math.round(weight * 0.8);
+//     setProteinIntake(proteinIntakeResult);
+//   };
 
   const generateMealPlan = () => {
     const breakfastCalories = Math.round(calorieIntake * 0.25);
