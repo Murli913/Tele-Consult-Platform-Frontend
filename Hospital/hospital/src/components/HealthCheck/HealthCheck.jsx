@@ -92,21 +92,21 @@ const HealthCheck = () => {
     }
   };
 
-  const calculateTargetHeartRateZones = () => {
-    const maxHeartRate = 220 - age;
-    const heartRateReserve = maxHeartRate - parseInt(restingHeartRate);
-    const lowerZone = Math.round(0.5 * heartRateReserve) + parseInt(restingHeartRate);
-    const upperZone = Math.round(0.85 * heartRateReserve) + parseInt(restingHeartRate);
-    setTargetHeartRateZones({
-      lowerZone,
-      upperZone
-    });
-  };
-
-//   const calculateProteinIntake = () => {
-//     const proteinIntakeResult = Math.round(weight * 0.8);
-//     setProteinIntake(proteinIntakeResult);
+//   const calculateTargetHeartRateZones = () => {
+//     const maxHeartRate = 220 - age;
+//     const heartRateReserve = maxHeartRate - parseInt(restingHeartRate);
+//     const lowerZone = Math.round(0.5 * heartRateReserve) + parseInt(restingHeartRate);
+//     const upperZone = Math.round(0.85 * heartRateReserve) + parseInt(restingHeartRate);
+//     setTargetHeartRateZones({
+//       lowerZone,
+//       upperZone
+//     });
 //   };
+
+  const calculateProteinIntake = () => {
+    const proteinIntakeResult = Math.round(weight * 0.8);
+    setProteinIntake(proteinIntakeResult);
+  };
 
   const generateMealPlan = () => {
     const breakfastCalories = Math.round(calorieIntake * 0.25);
