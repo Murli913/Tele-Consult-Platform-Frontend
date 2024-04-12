@@ -6,6 +6,7 @@ import Services from './components/Services'
 import Doctors from './components/Doctors'
 import Blogs from './components/Blogs'
 import Footer from './components/Footer'
+import HealthCheck from './components/HealthCheck/HealthCheck'
 
 
 
@@ -32,9 +33,12 @@ const App = () => {
         <div id="blog">
           <Blogs />
         </div>
+        
        
   </main>
- 
+  <div id="healthcheck">
+          <HealthCheck />
+        </div>
   <Footer />
    
   </>

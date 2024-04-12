@@ -81,6 +81,15 @@ const Navbar = () => {
             >
               Blog
             </Link>
+            <Link
+              to="healthcheck"
+              spy={true}
+              smooth={true}
+              duration={500}
+              className=" hover:text-hoverColor transition-all cursor-pointer"
+            >
+              HealthCheck
+            </Link>
          
           </nav>
 
@@ -158,7 +167,15 @@ const Navbar = () => {
           >
             Blog
           </Link>
-     
+          <Link
+              to="healthcheck"
+              spy={true}
+              smooth={true}
+              duration={500}
+              className=" hover:text-hoverColor transition-all cursor-pointer"
+            >
+              HealthCheck
+            </Link>
 
           <div className=" lg:hidden">
             <button
