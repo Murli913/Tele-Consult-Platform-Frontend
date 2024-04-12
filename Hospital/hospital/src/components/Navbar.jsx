@@ -81,16 +81,7 @@ const Navbar = () => {
             >
               Blog
             </Link>
-            <Link
-            to="login"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className=" hover:text-hoverColor transition-all cursor-pointer"
-            onClick={closeMenu}
-          >
-            Login
-          </Link>
+         
           </nav>
 
           <div className=" hidden lg:flex">
@@ -167,16 +158,7 @@ const Navbar = () => {
           >
             Blog
           </Link>
-          <Link
-            to="login"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className=" hover:text-hoverColor transition-all cursor-pointer"
-            onClick={closeMenu}
-          >
-            Login
-          </Link>
+     
 
           <div className=" lg:hidden">
             <button
