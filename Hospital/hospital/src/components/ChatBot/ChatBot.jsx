@@ -239,14 +239,14 @@ function ChatBot() {
           </div>
           <div className="bottom">
             <div className="btm">
-              {/* <div className="input">
+              <div className="input">
                 <input
                   type="text"
                   id="input"
                   placeholder="Enter your message"
                   ref={input}
                 />
-              </div> */}
+              </div>
               <div className="btn">
                 <button onClick={handleInput}>
                   <i className="fas fa-paper-plane"></i>Send
@@ -254,9 +254,9 @@ function ChatBot() {
               </div>
             </div>
           </div>
-          <button onClick={handleClose} className="close-button">
+          {/* <button onClick={handleClose} className="close-button">
             Close
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
