@@ -3,6 +3,9 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  background: #ffffff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #365523, #f1f3f1);
 }
 .background-video {
   position: absolute;
@@ -33,9 +36,10 @@
 
 .calendar-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between ;
   margin-bottom: 5px;
+  margin-left: 9px;
+  align-items: center;
 }
 
 .calendar-header button {
@@ -43,7 +47,18 @@
   border: none;
   cursor: pointer;
   color: #000;
+  padding: 5px;
+  background-color: white;
   font-size: 16px;
+  border-radius: 10px;
+  transition: background-color 1s ease;
+}
+
+.calendar-header button:hover{
+  color: white;
+  background-color: black;
+  width:25%;
+  height:80%;
 }
 
 .calendar-body {
@@ -66,6 +81,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
+  margin-left: 3px;
   height: 200px;
 }
 
@@ -89,6 +105,7 @@
 
 
 .rightnav{
+  margin-top: 5px;
   margin-left: 79.7%;
   border: 2px solid rgb(137, 136, 136);
   border-radius: 20px;

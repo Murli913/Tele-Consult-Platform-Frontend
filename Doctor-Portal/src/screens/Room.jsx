@@ -325,10 +325,6 @@ const handleEndCall = () => {
   };
   return (
     <div className="douter">
-      <video autoPlay loop muted className="background-video">
-        <source src={bg} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
     <div className="RoomCnt">
       
       <div className="player-container">

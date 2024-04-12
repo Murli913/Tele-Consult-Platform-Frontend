@@ -151,11 +151,7 @@ const IncomingCall = ({ doctorId }) => {
   }, []);
 
   return (
-    <div className='outer'>
-      <video autoPlay loop muted className="background-video">
-        <source src={bg} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className='outer2'>
     <div className="incomingCallContainer">
       <h4>Incoming Call</h4><hr />
       {error && <p>{error}</p>}
