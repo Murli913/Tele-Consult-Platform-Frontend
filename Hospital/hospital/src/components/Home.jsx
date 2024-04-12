@@ -26,11 +26,11 @@ const Home = () => {
         <Button title="See Services" onClick={handleChatBotToggle} />
       </div>
       <div className="fixed bottom-5 right-5 z-10 flex items-center justify-center">
-  {/* <div className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
+  <div className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
     <button onClick={handleChatBotToggle} className="bg-transparent">
       <img src="https://fcit.usf.edu/matrix/wp-content/uploads/2017/01/DanceBot-3-LG.gif" alt="Robot" className="w-8 h-8" />
     </button>
-  </div> */}
+  </div>
 </div>
 
 

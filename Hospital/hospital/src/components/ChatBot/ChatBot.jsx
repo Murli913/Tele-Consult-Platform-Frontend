@@ -239,14 +239,14 @@ function ChatBot() {
           </div>
           <div className="bottom">
             <div className="btm">
-              <div className="input">
+              {/* <div className="input">
                 <input
                   type="text"
                   id="input"
                   placeholder="Enter your message"
                   ref={input}
                 />
-              </div>
+              </div> */}
               <div className="btn">
                 <button onClick={handleInput}>
                   <i className="fas fa-paper-plane"></i>Send
