@@ -25,18 +25,18 @@ const Yoga = () => {
       specialties: "It help relieve back pain and help with emotional baggage too.",
       
     },
-    // {
-    //   img: "/src/assets/img/yogagif4.gif",
-    //   name: "Camel pose",
-    //   specialties: "It help relieve back pain and help with emotional baggage too.",
+    {
+      img: "/src/assets/img/yogagif4.gif",
+      name: "Camel pose",
+      specialties: "It help relieve back pain and help with emotional baggage too.",
       
-    // },
-    // {
-    //   img: "/src/assets/img/yogagif5.gif",
-    //   name: "Mountain Pose",
-    //   specialties: "It help relieve back pain and help with emotional baggage too.",
+    },
+    {
+      img: "/src/assets/img/yogagif5.gif",
+      name: "Mountain Pose",
+      specialties: "It help relieve back pain and help with emotional baggage too.",
       
-    // },
+    },
     {
       img: "/src/assets/img/yogagif6.gif",
       name: "Paschimottanasana",

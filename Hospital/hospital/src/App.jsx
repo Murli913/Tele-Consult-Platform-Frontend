@@ -8,6 +8,7 @@ import Blogs from './components/Blogs'
 import Footer from './components/Footer'
 import HealthCheck from './components/HealthCheck/HealthCheck'
 import Yoga from './components/Yoga/Yoga'
+import GoMap from './components/GoMap/GoMap'
 
 
 
@@ -42,6 +43,9 @@ const App = () => {
   </main>
   <div id="healthcheck">
           <HealthCheck />
+        </div>
+        <div id="gomap">
+          <GoMap />
         </div>
   <Footer />
    
