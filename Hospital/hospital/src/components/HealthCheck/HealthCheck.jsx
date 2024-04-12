@@ -80,17 +80,17 @@ const HealthCheck = () => {
     calculateBMICategory(bmiResult);
   };
 
-//   const calculateBMICategory = (bmi) => {
-//     if (bmi < 18.5) {
-//       setBMICategory('Underweight');
-//     } else if (bmi >= 18.5 && bmi < 25) {
-//       setBMICategory('Normal weight');
-//     } else if (bmi >= 25 && bmi < 30) {
-//       setBMICategory('Overweight');
-//     } else {
-//       setBMICategory('Obese');
-//     }
-//   };
+  const calculateBMICategory = (bmi) => {
+    if (bmi < 18.5) {
+      setBMICategory('Underweight');
+    } else if (bmi >= 18.5 && bmi < 25) {
+      setBMICategory('Normal weight');
+    } else if (bmi >= 25 && bmi < 30) {
+      setBMICategory('Overweight');
+    } else {
+      setBMICategory('Obese');
+    }
+  };
 
   const calculateTargetHeartRateZones = () => {
     const maxHeartRate = 220 - age;

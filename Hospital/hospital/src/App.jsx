@@ -7,6 +7,7 @@ import Doctors from './components/Doctors'
 import Blogs from './components/Blogs'
 import Footer from './components/Footer'
 import HealthCheck from './components/HealthCheck/HealthCheck'
+import Yoga from './components/Yoga/Yoga'
 
 
 
@@ -18,6 +19,9 @@ const App = () => {
   <main>
         <div id="home">
           <Home />
+        </div>
+        <div id="home">
+          <Yoga />
         </div>
         <div id="about">
           <About />
