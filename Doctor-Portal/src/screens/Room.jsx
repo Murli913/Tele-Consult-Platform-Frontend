@@ -33,6 +33,7 @@ const RoomPage = () => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [recording, setRecording] = useState(null); 
   const [isrd, setrd] = useState(false);
+  const [callHistory, setCallHistory] = useState([]);
 
   const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
@@ -127,7 +128,6 @@ socket.on("navigate:home", () => {
   navigate("/home"); // Adjust path as per your routing setup
 });
 const cid = localStorage.getItem('CallId');
-  console.log(cid);
 
 const handleEndCall = () => {
   // Emit end call event to the server
@@ -259,7 +259,7 @@ const handleEndCall = () => {
   const handleScheduleCall = async () => {
     try {
       const nptid = parseInt(patientId);
-      const ndocid = parseInt(localStorage.getItem('loggedInDoctorId')); 
+      const ndocid = parseInt(localStorage.getItem('loggedInDoctorId'));
       const payload = {
         doctor: { id: ndocid }, // Use the correct field name 'doctor'
         patient: { id: nptid }, // Assuming doctorId is a number or string // Assuming patientId is a number or string
@@ -323,6 +323,31 @@ const handleEndCall = () => {
       window.URL.revokeObjectURL(url);
     }
   };
+
+    const fetchCallHistory = async () => {
+      try {
+        const doctorId = localStorage.getItem('loggedInDoctorId');
+        const ptid = patientId;
+        console.log(doctorId);
+        console.log(ptid);
+        if (doctorId && ptid) { // Check if both doctor ID and patient ID are provided
+          // Make API request to fetch call history based on did and pid
+          const response = await axios.get(`http://localhost:8080/callhistory/fetchcalls`, {
+            params: {
+              did: doctorId,
+              pid: ptid
+            }
+          });
+          console.log(response.data);
+          setCallHistory(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching call history:", error);
+      }
+    };
+
+  
+
   return (
     <div className="douter">
     <div className="RoomCnt">
@@ -397,7 +422,7 @@ const handleEndCall = () => {
         <label>
         <p>Prescription:</p>
           <textarea
-            style={{ width: '500px', resize: 'vertical' }}
+            style={{ width: '250px', resize: 'vertical' }}
             type="text"
             value={prescription}
             onChange={(e) => setPrescription(e.target.value)}
@@ -409,6 +434,7 @@ const handleEndCall = () => {
       )}
       {remoteSocketId && (
         <div className="schcall">
+          <div className="inputforms">
           <input
               type="date"
               value={callDate}
@@ -421,11 +447,30 @@ const handleEndCall = () => {
               onChange={(e) => setCallTime(e.target.value)}
               placeholder="Call Time"
             />
-            <button className="scheduleButton" onClick={handleScheduleCall}>Schedule Call</button>
+            </div>
+            <div className="buttonsform">
+            <button onClick={handleScheduleCall}>Schedule Call</button>
+            <button onClick={fetchCallHistory}>View </button>
+            </div>
         </div>
       )}
       </div>
-      
+      {remoteSocketId && (
+        <div className="fetchcalls">
+        {callHistory.map(appointment => (
+          <div key={appointment.id} className="card1">
+            <div className="left">
+              <div>Patient id: PID{appointment.patient.id}</div><br/>
+              <div>Patient Name: {appointment.patient.name}</div><br/>
+              <div>Date: {appointment.callDate}</div>
+            </div>
+            {/* <div className="right">
+              <button className="viewbtn" onClick={() => handleViewPrescription(appointment.patient.id, appointment.patient.name, appointment.prescription)}>View</button>
+            </div> */}
+          </div>
+        ))}
+      </div>
+      )}
     </div>
     </div>
   );
