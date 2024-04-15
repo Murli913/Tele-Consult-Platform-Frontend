@@ -6,6 +6,7 @@ import bg from './videos/bg2.mp4';
 import Modal from 'react-modal';
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import modimg from './images/modi3.png';
 import { IoIosCloseCircle } from "react-icons/io";
 Modal.setAppElement('#root');
 
@@ -22,6 +23,7 @@ const Home = () => {
   const [patientName, setPatientName] = useState("Patient");
   const [incomingCall, setIncomingCall] = useState(null);
   const [error, setError] = useState('');
+  const [doctorname, setDoctorName] = useState(null);
 
   const navigate = useNavigate(); // Hook for navigation
 
@@ -161,6 +163,7 @@ const handleDayClick = async (date) => {
     });
     setunFilteredCallHistory(unfilteredresponse.data);
     setFilteredCallHistory(response.data);
+    console.log(response.data);
     
   } catch (error) {
     console.error('Error fetching call history for selected date:', error);
@@ -182,7 +185,10 @@ useEffect(() => {
       }
       // Fetch the incoming call details for the logged-in doctor
       const response = await axios.get(`http://localhost:8080/doctor/${doctorId}/incoming-call`);
+      const responsename = await axios.get(`http://localhost:8080/doctor/${doctorId}/fetchname`);
       console.log(response.data);
+      console.log(responsename.data);
+      setDoctorName(responsename.data);
       setIncomingCall(response.data);
     } catch (error) {
       setError('Error fetching incoming call details');
@@ -216,13 +222,20 @@ useEffect(() => {
   }
 }, [incomingCall]);
 
-// Define chart options separately
-
-
-// Prepare data points for every hour interval
-
 return (
   <div className='outer'>
+    <div className='homecontent'>
+      <div className='homescreen'>
+       <p>Welcome Doctor {doctorname} <span className="cursor">|</span></p>
+       <img className='modi' src={modimg} style={{backfaceVisibility: "hidden", width: "300px", height:"300px"}}/>
+      </div>
+      <div className='homeoptions'>
+        <div className='pubications'>
+
+        </div>
+        <div className=''></div>
+      </div>
+    </div>
     <div className='mainpage'>
       <div className='rightnav'>
         <div className="calendar-container">
@@ -273,13 +286,13 @@ return (
         </div>
       </div>
       <Modal
-  className="modal"
-  overlayClassName="modal-overlay"
-  isOpen={isModalOpen}
-  onRequestClose={closeModal}>
-    <button className="close-button" onClick={closeModal}><IoIosCloseCircle /></button>
-  {/* Display call history in modal */}
-  <div className="search-bar">
+        className="modal"
+        overlayClassName="modal-overlay"
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}>
+        <button className="close-button" onClick={closeModal}><IoIosCloseCircle /></button>
+        
+        <div className="search-bar">
           <input 
             type="text" 
             placeholder="Start Time (HH:MM)" 
@@ -294,22 +307,22 @@ return (
           />
           <button className="searchbtn" onClick={handleSearch}>Search</button>
         </div>
-  <div className="modal-callhistory">
-    {filteredCallHistory.map(call => (
-      <div key={call.id} className="modal-card">
-        <div className="left">
-          <div className="modal-patient-name">Patient Name: {call.patient.name}</div><br/>
-          <div className="modal-doctor-name">Doctor Name: {call.doctor.name}</div><br/>
-          <div className="modal-call-time">Time: {call.callTime}</div>
-        </div>
-        <div className="right">
+        <div className="modal-callhistory">
+          {filteredCallHistory.map(call => (
+            <div key={call.id} className="modal-card">
+              <div className="left">
+                <div className="modal-patient-name">Patient Name: {call.patient.name}</div><br/>
+                <div className="modal-doctor-name">Doctor Name: {call.doctor.name}</div><br/>
+                <div className="modal-call-time">Time: {call.callTime}</div>
+              </div>
+              <div className="right">
           {/* Pass patient email and doctor name as arguments to handleCallButtonClick */}
           {/* <button className= "callbtn"onClick={() => handleCallButtonClick(call.patient.name, call.doctor.phoneNumber)}>Call</button> */}
+              </div>
         </div>
-      </div>
-    ))}
-  </div>
-</Modal>
+      ))}
+    </div>
+  </Modal>
 
     </div>
   </div>
