@@ -15,6 +15,9 @@ import { ImPhoneHangUp } from "react-icons/im";
 import { RxAvatar } from "react-icons/rx";
 import { IoSend } from "react-icons/io5";
 import bg from './videos1/bg2.mp4';
+import Modal from 'react-modal';
+import { IoIosCloseCircle } from "react-icons/io";
+Modal.setAppElement('#root');
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -34,6 +37,8 @@ const RoomPage = () => {
   const [recording, setRecording] = useState(null); 
   const [isrd, setrd] = useState(false);
   const [callHistory, setCallHistory] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [prescription1, setPrescription1] = useState("");
 
   const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
@@ -346,6 +351,14 @@ const handleEndCall = () => {
       }
     };
 
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
+
+    const openModal = (prescriptionData) => {
+      setPrescription1(prescriptionData);
+      setIsModalOpen(true);
+    };
   
 
   return (
@@ -450,7 +463,7 @@ const handleEndCall = () => {
             </div>
             <div className="buttonsform">
             <button onClick={handleScheduleCall}>Schedule Call</button>
-            <button onClick={fetchCallHistory}>View </button>
+            <button onClick={fetchCallHistory}>Past calls </button>
             </div>
         </div>
       )}
@@ -464,14 +477,26 @@ const handleEndCall = () => {
               <div>Patient Name: {appointment.patient.name}</div><br/>
               <div>Date: {appointment.callDate}</div>
             </div>
-            {/* <div className="right">
-              <button className="viewbtn" onClick={() => handleViewPrescription(appointment.patient.id, appointment.patient.name, appointment.prescription)}>View</button>
-            </div> */}
+            <div className="right">
+            <button className="viewbtn" onClick={() => openModal(appointment.prescription)}>View</button>
+            </div>
           </div>
         ))}
       </div>
       )}
     </div>
+    <Modal
+    className="modal"
+    overlayClassName="modal-overlay"
+    isOpen={isModalOpen}
+    onRequestClose={closeModal}>
+      <button className="close-button" onClick={closeModal}><IoIosCloseCircle /></button>
+      <div className="modalcontent">
+        <h2>Prescription</h2>
+        <p>{prescription1}</p> 
+      </div>
+
+    </Modal>
     </div>
   );
 };
