@@ -2,18 +2,26 @@ import React, { useState } from "react";
 import { Link } from "react-scroll";
 import Contact from "../models/Contact";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [showForm, setShowForm] = useState(false);
-
+ const navigate=useNavigate();
   const handleChange = () => {
     setMenu(!menu);
+  };
+  const gotopatient = () => {
+    navigate("/patient");
   };
 
   const closeMenu = () => {
     setMenu(false);
+  };
+
+  const login = () => {
+    navigate("/login");
   };
 
   const openForm = () => {
@@ -92,15 +100,34 @@ const Navbar = () => {
             </Link>
          
           </nav>
-
+{/* 
           <div className=" hidden lg:flex">
             <button
               className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
               onClick={openForm}
             >
+             LoginSD
+            </button>
+
+          </div> */}
+
+          <div className=" hidden lg:flex">
+            <button
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+              onClick={login}
+            >
              Login
             </button>
+
           </div>
+          {/* <div className=" hidden lg:flex">
+            <button
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+              onClick={gotopatient}
+            >
+             LoginP
+            </button>
+          </div> */}
 
           {showForm && <Contact closeForm={closeForm} />}
 
@@ -177,14 +204,20 @@ const Navbar = () => {
               HealthCheck
             </Link>
 
-          <div className=" lg:hidden">
+          {/* <div className=" lg:hidden">
             <button
               className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
               onClick={openForm}
             >
-              Login
+              LoginSD
             </button>
-          </div>
+            <button
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+              onClick={gotopatient}
+            >
+              LoginP
+            </button>
+          </div> */}
         </div>
       </div>
     </div>

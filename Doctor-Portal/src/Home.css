@@ -1,13 +1,17 @@
-
+body {
+  background-color: #ffffff; /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(left, #f0b52a, #ffffff, #365523);
+  background: linear-gradient(to right, #f0b52a, #ffffff, #365523); */
+}
 .outer {
   justify-content: center;
   width: 100%;
-  height: 100%;
-  background: #ffffff;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #365523, #f1f3f1);
+  height: 1000%;
+  /* background: #ffffff;  
+background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  
+background: linear-gradient(to left, #365523, #f1f3f1); */
 }
-.background-video {
+/* .background-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -15,14 +19,14 @@ background: linear-gradient(to left, #365523, #f1f3f1);
   height: 100%;
   object-fit: cover;
   z-index: -1; 
-}
+} */
 
-.mainpage {
+/* .mainpage {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
-}
+} */
 
 .calendar-container {
   width: 300px;
@@ -104,16 +108,19 @@ background: linear-gradient(to left, #365523, #f1f3f1);
 }
 
 
-.rightnav{
-  margin-top: 5px;
-  margin-left: 79.7%;
+.rightnav {
+  /* Adjust the positioning properties */
+  top: 60px; /* Adjust this value as per your design */
+  right: 0px; /* Adjust this value as per your design */
+  width: 310px; /* Adjust this width as per your design */
   border: 2px solid rgb(137, 136, 136);
-  border-radius: 20px;
-  display: flex;
-  height: 670px;
+  border-radius: 20px; 
   background-color: #fff;
-  flex-direction: column;
+  height: 675px;
+  /* Make the right navbar fixed */
+  position: fixed;
 }
+
 
 .chart-container {
   margin-top: 5px;
@@ -377,6 +384,70 @@ background: linear-gradient(to left, #365523, #f1f3f1);
   font-size: 12px;
   color: rgb(0, 0, 0); 
 } */
+
+.homecontent {
+  display: flex;
+  /* border: 2px solid black; */
+  width: 76%;
+  height: 1000px;
+  margin-left: 50px;
+}
+
+.homescreen {
+  margin: 5px;
+  /* border: 2px solid red; */
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  background-image: url('./images/flag.jpg');
+  background-size: cover;
+  align-items: center;
+}
+
+.modi{
+  margin-left: 520px;
+  margin-bottom: 10px;
+}
+
+.homescreen p{
+  font-size: 25px;
+  animation: typing 2s steps(25, end);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@keyframes typing {
+  from{
+    width: 0;
+  }
+  
+}
+
+.homescreen p:nth-child(1){
+  animation: typingtwo 2s steps(23,end);
+}
+
+@keyframes typingtwo {
+  0%{
+    width: 0;
+  }
+
+  100%{
+    width: 335px;
+  }
+}
+
+.cursor{
+  animation: blink 0.6s infinite;
+}
+
+@keyframes blink {
+  to{
+    opacity: 0;
+  }
+}
 
 
 

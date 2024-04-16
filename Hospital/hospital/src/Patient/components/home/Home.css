@@ -1,0 +1,204 @@
+.home-content {
+    position: fixed;
+    top: 90px;
+    margin-left: 230px;
+    margin-right: 20px;
+    background-color: transparent;
+    border-radius: 12px;
+    /* box-shadow: 2px 2px 10px #9bafaf; */
+    width: calc(100% - 250px);
+    height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column; /* Ensure children stack vertically */
+}
+
+.top-content {
+    flex: 1; /* Take up remaining space equally */
+    display: flex;
+    /* background-color: antiquewhite; */
+    justify-content: space-evenly;
+    gap: 20px;
+    border-radius: 12px;
+    /* margin-bottom: 20px; */
+}
+
+.top-left,
+.top-right {
+    flex: 1; /* Equal width for both sides */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px #9bafaf;
+    overflow-y: auto;
+    max-height: 300px;
+    padding: 0px 10px;
+}
+
+.top-left::-webkit-scrollbar,
+.top-right::-webkit-scrollbar, 
+.modal::-webkit-scrollbar,
+.bottom-content::-webkit-scrollbar  {
+    width: 8px; 
+    background-color: transparent; 
+    scroll-margin-right: 30px;   
+}
+
+.top-left::-webkit-scrollbar-track,
+.top-right::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track, 
+.bottom-content::-webkit-scrollbar-track  {
+    background: transparent; 
+}
+
+.top-left::-webkit-scrollbar-thumb,
+.top-right::-webkit-scrollbar-thumb, 
+.modal::-webkit-scrollbar-thumb,
+.bottom-content::-webkit-scrollbar-thumb {
+    background: #b9b9b9; 
+    border-radius: 5px; 
+}
+
+.top-left::-webkit-scrollbar-thumb:hover,
+.top-right::-webkit-scrollbar-thumb:hover, 
+.modal::-webkit-scrollbar-thumb:hover,
+.bottom-content::-webkit-scrollbar-thumb:hover {
+    background: #999; 
+}
+
+
+.head {
+    padding : 25px 10px;
+    margin: 0px 0px 0px 0px;
+    position: sticky;
+    top: 0px;
+    background-color: #fff;
+    /* box-shadow: 1px 1px rgb(216, 209, 209); */
+}
+
+.up-content-parent {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.up-content-left {
+    display: flex;
+}
+
+.up-content{
+    background-color: #faeed1b1;
+    width: 95%;
+    border-radius: 12px;
+    padding: 8px 2px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}   
+
+.up-apt{
+    margin: 2px;
+    text-align: left;
+    padding-left: 10px;
+    display: inline;
+}
+
+
+.bottom-content {
+    flex: 1; /* Take up remaining space equally */
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px #9bafaf;
+    overflow-y: auto;
+    /* max-height: 290px; */
+    /* padding: 10px 10px; */
+}
+
+
+.bt-content{
+    background-color: #faeed1b1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 0px 20px 20px 20px;
+    border-radius: 12px;    
+}
+
+.doc-img {
+    width: 70px;
+    border-radius: 50%;
+}
+
+.doc-name{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.view-btn{
+    border: none;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 0px 20px;
+    height: 45px;
+    margin-right: 20px;
+    /* box-shadow: 0.5px 0.5px 0.5px #9bafaf; */
+    font-size: 14px;
+}
+
+.view-btn:hover{
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    width: 700px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.close-btn {
+    /* margin-top: 10px; */
+    border: none;
+    background-color: transparent;
+}
+
+.close-btn svg{
+    font-size: 25px;
+}
+
+.close-btn svg:hover{
+    cursor: pointer;
+}
+
+.modal-header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0px;
+}
+
+.modal-body{
+    display: flex;
+}
+
