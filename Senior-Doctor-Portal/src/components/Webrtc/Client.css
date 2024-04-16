@@ -1,118 +1,50 @@
 .container {
-    display: grid;
-    grid-template-columns: 5fr 4fr 5fr;
-    overflow: hidden; /* Prevent overflow */
-  }
-  
-  .myId {
-    margin-right: 4rem;
-    margin-left: 5rem;
-    border-radius: 5px;
-    background: #c9d6ff; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(
-        to right,
-        #e2e2e2,
-        #c9d6ff
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    padding: 2rem;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    overflow: hidden; /* Prevent overflow */
-  }
-  
-  .call-button {
-    text-align: center;
-    margin-top: 2rem;
-  }
-  
-  .video-container {
-    display: flex;
-    flex-direction: column; /* Arrange the video containers and names vertically */
-    justify-content: center;
-    align-items: center;
-    margin-top: 0rem;
-    margin-left: 0rem;
-    overflow: hidden; /* Prevent overflow */
-  }
-  
-  .video {
-    margin-bottom: 20px;
-    width: 500px;
-    text-align: center; /* Center the text */
-    overflow: hidden;
-    margin-top: 0rem; /* Prevent overflow */
-  }
-  
-  .caller {
-    text-align: center;
-    color: #fff;
-    overflow: hidden; /* Prevent overflow */
-  }
-  
-  body {
-    background: #4776e6; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #8e54e9, #4776e6); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(
-        to right,
-        #8e54e9,
-        #4776e6
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
-  
-  .form-container {
-    margin-top: 0rem;
-    margin-left: 2rem;
-    margin-right: 0rem;
-    height: 100%; /* Adjust margin as needed */
-    overflow: hidden; /* Prevent overflow */
-  }
-  
-  
-  .form {
-    background-color: #f5f5f5;
-    padding: 1rem;
-    border-radius: 5px;
-    height: 100%;
-  }
-  
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  
-  label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .h1{
-    margin-top: 0rem;
-  }
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  
-  }
-  
-  
-  .add-prescription-btn {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  
-  .add-prescription-btn:hover {
-    background-color: #0056b3;
-  }
-  
+	display: grid;
+	grid-template-columns: 7fr 3fr;
+}
+
+.myId {
+	margin-right: 5rem;
+	border-radius: 5px;
+	background: #c9d6ff; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#e2e2e2,
+		#c9d6ff
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+	padding: 2rem;
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
+.call-button {
+	text-align: center;
+	margin-top: 2rem;
+}
+
+.video-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: center;
+	align-content: center;
+	margin-top: 10rem;
+	margin-left: 10rem;
+}
+
+.caller {
+	text-align: center;
+	color: #fff;
+}
+
+body {
+	background: #4776e6; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #8e54e9, #4776e6); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#8e54e9,
+		#4776e6
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

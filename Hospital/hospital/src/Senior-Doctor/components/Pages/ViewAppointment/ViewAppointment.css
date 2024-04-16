@@ -1,0 +1,22 @@
+.view-appointment-container {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointment-details {
+    margin-top: 20px;
+  }
+  
+  .detail {
+    margin-bottom: 10px;
+  }
+  
+  .detail strong {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  

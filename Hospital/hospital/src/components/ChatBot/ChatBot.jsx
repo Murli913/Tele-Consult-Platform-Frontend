@@ -254,9 +254,7 @@ function ChatBot() {
               </div>
             </div>
           </div>
-          <button onClick={handleClose} className="close-button">
-            Close
-          </button>
+
         </div>
       </div>
     </div>

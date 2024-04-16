@@ -1,0 +1,227 @@
+/* RoomPage.css */
+.douter{
+  justify-content: center;
+  width: 100%;
+  height: 700px;
+  background: #ffffff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #365523, #f1f3f1);
+}
+.RoomCnt {
+  display: flex;
+  margin: 0px;
+  max-width: 100%;
+  flex-direction: row;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+} */
+
+.Input {
+  width: 25%;
+  margin-left: 50px;
+  margin-top:7px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f6f5f3;
+
+}
+
+.Input form input{
+  width:250px;
+}
+
+
+.player-container {
+  margin-left: 270px;
+  background-color: rgb(32, 32, 32);
+  width:20%;
+  border: 5px solid #51504e;
+  border-radius: 20px;
+  height: 600px;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+.avatar {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.avatar svg {
+  color: rgb(19, 159, 214);
+  font-size: 120px;
+}
+
+.duration {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.trio {
+  display: flex;
+  margin-top: 240px;
+  justify-content: space-evenly;
+}
+
+.duo {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-evenly;
+}
+.str {
+  background-color: aqua;
+}
+
+.str svg{
+  color: white;
+  font-size: 25px;
+}
+
+.endbtn{
+  width: 70px;
+  height: 30px;
+  padding: 0px;
+  border-radius: 12px;
+  background-color: red;
+  text-align: center;
+}
+
+.sendbtn{
+  width: 70px;
+  height: 30px;
+  padding: 2px 0px 0px 0px;
+  border-radius: 12px;
+  background-color: rgb(7, 212, 82);
+  text-align: center;
+}
+
+.endbtn svg{
+  color: white;
+  font-size: 25px;
+}
+
+.sendbtn svg{
+  color: white;
+  font-size: 20px;
+}
+
+.schcall {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* .schcall input {
+  margin: 3px;
+  width: 177px;
+  border: 1px solid black;
+  border-radius: 2px;
+} */
+
+.inputforms {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inputforms input{
+  width: 150px;
+  border: 1px solid black;
+  height: 30px;
+  border-radius: 10px;
+}
+.buttonsform{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttonsform button{
+  width: 150px;
+  border-radius: 10px;
+}
+
+
+
+.fetchcalls{
+  margin-left: 2%;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  max-height: 600px; /* Set a maximum height to enable scrolling */
+  overflow-y: auto;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 20px;
+  
+}
+
+.fetchcalls::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+/* Track styles */
+.fetchcalls::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+/* Thumb styles */
+.fetchcalls::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Border radius of the scrollbar thumb */
+}
+
+/* Handle on hover */
+.fetchcalls::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+.card1 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #f9f9f9;
+  color: #000000;
+  border-radius: 10px;
+  padding: 10px;
+  width:90%;
+  height: 120px;
+  margin: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card1:hover {
+  box-shadow: 0px 0px 10px rgb(0, 0, 0); /* Add box shadow on hover */
+}
+
+.left1 {
+  flex: 1;
+}
