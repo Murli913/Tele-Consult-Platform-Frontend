@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
-import LoginPage from './loginPage';
-import Navbar from './navbar';
-import HomePage from './Home';
-import History from './history';
-import BookNow from './book';
-import Sidebar from './sidebar';
-import Client from './client';
-import ProfilePage from './profile';
+import LoginPage from './components/login/loginPage';
+import Navbar from './components/navbar/navbar';
+import HomePage from './components/home/Home';
+import History from './components/history/history';
+import BookNow from './components/book/book';
+import Sidebar from './components/sidebar/sidebar';
+// import Client from './client';
+import ProfilePage from './components/profile/profile';
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function AppContent() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/history" element={<History />} />
         <Route path="/book" element={<BookNow />} />
-        <Route path='/client' element={<Client />} />
+        {/* <Route path='/client' element={<Client />} /> */}
         <Route path='/profile' element={<ProfilePage />} />
       </Routes>
       </div>

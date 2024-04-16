@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
 import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import bg from './videos/bg.mp4'; 
+ import bg from './bg.mp4';
 
 function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -14,34 +14,36 @@ function LoginPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    // Send login request to backend
-    try {
-      const response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      // Send login request to backend
+      try {
+        const response = await fetch('http://localhost:8080/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-      if (!response.ok) {
-        // const errorMessage = await response.text();
-        throw new Error('Login failed');
+        if (!response.ok) {
+          // const errorMessage = await response.text();
+          throw new Error('Login failed');
+        }
+        const data = await response.json();
+        const { token, message } = data;
+
+        // Set patient's ID in localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('email', message);
+        // console.log(token);
+        navigate('/home');
+      // Redirect to Home.js or any desired route
+      } catch (error) {
+        setError('Invalid phone number or password');
       }
-      const data = await response.json();
-      const { patientId } = data;
-
-      // Set patient's ID in localStorage
-      localStorage.setItem('loggedInPatientId', patientId);
-      navigate('/home');
-     // Redirect to Home.js or any desired route
-    } catch (error) {
-      setError('Invalid phone number or password');
-    }
-  };
+    };
 
   useEffect(() => {
     // const container = containerRef.current;
