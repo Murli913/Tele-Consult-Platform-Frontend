@@ -15,6 +15,7 @@ import AddDoctor from "./components/AddDoctor/AddDoctor";
 import SeniorDoctorDetails from "./components/SeniorDoctorDetails/SeniorDoctorDetails";
 import ViewDoctorUnderSenior from "./components/ViewDoctorUnderSeniorDoctor/ViewDoctorUnderSeniorDoctor";
 import AddDoctorInSeniorDoctor from "./components/AddDoctorInSeniorDoctor/AddDoctorInSeniorDoctor";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -42,6 +43,7 @@ function App() {
             <Route path="/seniordoctordetails" element={<SeniorDoctorDetails />} />
             <Route path="/viewdoctorundersenior" element={<ViewDoctorUnderSenior />} />
             <Route path="/adddoctorinseniordoctor" element={<AddDoctorInSeniorDoctor />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

@@ -114,7 +114,7 @@ const Sidebar = () => {
         <div className="sidebar-menu sidebar-menu2">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/" className="menu-link">
+              <Link to="/profile" className="menu-link">
                 <span className="menu-link-icon">
                   <CgProfile size={20} />
                 </span>

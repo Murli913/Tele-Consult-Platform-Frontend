@@ -1,0 +1,68 @@
+.profile-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  
+    .profile-photo {
+      margin-bottom: 20px;
+  
+      img {
+        width: 150px; /* Adjust the size as needed */
+        height: 150px; /* Adjust the size as needed */
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  
+    .personal-details {
+      input[type='text'],
+      input[type='email'],
+      input[type='password'] {
+        width: calc(100% - 40px);
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+  
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+        }
+      }
+  
+      .update-details-btn,
+      .close-btn {
+        width: calc(49% - 5px);
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+  
+      .update-details-btn {
+        background-color: #007bff;
+        color: #fff;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+  
+      .close-btn {
+        background-color: #ccc;
+        color: #000;
+  
+        &:hover {
+          background-color: #b3b3b3;
+        }
+      }
+    }
+  }
+  
