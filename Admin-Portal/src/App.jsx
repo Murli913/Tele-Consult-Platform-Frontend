@@ -7,6 +7,9 @@ import MoonIcon from "./assets/icons/moon.svg";
 import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
 import { Dashboard, PageNotFound } from "./screens";
+import Login from "./components/Login/Login";
+import ViewAppointment from "./components/ViewAppointment/ViewAppointment";
+import PatientDetails from "./components/PatientDetails/PatientDetails";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -24,8 +27,11 @@ function App() {
     <>
       <Router>
         <Routes>
+        <Route path="/login" element={<Login />} />
           <Route element={<BaseLayout />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/viewAppointment" element={<ViewAppointment />} />
+            <Route path="/patientdetails" element={<PatientDetails />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

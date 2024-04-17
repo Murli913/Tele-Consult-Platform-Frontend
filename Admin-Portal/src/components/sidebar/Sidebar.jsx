@@ -74,16 +74,9 @@ const Sidebar = () => {
                 <span className="menu-link-text">Dashboard</span>
               </Link>
             </li>
+           
             <li className="menu-item">
-              <Link to="/" className="menu-link">
-                <span className="menu-link-icon">
-                  <SiAsciidoctor  size={20} />
-                </span>
-                <span className="menu-link-text"> Add Appointment</span>
-              </Link>
-            </li>
-            <li className="menu-item">
-              <Link to="/" className="menu-link">
+              <Link to="/viewAppointment" className="menu-link">
                 <span className="menu-link-icon">
                   <SiAsciidoctor size={20} />
                 </span>
@@ -91,7 +84,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/" className="menu-link">
+              <Link to="/patientdetails" className="menu-link">
                 <span className="menu-link-icon">
                   <FaPerson  size={18} />
                 </span>
