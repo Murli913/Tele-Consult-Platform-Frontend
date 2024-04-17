@@ -7,6 +7,12 @@ import {
 } from "recharts";
 
 const AreaCard = ({ colors, percentFillValue, cardInfo }) => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const filledValue = (percentFillValue / 100) * 360; // 360 degress for a full circle
   const remainedValue = 360 - filledValue;
 
