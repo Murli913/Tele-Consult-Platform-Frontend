@@ -10,6 +10,7 @@ import { Dashboard, PageNotFound } from "./screens";
 import Login from "./components/Login/Login";
 import ViewAppointment from "./components/ViewAppointment/ViewAppointment";
 import PatientDetails from "./components/PatientDetails/PatientDetails";
+import DoctorDetails from "./components/DoctorDetails/DoctorDetails";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/viewAppointment" element={<ViewAppointment />} />
             <Route path="/patientdetails" element={<PatientDetails />} />
+            <Route path="/doctordetails" element={<DoctorDetails />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
