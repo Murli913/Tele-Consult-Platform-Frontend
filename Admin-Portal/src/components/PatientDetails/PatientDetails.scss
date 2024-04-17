@@ -2,9 +2,10 @@
     // Adjust styling according to your layout and requirements
     .search-container {
       margin-bottom: 20px;
-  
+      margin-top: 10PX;
       input[type='text'] {
-        width: calc(100% - 40px); // Adjust width to accommodate search icon button
+        margin-left: 10px;
+        width: calc(50% - 40px); // Adjust width to accommodate search icon button
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;

@@ -41,6 +41,9 @@ const Sidebar = () => {
       closeSidebar();
     }
   };
+  const handleLogout = () => {
+    localStorage.clear(); // Clear localStorage when logout button is clicked
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -67,7 +70,7 @@ const Sidebar = () => {
         <div className="sidebar-menu">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/" className="menu-link active">
+              <Link to="/dashboard" className="menu-link active">
                 <span className="menu-link-icon">
                   <MdOutlineGridView size={18} />
                 </span>
@@ -122,12 +125,12 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/" className="menu-link">
-                <span className="menu-link-icon">
-                  <MdOutlineLogout size={20} />
-                </span>
-                <span className="menu-link-text">Logout</span>
-              </Link>
+            <Link to="/" className="menu-link" onClick={handleLogout}>
+        <span className="menu-link-icon">
+          <MdOutlineLogout size={20} />
+        </span>
+        <span className="menu-link-text">Logout</span>
+      </Link>
             </li>
           </ul>
         </div>

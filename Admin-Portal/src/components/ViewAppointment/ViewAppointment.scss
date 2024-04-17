@@ -1,45 +1,74 @@
 .view-appointment {
-    // Adjust styling according to your layout and requirements
-    .search-container {
-        margin-bottom: 20px;
-    
-        input[type='text'] {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-size: 16px;
-          transition: border-color 0.3s ease;
-    
-          &:focus {
-            outline: none;
-            border-color: var(--primary-color);
-          }
-        }
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    input[type="text"] {
+      width: 30%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    select {
+      width: 30%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: #fff;
+      color: #333;
+      cursor: pointer;
+
+      option {
+        background-color: #fff;
+        color: #333;
       }
-  
-    .appointment-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-  
-      th,
-      td {
-        border: 1px solid #ccc;
-        padding: 10px;
+
+      &::-ms-expand {
+        display: none;
       }
-  
-      th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-        text-align: left;
+      &::after {
+        content: '\25BC';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
       }
-  
-      td {
-        text-align: left;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 3px #007bff;
       }
     }
-  
-    // Add more styles as needed for other elements on the view appointment page
   }
-  
+
+  .appointment-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  }
+}

@@ -10,6 +10,12 @@ const AddDoctor = ({ onClose, onAddDoctor }) => {
 
   // Function to handle adding a new doctor
   const handleAddDoctor = () => {
+    useEffect(() => {
+      if(localStorage.getItem("token") === null)
+      {
+        navigate("/");
+      }
+    }, []);
     // Perform validation if needed
     const newDoctor = {
       name,

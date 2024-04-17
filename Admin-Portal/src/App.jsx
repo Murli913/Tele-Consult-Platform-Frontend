@@ -33,9 +33,9 @@ function App() {
     <>
       <Router>
         <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
           <Route element={<BaseLayout />}>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/viewAppointment" element={<ViewAppointment />} />
             <Route path="/patientdetails" element={<PatientDetails />} />
             <Route path="/doctordetails" element={<DoctorDetails />} />
