@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import './Profile.scss'; // Import the SCSS file for styling
 
 const Profile = ({ onClose }) => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

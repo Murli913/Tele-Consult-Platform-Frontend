@@ -3,6 +3,12 @@ import './PatientDetails.scss'; // Import the SCSS file for styling
 import axios from 'axios';
 
 const PatientDetails = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [patients, setPatients] = useState([]);
 
