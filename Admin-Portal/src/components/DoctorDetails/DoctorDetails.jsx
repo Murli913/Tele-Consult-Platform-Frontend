@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './DoctorDetails.scss'; // Import the SCSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 const DoctorDetails = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,10 +9,14 @@ const DoctorDetails = () => {
     { name: 'Dr. Smith', email: 'smith@example.com', phoneNumber: '987-654-3210', gender: 'Male' },
     // Add more doctor objects as needed
   ]);
-
+const navigate=useNavigate();
   // Function to handle search query change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const gotoadddoctor= () => {
+ navigate("/adddoctor");
   };
 
   // Function to filter doctors based on search query
@@ -39,7 +44,7 @@ const DoctorDetails = () => {
         <input type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Search doctors..." />
         {/* Add a search icon button here if needed */}
         <br/>
-        <button className="add-doctor-btn">Add New Doctor</button>
+        <button className="add-doctor-btn" onClick={gotoadddoctor}>Add New Doctor</button>
       </div>
       <table className="doctor-table">
         <thead>
