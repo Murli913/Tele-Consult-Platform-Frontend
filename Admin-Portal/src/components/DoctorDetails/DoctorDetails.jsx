@@ -3,12 +3,19 @@ import './DoctorDetails.scss'; // Import the SCSS file for styling
 import { useNavigate } from 'react-router-dom';
 
 const DoctorDetails = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [doctors, setDoctors] = useState([
     // Sample doctor data, replace it with your actual data
     { name: 'Dr. Smith', email: 'smith@example.com', phoneNumber: '987-654-3210', gender: 'Male' },
     // Add more doctor objects as needed
   ]);
+  
 const navigate=useNavigate();
   // Function to handle search query change
   const handleSearchChange = (e) => {

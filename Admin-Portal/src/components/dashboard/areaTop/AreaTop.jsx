@@ -8,6 +8,12 @@ import { addDays } from "date-fns";
 import { DateRange } from "react-date-range";
 
 const AreaTop = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const { openSidebar } = useContext(SidebarContext);
 
   const [state, setState] = useState([
