@@ -12,6 +12,7 @@ import ViewAppointment from "./components/ViewAppointment/ViewAppointment";
 import PatientDetails from "./components/PatientDetails/PatientDetails";
 import DoctorDetails from "./components/DoctorDetails/DoctorDetails";
 import AddDoctor from "./components/AddDoctor/AddDoctor";
+import SeniorDoctorDetails from "./components/SeniorDoctorDetails/SeniorDoctorDetails";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -36,6 +37,7 @@ function App() {
             <Route path="/patientdetails" element={<PatientDetails />} />
             <Route path="/doctordetails" element={<DoctorDetails />} />
             <Route path="/adddoctor" element={<AddDoctor />} />
+            <Route path="/seniordoctordetails" element={<SeniorDoctorDetails />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

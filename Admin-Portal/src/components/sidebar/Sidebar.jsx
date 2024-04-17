@@ -100,7 +100,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/" className="menu-link">
+              <Link to="/seniordoctordetails" className="menu-link">
                 <span className="menu-link-icon">
                   <FaUserDoctor size={20} />
                 </span>
