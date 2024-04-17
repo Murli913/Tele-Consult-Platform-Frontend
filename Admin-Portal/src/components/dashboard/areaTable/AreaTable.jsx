@@ -70,6 +70,12 @@ const TABLE_DATA = [
 ];
 
 const AreaTable = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   return (
     <section className="content-area-table">
       <div className="data-table-info">

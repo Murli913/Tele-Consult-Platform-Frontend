@@ -28,6 +28,12 @@ const data = [
 ];
 
 const AreaProgressChart = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="progress-bar">
       <div className="progress-bar-info">
