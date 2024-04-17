@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import AreaCard from "./AreaCard";
 import "./AreaCards.scss";
+import { useEffect } from "react";
 
 const AreaCards = () => {
   const navigate = useNavigate();

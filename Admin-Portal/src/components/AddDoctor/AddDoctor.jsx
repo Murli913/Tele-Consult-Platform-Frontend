@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddDoctor.scss'; // Import the SCSS file for styling
 import { useNavigate } from 'react-router-dom';
 

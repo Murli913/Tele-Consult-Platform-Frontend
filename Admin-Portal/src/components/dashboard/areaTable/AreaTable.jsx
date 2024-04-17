@@ -1,6 +1,7 @@
 import AreaTableAction from "./AreaTableAction";
 import "./AreaTable.scss";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const TABLE_HEADS = [
   "S.NO",
