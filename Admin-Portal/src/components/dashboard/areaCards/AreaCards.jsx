@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import AreaCard from "./AreaCard";
 import "./AreaCards.scss";
 
 const AreaCards = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

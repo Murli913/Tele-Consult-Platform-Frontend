@@ -27,6 +27,12 @@ import "./Sidebar.scss";
 import { SidebarContext } from "../../context/SidebarContext";
 
 const Sidebar = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const { theme } = useContext(ThemeContext);
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);

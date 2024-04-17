@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AreaTableAction = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

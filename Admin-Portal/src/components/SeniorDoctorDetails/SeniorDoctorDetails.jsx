@@ -3,6 +3,7 @@ import './SeniorDoctorDetails.scss'; // Import the SCSS file for styling
 import { useNavigate } from 'react-router-dom';
 
 const SeniorDoctorDetails = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {
@@ -15,7 +16,7 @@ const SeniorDoctorDetails = () => {
     { name: 'Dr. Johnson', email: 'johnson@example.com', phoneNumber: '123-456-7890', gender: 'Male' },
     // Add more senior doctor objects as needed
   ]);
-  const navigate = useNavigate();
+ 
 
   // Function to handle search query change
   const handleSearchChange = (e) => {

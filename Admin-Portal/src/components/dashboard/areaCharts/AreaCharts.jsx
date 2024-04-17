@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import AreaBarChart from "./AreaBarChart"
 import AreaProgressChart from "./AreaProgressChart"
 
 const AreaCharts = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

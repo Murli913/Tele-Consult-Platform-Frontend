@@ -1,5 +1,6 @@
 import AreaTableAction from "./AreaTableAction";
 import "./AreaTable.scss";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEADS = [
   "S.NO",
@@ -70,6 +71,7 @@ const TABLE_DATA = [
 ];
 
 const AreaTable = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

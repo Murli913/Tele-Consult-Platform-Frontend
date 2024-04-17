@@ -3,6 +3,13 @@ import './ViewDoctorUnderSeniorDoctor.scss'; // Import the SCSS file for styling
 import { useNavigate } from 'react-router-dom';
 
 const ViewDoctorUnderSenior = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [doctors, setDoctors] = useState([
     // Sample doctor data, replace it with your actual data

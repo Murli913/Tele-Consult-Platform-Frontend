@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddDoctor.scss'; // Import the SCSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 const AddDoctor = ({ onClose, onAddDoctor }) => {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ const AddDoctor = ({ onClose, onAddDoctor }) => {
 
   // Function to handle adding a new doctor
   const handleAddDoctor = () => {
+    const navigate = useNavigate();
     useEffect(() => {
       if(localStorage.getItem("token") === null)
       {

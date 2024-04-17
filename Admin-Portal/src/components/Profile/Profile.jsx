@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './Profile.scss'; // Import the SCSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 const Profile = ({ onClose }) => {
+  const navigate=useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

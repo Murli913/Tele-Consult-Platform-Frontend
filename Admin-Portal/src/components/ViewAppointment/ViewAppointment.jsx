@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewAppointment.scss'; // Import the SCSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 const ViewAppointment = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');

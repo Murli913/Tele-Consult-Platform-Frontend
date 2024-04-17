@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import {
   PieChart,
   Pie,
@@ -7,6 +8,7 @@ import {
 } from "recharts";
 
 const AreaCard = ({ colors, percentFillValue, cardInfo }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

@@ -5,6 +5,7 @@ import './Login.scss'; // Import the SCSS file
 import { checkValidData } from '../../utils/validate';
 
 const Login = () => {
+  
   const navigate = useNavigate();
   const email = useRef();
   const password = useRef();

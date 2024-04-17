@@ -12,6 +12,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import { FaArrowUpLong } from "react-icons/fa6";
 import { LIGHT_THEME } from "../../../constants/themeConstants";
 import "./AreaCharts.scss";
+import { useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -62,6 +63,7 @@ const data = [
 ];
 
 const AreaBarChart = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

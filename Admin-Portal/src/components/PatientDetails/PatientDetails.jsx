@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './PatientDetails.scss'; // Import the SCSS file for styling
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PatientDetails = () => {
+  const navigate=useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {

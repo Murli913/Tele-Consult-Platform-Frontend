@@ -6,8 +6,10 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { addDays } from "date-fns";
 import { DateRange } from "react-date-range";
+import { useNavigate } from "react-router-dom";
 
 const AreaTop = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {
