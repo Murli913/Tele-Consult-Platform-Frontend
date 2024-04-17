@@ -62,6 +62,12 @@ const data = [
 ];
 
 const AreaBarChart = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   const { theme } = useContext(ThemeContext);
 
   const formatTooltipValue = (value) => {

@@ -2,6 +2,12 @@ import AreaCard from "./AreaCard";
 import "./AreaCards.scss";
 
 const AreaCards = () => {
+  useEffect(() => {
+    if(localStorage.getItem("token") === null)
+    {
+      navigate("/");
+    }
+  }, []);
   return (
     <section className="content-area-cards">
       <AreaCard
