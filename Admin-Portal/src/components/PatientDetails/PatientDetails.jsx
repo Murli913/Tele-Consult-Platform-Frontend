@@ -30,7 +30,7 @@ const PatientDetails = () => {
       console.error('Error fetching patients:', error);
     }
   };
-
+console.log("patient", patients);
   // Function to handle search query change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
