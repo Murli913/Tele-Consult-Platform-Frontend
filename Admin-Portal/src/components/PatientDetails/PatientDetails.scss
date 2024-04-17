@@ -1,47 +1,47 @@
-// .patient-details {
-//     // Adjust styling according to your layout and requirements
-//     .search-container {
-//       margin-bottom: 20px;
+.patient-details {
+    // Adjust styling according to your layout and requirements
+    .search-container {
+      margin-bottom: 20px;
   
-//       input[type='text'] {
-//         width: calc(100% - 40px); // Adjust width to accommodate search icon button
-//         padding: 10px;
-//         border: 1px solid #ccc;
-//         border-radius: 5px;
-//         font-size: 16px;
-//         transition: border-color 0.3s ease;
+      input[type='text'] {
+        width: calc(100% - 40px); // Adjust width to accommodate search icon button
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
   
-//         &:focus {
-//           outline: none;
-//           border-color: var(--primary-color);
-//         }
-//       }
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+        }
+      }
   
-//       // Style your search icon button here if needed
-//     }
+      // Style your search icon button here if needed
+    }
   
-//     .patient-table {
-//       width: 100%;
-//       border-collapse: collapse;
-//       margin-bottom: 20px;
+    .patient-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
   
-//       th,
-//       td {
-//         border: 1px solid #ccc;
-//         padding: 10px;
-//       }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
   
-//       th {
-//         background-color: #f2f2f2;
-//         font-weight: bold;
-//         text-align: left;
-//       }
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+      }
   
-//       td {
-//         text-align: left;
-//       }
-//     }
+      td {
+        text-align: left;
+      }
+    }
   
-//     // Add more styles as needed for other elements on the patient details page
-//   }
+    // Add more styles as needed for other elements on the patient details page
+  }
   
