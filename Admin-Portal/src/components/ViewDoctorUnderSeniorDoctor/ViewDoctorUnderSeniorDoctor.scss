@@ -1,0 +1,88 @@
+.view-doctor {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .add-doctor-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+  
+    .search-container {
+      margin-bottom: 20px;
+  
+      input[type='text'] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+  
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+        }
+      }
+    }
+  
+    .doctor-table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+  
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+      }
+  
+      td {
+        text-align: left;
+      }
+  
+      td:last-child {
+        text-align: center;
+      }
+  
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      
+  
+      button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #ff6347;
+          color: #fff;
+        }
+      }
+
+     
+    }
+  }
+  

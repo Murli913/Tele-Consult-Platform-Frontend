@@ -13,6 +13,8 @@ import PatientDetails from "./components/PatientDetails/PatientDetails";
 import DoctorDetails from "./components/DoctorDetails/DoctorDetails";
 import AddDoctor from "./components/AddDoctor/AddDoctor";
 import SeniorDoctorDetails from "./components/SeniorDoctorDetails/SeniorDoctorDetails";
+import ViewDoctorUnderSenior from "./components/ViewDoctorUnderSeniorDoctor/ViewDoctorUnderSeniorDoctor";
+import AddDoctorInSeniorDoctor from "./components/AddDoctorInSeniorDoctor/AddDoctorInSeniorDoctor";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -38,6 +40,8 @@ function App() {
             <Route path="/doctordetails" element={<DoctorDetails />} />
             <Route path="/adddoctor" element={<AddDoctor />} />
             <Route path="/seniordoctordetails" element={<SeniorDoctorDetails />} />
+            <Route path="/viewdoctorundersenior" element={<ViewDoctorUnderSenior />} />
+            <Route path="/adddoctorinseniordoctor" element={<AddDoctorInSeniorDoctor />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

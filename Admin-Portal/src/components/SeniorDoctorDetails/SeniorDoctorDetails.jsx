@@ -16,15 +16,11 @@ const SeniorDoctorDetails = () => {
     setSearchQuery(e.target.value);
   };
 
-  const gotoAddDoctor = () => {
-    navigate("/adddoctor");
-  };
+
 
   // Function to handle delete senior doctor action
-  const handleDeleteSeniorDoctor = (index) => {
-    const updatedSeniorDoctors = [...seniorDoctors];
-    updatedSeniorDoctors.splice(index, 1);
-    setSeniorDoctors(updatedSeniorDoctors);
+  const handleDeleteSeniorDoctor = () => {
+   navigate("/viewdoctorundersenior");
   };
 
   return (
@@ -52,9 +48,9 @@ const SeniorDoctorDetails = () => {
               <td>{seniorDoctor.phoneNumber}</td>
               <td>{seniorDoctor.gender}</td>
               <td>
-              <button onClick={() => handleDeleteSeniorDoctor(index)}>View</button>
+              <button onClick={ handleDeleteSeniorDoctor}>View</button>
               {" | "}
-                <button onClick={() => handleDeleteSeniorDoctor(index)}>Delete</button>
+                <button onClick={handleDeleteSeniorDoctor}>Delete</button>
               </td>
             </tr>
           ))}
