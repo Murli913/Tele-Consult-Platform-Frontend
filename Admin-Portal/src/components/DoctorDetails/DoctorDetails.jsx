@@ -27,7 +27,8 @@ const DoctorDetails = () => {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
-      setDoctors(response.data);
+      const sortedDoctors = response.data.sort((a, b) => a.name.localeCompare(b.name));
+      setDoctors(sortedDoctors);
     } catch (error) {
       console.error('Error fetching doctors:', error);
     }
