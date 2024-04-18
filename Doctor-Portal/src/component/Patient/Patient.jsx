@@ -23,6 +23,7 @@ const Patientscreen = () => {
   const [doctors, setDoctors] = useState([]);
   const socket = useSocket();
   const navigate = useNavigate();
+  const authtoken = localStorage.getItem('token');
 
   useEffect(() => {
     fetchDoctors();
@@ -30,7 +31,11 @@ const Patientscreen = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/doctor/all');
+      const response = await axios.get(`http://localhost:8080/doctor/all`, {
+        headers: {
+          'Authorization': `Bearer ${authtoken}`
+        }
+      });
       setDoctors(response.data);
     } catch (error) {
       console.error('Error fetching doctors:', error);
@@ -41,14 +46,29 @@ const Patientscreen = () => {
     async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.get(`http://localhost:8080/patient?phoneNumber=${email}`);
+        const response = await axios.get(`http://localhost:8080/doctor?phoneNumber=${email}`, {
+          headers: {
+            'Authorization': `Bearer ${authtoken}`
+          }
+        });
         if (response.data.length === 0) {
           // If patient with given phone number doesn't exist, create a new patient
-          const newPatientResponse = await axios.post('http://localhost:8080/patient', { phoneNumber: email });
+          const newPatientResponse = await axios.post(`http://localhost:8080/doctor/addpt`, {
+            headers: {
+              'Authorization': `Bearer ${authtoken}`
+            }, 
+            phoneNumber: email });
           console.log('New patient created:', newPatientResponse.data);
           // Assuming the response contains the newly created patient ID
           const newPatientId = newPatientResponse.data.id;
-          await axios.post('http://localhost:8080/doctor/join-room', { patientPhoneNumber: email, doctorPhoneNumber: room });
+          await axios.post(`http://localhost:8080/doctor/join-room`, {
+            patientPhoneNumber: email, 
+            doctorPhoneNumber: room 
+          },{
+            headers: {
+              'Authorization': `Bearer ${authtoken}`
+            }
+          });
           setEmail("Patient@gmail.com");
           // Now you can proceed with joining the room or any further actions
           
@@ -57,7 +77,14 @@ const Patientscreen = () => {
         } else {
           // If patient with given phone number exists, join the room
           const existingPatientId = response.data.name;
-          await axios.post('http://localhost:8080/doctor/join-room', { patientPhoneNumber: email, doctorPhoneNumber: room });
+          await axios.post(`http://localhost:8080/doctor/join-room`, {
+            patientPhoneNumber: email, 
+            doctorPhoneNumber: room 
+          },{
+            headers: {
+              'Authorization': `Bearer ${authtoken}`
+            }
+          });
           setEmail("Patient@gmail.com");// Assuming it returns an array with the first matching patient
           socket.emit("room:join", { email: existingPatientId + "@gmail.com", room });
         }
