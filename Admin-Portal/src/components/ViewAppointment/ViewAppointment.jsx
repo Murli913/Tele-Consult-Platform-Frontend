@@ -33,29 +33,30 @@ const ViewAppointment = () => {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
-      setAppointments(response.data);
+      const sortedAppointments = response.data.sort((a, b) => new Date(b.callDate) - new Date(a.callDate));
+      setAppointments(sortedAppointments);
 
       // Extract available dates, times, doctor IDs, and patient IDs from appointments
-      const dates = response.data.map(appointment => appointment.callDate);
+      const dates = sortedAppointments.map(appointment => appointment.callDate);
       const uniqueDates = [...new Set(dates)];
       setAvailableDates(uniqueDates);
 
-      const times = response.data.map(appointment => appointment.callTime);
+      const times = sortedAppointments.map(appointment => appointment.callTime);
       const uniqueTimes = [...new Set(times)];
       setAvailableTimes(uniqueTimes);
 
-      const doctorIds = response.data.map(appointment => appointment.doctor.id);
+      const doctorIds = sortedAppointments.map(appointment => appointment.doctor.id);
       const uniqueDoctorIds = [...new Set(doctorIds)];
       setAvailableDoctorIds(uniqueDoctorIds);
 
-      const patientIds = response.data.map(appointment => appointment.patient.id);
+      const patientIds = sortedAppointments.map(appointment => appointment.patient.id);
       const uniquePatientIds = [...new Set(patientIds)];
       setAvailablePatientIds(uniquePatientIds);
     } catch (error) {
       console.error('Error fetching appointments:', error);
     }
   };
-console.log("appointment",appointments);
+
   // Function to handle search query change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -93,7 +94,6 @@ console.log("appointment",appointments);
     <div className="view-appointment">
       <h1>View Appointment</h1>
       <div className="search-container">
-       
         <select value={selectedDate} onChange={handleDateChange}>
           <option value="">Select Date</option>
           {availableDates.map(date => (
