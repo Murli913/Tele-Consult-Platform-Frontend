@@ -1,18 +1,18 @@
 // App.js
 import './App.css';
-import Navbar from './Navbardoctor';
-import Home from './Home';
+import Navbar from './component/Navbardoctor/Navbardoctor';
+import Home from './component/Home/Home';
 // import Footer from './Footer';
-import SideNav from './SideNav';
+import SideNav from './component/SideNav/SideNav';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import RoomPage from './screens/Room';
-import LobbyScreen from './screens/Lobby';
-import Patientscreen from './screens/Patient';
-import DoctorLogin from './Doctorlogin'; // Import DoctorLogin component
-import Appointment from './Appointment';
-import Prescription from './Prescription';
-import IncomingCall from './screens/Incomincall';
-import PRoomPage from './screens/Proom';
+import RoomPage from './component/Room/Room';
+import LobbyScreen from './component/Lobby/Lobby';
+import Patientscreen from './component/Patient/Patient';
+import DoctorLogin from './component/Doctorlogin/Doctorlogin'; // Import DoctorLogin component
+import Prescription from './component/Prescription/Prescription';
+import IncomingCall from './component/IncomingCall/Incomincall';
+import PRoomPage from './component/Proom/Proom';
+import Appointment from './component/Appointment/Appointment';
 
 function App() {
   const location = useLocation();
