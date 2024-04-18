@@ -7,7 +7,7 @@ const ViewDoctorUnderSeniorDoctor = () => {
   const { id } = useParams(); // Retrieve the senior doctor's ID from the URL
   const [doctorsUnderSenior, setDoctorsUnderSenior] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-
+console.log("seniordoctorid", id);
   useEffect(() => {
     fetchDoctorsUnderSenior();
   }, [id]); // Ensure useEffect runs whenever the senior doctor's ID changes

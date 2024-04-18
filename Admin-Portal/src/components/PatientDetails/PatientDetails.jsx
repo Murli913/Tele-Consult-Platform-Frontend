@@ -1,21 +1,20 @@
+// PatientDetails.js
 import React, { useState, useEffect } from 'react';
-import './PatientDetails.scss'; // Import the SCSS file for styling
+import './PatientDetails.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const PatientDetails = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if(localStorage.getItem("token") === null)
-    {
-      navigate("/");
-    }
-  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    fetchPatients();
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } else {
+      fetchPatients();
+    }
   }, []);
 
   const fetchPatients = async () => {
@@ -32,20 +31,13 @@ const PatientDetails = () => {
     }
   };
 
-  // Function to handle search query change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Function to filter patients based on search query
-  const filteredPatients = patients.filter((patient) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      patient.name.toLowerCase().includes(query) ||
-      patient.email.toLowerCase().includes(query) ||
-      patient.phoneNumber.includes(searchQuery)
-    );
-  });
+  const handleView = (patientId) => {
+    navigate('/viewpatienthistory',{ state : { patientId }});
+  };
 
   return (
     <div className="patient-details">
@@ -53,31 +45,33 @@ const PatientDetails = () => {
       <div className="search-container">
         <label style={{fontWeight: 'bold', fontFamily: 'Arial, sans-serif'}}>Search</label>
         <input type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Search patients by name, email, or phone number..." />
-        {/* Add a search icon button here if needed */}
       </div>
       <table className="patient-table">
         <thead>
           <tr>
+            <th>Patient-id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
             <th>Phone Number</th>
-            {/* Add more table headers as needed */}
+            <th>Prescription History</th>
           </tr>
         </thead>
         <tbody>
-          {filteredPatients.map((patient, index) => (
-            <tr key={index}>
+          {patients.filter((patient) => patient.name.toLowerCase().includes(searchQuery.toLowerCase())).map((patient) => (
+            <tr key={patient.id}>
+              <td>{patient.id}</td>
               <td>{patient.name}</td>
               <td>{patient.email}</td>
               <td>{patient.gender}</td>
               <td>{patient.phoneNumber}</td>
-              {/* Add more table data as needed */}
+              <td>
+                <button className="view-button" onClick={() => handleView(patient.id)}>View</button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {/* Add more elements/components as needed */}
     </div>
   );
 };
