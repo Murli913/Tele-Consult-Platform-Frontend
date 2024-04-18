@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './DoctorDetails.scss'; // Import the SCSS file for styling
+import './DoctorDetails.scss';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -62,12 +62,15 @@ const DoctorDetails = () => {
     }
   };
 
+  const handleViewCallHistory = (doctorId) => {
+    navigate('/viewdoctorhistory',{ state : { doctorId }});
+  };
+
   return (
     <div className="doctor-details">
       <h1>List of Doctors</h1>
       <div className="search-container">
-      <label style={{fontWeight: 'bold', fontFamily: 'Arial, sans-serif'}}>Search</label>
-
+        <label style={{fontWeight: 'bold', fontFamily: 'Arial, sans-serif'}}>Search</label>
         <input type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Search doctors..." />
         <br />
         <br/>
@@ -76,7 +79,7 @@ const DoctorDetails = () => {
       <table className="doctor-table">
         <thead>
           <tr>
-          <th>Doctor-id</th>
+            <th>Doctor-id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>
@@ -87,16 +90,15 @@ const DoctorDetails = () => {
         <tbody>
           {filteredDoctors.map((doctor, index) => (
             <tr key={index}>
-               <td>{doctor.id}</td>
+              <td>{doctor.id}</td>
               <td>{doctor.name}</td>
               <td>{doctor.email}</td>
               <td>{doctor.phoneNumber}</td>
               <td>{doctor.gender}</td>
               <td>
-              <button onClick={() => handleviewDoctor(doctor.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>View </button>
-              {" | "}
-              <button onClick={() => handleDeleteDoctor(doctor.id)} style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Delete</button>
-             
+                <button onClick={() => handleViewCallHistory(doctor.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>View Call History</button>
+                {" | "}
+                <button onClick={() => handleDeleteDoctor(doctor.id)} style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Delete</button>
               </td>
             </tr>
           ))}
