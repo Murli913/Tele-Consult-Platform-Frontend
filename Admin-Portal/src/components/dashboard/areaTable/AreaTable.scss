@@ -17,52 +17,31 @@
   .data-table-diagram {
     border-radius: 6px;
     border: 1px solid var(--tbl-border-color) !important;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      height: 6px;
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: var(--scroll-track-bg-color);
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 100vh !important;
-      background-color: #e9e9e9;
-      outline: 1px solid rgba(0, 0, 0, 0.02);
-      outline-offset: -1px;
-    }
+    overflow-x: auto; /* Changed from scroll to auto */
+    max-width: 100%; /* Added to ensure responsiveness */
 
     table {
-      min-width: 900px;
       width: 100%;
       border-collapse: collapse;
       color: var(--text-color-inverted);
 
-      td,
-      th {
+      th,
+      td {
         padding: 14px 12px;
-        @media (max-width: 768px) {
-          font-size: 15px;
-          padding: 12px 10px;
-        }
+        white-space: nowrap; /* Prevent line breaks in table cells */
+        text-align: left; /* Align text to the left in table cells */
+        vertical-align: middle; /* Align content vertically in the middle */
       }
 
-      thead {
-        text-align: left;
+      thead th {
         font-size: 17px;
         background-color: var(--thead-bg-color);
-
-        th {
-          &:last-child {
-            text-align: center;
-          }
-        }
-      }
-
-      .dt-cell-action {
-        text-align: center;
+        color: var(--xl-text-color); /* Changed text color for better readability */
+        position: sticky; /* Make headers stick to the top */
+        top: 0; /* Position headers at the top */
+        z-index: 1; /* Ensure headers appear above other content */
+        white-space: nowrap; /* Prevent line breaks in headers */
+        text-align: left; /* Align text to the left in headers */
       }
 
       .dt-status {
