@@ -7,6 +7,8 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { SiAsciidoctor } from "react-icons/si";
 import { FaPerson } from "react-icons/fa6";
 import { FaUserDoctor } from "react-icons/fa6";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 import { CgProfile } from "react-icons/cg";
 
@@ -49,6 +51,7 @@ const Sidebar = () => {
     }
   };
   const handleLogout = () => {
+    toast.success("Logout successfully");
     localStorage.clear(); // Clear localStorage when logout button is clicked
   };
 

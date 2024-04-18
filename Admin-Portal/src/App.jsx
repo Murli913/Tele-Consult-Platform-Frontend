@@ -34,7 +34,9 @@ function App() {
   return (
     <>
       <Router>
+    
         <Routes>
+        
         <Route path="/" element={<Login />} />
           <Route element={<BaseLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
