@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../layouts/Button";
-
+import { Link } from "react-scroll";
+import { Navigate } from "react-router-dom";
 
 const Contact = ({ closeForm }) => {
   return (
@@ -40,6 +41,8 @@ const Contact = ({ closeForm }) => {
           </div>
           <div className=" flex gap-5">
             <Button title="Login" />
+            {/* <Link to="/seniordoctor">logins</Link> */}
+            <Navigate to="/seniordoctor"/>
             <button
               className=" bg-backgroundColor text-white px-10 rounded-md active:bg-red-500"
               onClick={closeForm}

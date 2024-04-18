@@ -1,55 +1,35 @@
 import React from 'react'
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import About from './components/About'
-import Services from './components/Services'
-import Doctors from './components/Doctors'
-import Blogs from './components/Blogs'
-import Footer from './components/Footer'
-import HealthCheck from './components/HealthCheck/HealthCheck'
-import Yoga from './components/Yoga/Yoga'
-import GoMap from './components/GoMap/GoMap'
+
+
+import MainRoute from './components/Main/MainRoute'
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import SeniorDoctor from './Senior-Doctor/SeniorDoctor'
+import Patient from './Patient/Patient'
+
+import Login from './components/Login/Login'
+
+import DoctorLogin from './Doctor/component/Doctorlogin/Doctorlogin'
+import LoginSD from './Senior-Doctor/components/LoginSD/LoginSD'
+import PLoginPage from './Patient/components/login/PloginPage'
 
 
 
 const App = () => {
   return (
-  <>
-  <Navbar/>
+  <BrowserRouter>
+    <Routes>
   
-  <main>
-        <div id="home">
-          <Home />
-        </div>
-        <div id="home">
-          <Yoga />
-        </div>
-        <div id="about">
-          <About />
-        </div>
-
-        <div id="services">
-          <Services />
-        </div>
-        <div id="doctors">
-          <Doctors />
-        </div>
-
-        <div id="blog">
-          <Blogs />
-        </div>
-        
-       
-  </main>
-  <div id="healthcheck">
-          <HealthCheck />
-        </div>
-        <div id="gomap">
-          <GoMap />
-        </div>
-  <Footer />
-   
-  </>
+      <Route path="/" element={<MainRoute/>}/>
+      <Route path="/seniordoctor" element={<SeniorDoctor/>}/>
+      <Route path="/patient" element={<PLoginPage/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/logind" element={<DoctorLogin/>}/>
+      <Route path="/loginsd" element={<LoginSD/>}/>
+      
+     
+    </Routes>
+  </BrowserRouter>
   )
 }
 

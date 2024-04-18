@@ -1,0 +1,126 @@
+// Login.scss
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('https://pbs.twimg.com/media/E0nPEDEWEAEVMe8.jpg'); /* Add your background image URL here */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-dialog {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.1);
+  }
+  
+  .left-column {
+    flex: 1;
+  }
+  
+  .login-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .right-column {
+    flex: 1;
+    padding: 40px;
+  }
+  
+  .login-form {
+    text-align: center;
+  }
+  
+  .login-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .login-subheading {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    text-align: left;
+    font-weight: bold; /* Make the label bold */
+    color: #000; /* Highlight the label with a custom color */
+  }
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5E81F4;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #718096;
+    }
+  }
+  
+  .google-login-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  
+    .google-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+  
+  .signup-link {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .signup-text {
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  
+    &:hover {
+      color: #5E81F4;
+    }
+  }
+  

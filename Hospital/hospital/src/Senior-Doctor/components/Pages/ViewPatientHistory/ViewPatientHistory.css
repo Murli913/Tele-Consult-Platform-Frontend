@@ -1,0 +1,43 @@
+/* ViewPatientHistory.css */
+
+.view-patient-history-container {
+  margin: 20px;
+}
+
+.view-patient-history-container h2 {
+  margin-bottom: 20px;
+}
+
+.view-patient-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.view-patient-history-table th,
+.view-patient-history-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.view-patient-history-table th {
+  background-color: #f2f2f2;
+}
+
+.view-patient-history-table tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+.back-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.back-link:hover {
+  background-color: #0056b3;
+}
