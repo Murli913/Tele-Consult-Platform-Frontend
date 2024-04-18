@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
 import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
- import bg from './bg.mp4';
+import bg from './bg.mp4';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 function LoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -13,6 +15,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -41,9 +44,11 @@ function LoginPage() {
         navigate('/home');
       // Redirect to Home.js or any desired route
       } catch (error) {
-        setError('Invalid phone number or password');
+        toast.error("Invalid Credentials");
+        // setError('Invalid phone number or password');
       }
     };
+
 
   useEffect(() => {
     // const container = containerRef.current;
@@ -119,6 +124,7 @@ function LoginPage() {
         </div>
       </div>
     </div>
+    <ToastContainer />
     </div>
     
   );
