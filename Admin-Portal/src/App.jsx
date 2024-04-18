@@ -17,6 +17,7 @@ import ViewDoctorUnderSenior from "./components/ViewDoctorUnderSeniorDoctor/View
 import AddDoctorInSeniorDoctor from "./components/AddDoctorInSeniorDoctor/AddDoctorInSeniorDoctor";
 import Profile from "./components/Profile/Profile";
 import ViewPatientHistory from "./components/ViewPatientHistory/ViewPatientHistory";
+import ViewDoctorHistory from "./components/ViewDoctorHistory/ViewDoctorHistory";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -45,6 +46,7 @@ function App() {
             <Route path="/viewdoctorundersenior/:id" element={<ViewDoctorUnderSenior />} />
             <Route path="/viewpatienthistory" element={<ViewPatientHistory />} />
             <Route path="/adddoctorinseniordoctor" element={<AddDoctorInSeniorDoctor />} />
+            <Route path="/viewdoctorhistory" element={<ViewDoctorHistory />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>

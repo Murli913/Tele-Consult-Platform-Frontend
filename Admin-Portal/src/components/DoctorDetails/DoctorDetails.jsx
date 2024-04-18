@@ -93,8 +93,10 @@ const DoctorDetails = () => {
               <td>{doctor.phoneNumber}</td>
               <td>{doctor.gender}</td>
               <td>
+              <button onClick={() => handleviewDoctor(doctor.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>View </button>
+              {" | "}
               <button onClick={() => handleDeleteDoctor(doctor.id)} style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Delete</button>
-
+             
               </td>
             </tr>
           ))}
