@@ -73,6 +73,12 @@
     font-size: 14px;
     font-weight: 600;
   }
+
+  // Customize the X-axis and Y-axis labels
+  .recharts-cartesian-axis-tick {
+    fill: var(--text-color-inverted) !important;
+    font-size: 14px !important;
+  }
 }
 
 // progress chart

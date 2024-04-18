@@ -55,7 +55,7 @@ const ViewAppointment = () => {
       console.error('Error fetching appointments:', error);
     }
   };
-
+console.log("appointment",appointments);
   // Function to handle search query change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
