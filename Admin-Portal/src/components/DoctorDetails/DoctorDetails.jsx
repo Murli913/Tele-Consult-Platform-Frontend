@@ -58,6 +58,7 @@ const DoctorDetails = () => {
       toast.success("Doctor deleted successfully");
     } catch (error) {
       console.error('Error deleting doctor:', error);
+      toast.error("Error occurred while deleting doctor");
     }
   };
 

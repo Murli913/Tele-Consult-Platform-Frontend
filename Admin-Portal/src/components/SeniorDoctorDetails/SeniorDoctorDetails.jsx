@@ -37,18 +37,6 @@ const SeniorDoctorDetails = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  const  gotodoctorundersenior = () => {
-    navigate("/viewdoctorundersenior");
-  };
-
-  const filteredDoctors = doctors.filter((doctor) => {
-    const searchLower = searchQuery.toLowerCase();
-    return (
-      doctor.name.toLowerCase().includes(searchLower) ||
-      doctor.email.toLowerCase().includes(searchLower) ||
-      doctor.phoneNumber.toLowerCase().includes(searchLower)
-    );
-  });
 
   const handleDeleteDoctor = async (id) => {
     try {
@@ -63,6 +51,30 @@ const SeniorDoctorDetails = () => {
       console.error('Error deleting doctor:', error);
     }
   };
+
+  const gotodoctorundersenior = async (seniorDoctorId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/doctor/under-senior/${seniorDoctorId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      // Handle response, navigate to the page displaying doctors under senior doctor
+      console.log(response.data);
+      navigate(`/viewdoctorundersenior/${seniorDoctorId}`);
+    } catch (error) {
+      console.error('Error fetching doctors under senior doctor:', error);
+    }
+  };
+
+  const filteredDoctors = doctors.filter((doctor) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      doctor.name.toLowerCase().includes(searchLower) ||
+      doctor.email.toLowerCase().includes(searchLower) ||
+      doctor.phoneNumber.toLowerCase().includes(searchLower)
+    );
+  });
 
   return (
     <div className="doctor-details">
@@ -93,7 +105,7 @@ const SeniorDoctorDetails = () => {
               <td>{doctor.phoneNumber}</td>
               <td>{doctor.gender}</td>
               <td>
-                <button style={{ padding: '10px 20px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', transition: 'background-color 0.3s' }} onClick={gotodoctorundersenior}>View</button>
+                <button style={{ padding: '10px 20px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', transition: 'background-color 0.3s' }} onClick={() => gotodoctorundersenior(doctor.id)}>View</button>
                 {"  | "}
                 <button onClick={() => handleDeleteDoctor(doctor.id)} style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Delete</button>
               </td>

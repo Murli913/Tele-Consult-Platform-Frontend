@@ -41,7 +41,7 @@ function App() {
             <Route path="/doctordetails" element={<DoctorDetails />} />
             <Route path="/adddoctor" element={<AddDoctor />} />
             <Route path="/seniordoctordetails" element={<SeniorDoctorDetails />} />
-            <Route path="/viewdoctorundersenior" element={<ViewDoctorUnderSenior />} />
+            <Route path="/viewdoctorundersenior/:id" element={<ViewDoctorUnderSenior />} />
             <Route path="/adddoctorinseniordoctor" element={<AddDoctorInSeniorDoctor />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
