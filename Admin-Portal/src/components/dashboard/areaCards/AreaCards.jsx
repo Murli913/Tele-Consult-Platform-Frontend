@@ -1,45 +1,95 @@
+// AreaCards.js
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AreaCard from "./AreaCard";
 import "./AreaCards.scss";
-import { useEffect } from "react";
 
 const AreaCards = () => {
   const navigate = useNavigate();
+  const [totalAppointments, setTotalAppointments] = useState(0);
+  const [totalDoctors, setTotalDoctors] = useState(0);
+  const [totalPatients, setTotalPatients] = useState(0);
+
   useEffect(() => {
-    if(localStorage.getItem("token") === null)
-    {
+    if (localStorage.getItem("token") === null) {
       navigate("/");
     }
+    fetchTotalAppointmentsCount();
+    fetchTotalDoctorsCount();
+    fetchTotalPatientsCount();
   }, []);
+
+  const fetchTotalAppointmentsCount = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/callhistory/count', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setTotalAppointments(response.data);
+    } catch (error) {
+      console.error("Error fetching total appointments count:", error);
+    }
+  };
+
+  const fetchTotalDoctorsCount = async() => {
+    try {
+      const response = await axios.get('http://localhost:8080/doctor/count', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setTotalDoctors(response.data);
+    } catch (error) {
+      console.error("Error fetching total appointments count:", error);
+    }
+  };
+
+
+    // New function to fetch total patients count
+    const fetchTotalPatientsCount = async() => {
+      try {
+        const response = await axios.get('http://localhost:8080/patient/count', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setTotalPatients(response.data);
+      } catch (error) {
+        console.error("Error fetching total patients count:", error);
+      }
+    };
   return (
     <section className="content-area-cards">
       <AreaCard
         colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={80}
+        percentFillValue={(totalAppointments / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
           title: "Appointment",
-          value: "20",
+          value: totalAppointments,
           text: "Total Appointment.",
         }}
       />
-      <AreaCard
-        colors={["#e4e8ef", "#4ce13f"]}
-        percentFillValue={50}
+        {/* <AreaCard
+        colors={["#e4e8ef", "#475be8"]}
+        percentFillValue={(totalDoctors / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
-          title: "Doctor",
-          value: "8",
-          text: "Available  Doctor",
+          title: "Doctors",
+          value: totalDoctors,
+          text: "Total Doctor.",
         }}
       />
-      <AreaCard
-        colors={["#e4e8ef", "#f29a2e"]}
-        percentFillValue={40}
+        <AreaCard
+        colors={["#e4e8ef", "#475be8"]}
+        percentFillValue={(totalPatients / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
-          title: "Patient",
-          value: "18",
-          text: "Total Patient",
+          title: "Patients",
+          value: totalPatients,
+          text: "Patients.",
         }}
-      />
+      /> */}
+      {/* Other AreaCards remain the same */}
     </section>
   );
 };
