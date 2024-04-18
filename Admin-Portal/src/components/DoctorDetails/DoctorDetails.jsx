@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './DoctorDetails.scss'; // Import the SCSS file for styling
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DoctorDetails = () => {
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ const DoctorDetails = () => {
         }
       });
       fetchDoctors();
+      toast.success("Doctor deleted successfully");
     } catch (error) {
       console.error('Error deleting doctor:', error);
     }
@@ -95,6 +98,7 @@ const DoctorDetails = () => {
           ))}
         </tbody>
       </table>
+      <ToastContainer />
     </div>
   );
 };
