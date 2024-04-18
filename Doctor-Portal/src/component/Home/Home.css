@@ -1,0 +1,453 @@
+body {
+  background-color: #ffffff; /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(left, #f0b52a, #ffffff, #365523);
+  background: linear-gradient(to right, #f0b52a, #ffffff, #365523); */
+}
+.outer {
+  justify-content: center;
+  width: 100%;
+  height: 1000%;
+  /* background: #ffffff;  
+background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  
+background: linear-gradient(to left, #365523, #f1f3f1); */
+}
+/* .background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; 
+} */
+
+/* .mainpage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+} */
+
+.calendar-container {
+  width: 300px;
+  /* box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); */
+  border-radius: 20px;
+  border-bottom: 2px solid rgb(188, 188, 188);
+  /* border-top: 2px solid black; */
+  margin-top: 5px;
+  padding: 0px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between ;
+  margin-bottom: 5px;
+  margin-left: 9px;
+  align-items: center;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  padding: 5px;
+  background-color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: background-color 1s ease;
+}
+
+.calendar-header button:hover{
+  color: white;
+  background-color: black;
+  width:25%;
+  height:80%;
+}
+
+.calendar-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-weekdays {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.calendar-weekdays div {
+  width: calc(100% / 7);
+  text-align: center;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-left: 3px;
+  height: 200px;
+}
+
+.calendar-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-day.empty {
+  background-color: #ffffff;
+}
+
+.calendar-day.selected {
+  background-color: #0cb352;
+  color: #fff;
+}
+
+
+.rightnav {
+  /* Adjust the positioning properties */
+  top: 60px; /* Adjust this value as per your design */
+  right: 0px; /* Adjust this value as per your design */
+  width: 310px; /* Adjust this width as per your design */
+  border: 2px solid rgb(137, 136, 136);
+  border-radius: 20px; 
+  background-color: #fff;
+  height: 675px;
+  /* Make the right navbar fixed */
+  position: fixed;
+}
+
+
+.chart-container {
+  margin-top: 5px;
+  width: 308px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 210px;
+}
+
+
+
+
+.container0 {
+  width: 100%;
+  margin-left: 300px;
+  padding: 10px;
+  border: 2px solid #000000;
+  
+}
+
+/* .search-bar {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ccc; 
+  border-radius: 10px;
+  height: 50px; 
+  overflow: hidden; 
+}
+
+.search-bar input {
+  flex: 1; 
+  padding: 5px;
+  height: 50px;
+  
+  border: none; 
+  outline: none; 
+}
+
+.searchbtn {
+  padding: 10px 16px; 
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 0 5px 5px 0; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.searchbtn:hover {
+  background-color: #00b33c;
+  color: #000000;
+}
+
+
+.callhistory {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 150px;
+  width:20px;
+  position: relative;
+}
+
+.card {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #f9f9f9;
+  color: #000000;
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  height: 120px;
+  margin: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 10px rgb(0, 0, 0); 
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  margin-left: 10px;
+} */
+
+.callbtn {
+  padding: 8px 16px;
+  background-color: #333;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.callbtn:hover {
+  background-color: #ece4b7;
+  color: #000000;
+} 
+
+/* Modal styles */
+.modal {
+  position: absolute;
+  border: 2px solid #000;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px solid black;
+  width: 600px;
+  margin: auto;
+  padding: 20px;
+  color: white;
+}
+
+.close-button {
+  margin-left: 530px;
+  background-color: rgb(255, 255, 255);
+  color: red;
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 5px; /* Add padding to the button for better click area */
+}
+
+.close-button svg {
+  font-size: 25px;
+  transition: font-size 0.3s; /* Add transition for smooth size change */
+}
+
+.close-button:hover svg {
+  font-size: 30px; /* Increase font size on hover */
+}
+
+.close-button:hover {
+  background-color: lightgray; /* Change background color on hover */
+}
+
+
+
+/* Overlay styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content styles */
+/* Modal content styles */
+.modal-callhistory {
+  max-height: 300px; /* Set a maximum height for the modal content */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
+}
+
+/* Scrollbar styles */
+.modal-callhistory::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+/* Track styles */
+.modal-callhistory::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+/* Thumb styles */
+.modal-callhistory::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Border radius of the scrollbar thumb */
+}
+
+/* Handle on hover */
+.modal-callhistory::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+
+/* Modal card styles */
+.modal-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid #4c4c4c;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Left section styles */
+.left {
+  flex: 1;
+}
+
+/* Right section styles */
+.right {
+  margin-left: 10px; /* Add some space between left and right sections */
+}
+
+/* Patient name styles */
+.modal-patient-name {
+  color: #000;
+  font-weight: bold;
+}
+
+/* Doctor name styles */
+.modal-doctor-name {
+  color: #000;
+  font-style: italic;
+}
+
+/* Call time styles */
+.modal-call-time {
+  color: #888;
+}
+
+.incomingCallContainer1 {
+  width: 100%;
+  margin: 10px 1px;
+  padding: 5px;
+}
+.incomingcallh4{
+  margin-left: 80px;
+}
+
+.incomingCallCard1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  height: 80px;
+  width: 287px;
+  margin-left: 4px;
+  background-color: #f9f9f9;
+}
+
+
+.patientIdLabel1 {
+  margin-top: 2px;
+  font-size: 20px;
+}
+
+/* .patientId1 {
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgb(0, 0, 0); 
+} */
+
+.homecontent {
+  display: flex;
+  /* border: 2px solid black; */
+  width: 76%;
+  height: 1000px;
+  margin-left: 50px;
+}
+
+.homescreen {
+  margin: 5px;
+  /* border: 2px solid red; */
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  background-image: url('./flag.jpg');
+  background-size: cover;
+  align-items: center;
+}
+
+.modi{
+  margin-left: 520px;
+  margin-bottom: 10px;
+}
+
+.homescreen p{
+  font-size: 25px;
+  animation: typing 2s steps(25, end);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@keyframes typing {
+  from{
+    width: 0;
+  }
+  
+}
+
+.homescreen p:nth-child(1){
+  animation: typingtwo 2s steps(23,end);
+}
+
+@keyframes typingtwo {
+  0%{
+    width: 0;
+  }
+
+  100%{
+    width: 335px;
+  }
+}
+
+.cursor{
+  animation: blink 0.6s infinite;
+}
+
+@keyframes blink {
+  to{
+    opacity: 0;
+  }
+}
+
+
+
