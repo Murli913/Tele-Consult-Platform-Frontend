@@ -16,6 +16,8 @@ const IncomingCall = ({ doctorId }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const authtoken = localStorage.getItem('token');
+
   
 
   useEffect(() => {
@@ -28,7 +30,12 @@ const IncomingCall = ({ doctorId }) => {
             return;
         }
         // Fetch the incoming call details for the logged-in doctor
-        const response = await axios.get(`http://localhost:8080/doctor/${doctorId}/incoming-call`);
+        console.log(authtoken);
+        const response = await axios.get(`http://localhost:8080/doctor/${doctorId}/incoming-call`, {
+          headers: {
+            'Authorization': `Bearer ${authtoken}`
+          }
+        });
         console.log(response.data);
         setIncomingCall(response.data);
       } catch (error) {
@@ -86,7 +93,11 @@ const IncomingCall = ({ doctorId }) => {
   const handleReject = async () => {
     const doctorId = localStorage.getItem('loggedInDoctorId');
     try {
-      await axios.put(`http://localhost:8080/doctor/${doctorId}/reject-call`);
+      await axios.put(`http://localhost:8080/callhistory/${doctorId}/reject-call`, {
+        headers:{
+          'Authorization':`Bearer ${authtoken}`
+        }
+      });
       // Optionally, you can reset the state variables or perform any other necessary actions
     } catch (error) {
       setError('Error rejecting call');
@@ -116,7 +127,11 @@ const IncomingCall = ({ doctorId }) => {
       // Extract the patient's ID from the phone number in incoming call
       const fetchPatientId = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/patient/id?phoneNumber=${incomingCall}`);
+          const response = await axios.get(`http://localhost:8080/doctor/id?phoneNumber=${incomingCall}`,{
+            headers: {
+              'Authorization': `Bearer ${authtoken}`
+            }
+          });
           console.log(response.data.id);
           console.log(response.data.name);
           setPatientId(response.data.id);
@@ -136,7 +151,11 @@ const IncomingCall = ({ doctorId }) => {
       const doctorId = localStorage.getItem('loggedInDoctorId');
       const fetchDoctorName = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/doctor/${doctorId}`);
+          const response = await axios.get(`http://localhost:8080/doctor/phone/${doctorId}`,{
+            headers: {
+              'Authorization': `Bearer ${authtoken}`
+            }
+          });
           console.log(response.data);
           const phoneNumberAsString = response.data.toString();
           setDoctorName(phoneNumberAsString);

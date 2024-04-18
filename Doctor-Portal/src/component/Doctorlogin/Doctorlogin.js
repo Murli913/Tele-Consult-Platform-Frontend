@@ -1,69 +1,139 @@
-// DoctorLogin.js
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import './dloginstyle.css';
+import axios from 'axios';
+import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import "./dloginstyle.css";
 
-const DoctorLogin = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
+function LoginPage() {
+  const [isActive, setIsActive] = useState(false);
+  const containerRef = useRef(null);
+  const registerBtnRef = useRef(null);
+  const loginBtnRef = useRef(null);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    // Send login request to backend
-    try {
-      const response = await fetch('http://localhost:8080/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ phoneNumber, password }),
-      });
+      // Send login request to backend
+      try {
+        const response = await fetch('http://localhost:8080/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Login failed');
+        if (!response.ok) {
+          // const errorMessage = await response.text();
+          throw new Error('Login failed');
+        }
+        const data = await response.json();
+        const { token, message } = data;
+
+        // Set patient's ID in localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('email', message);
+
+        const authtoken = localStorage.getItem('token');
+      axios.get(`http://localhost:8080/doctor/doctor-details/${email}`, {
+      headers: {
+        'Authorization': `Bearer ${authtoken}`
       }
-      const data = await response.json();
-      const { doctorId } = data;
+    })
+    .then(response => {
+      console.log(response.data);
+      localStorage.setItem('loggedInDoctorId', response.data.id);
+      console.log(response.data.id);
+    })
+    .catch(error => {
+      console.error('Error fetching patient details:', error);
+      // Handle error here
+    });
+        // console.log(token);
+        navigate('/home');
+      // Redirect to Home.js or any desired route
+      } catch (error) {
+        setError('Invalid phone number or password');
+      }
+    };
 
-      // Set doctor's ID in localStorage
-      localStorage.setItem('loggedInDoctorId', doctorId);
-      navigate('/home');
-     // Redirect to Home.js or any desired route
-    } catch (error) {
-      setError('Invalid phone number or password');
-    }
-  };
+  useEffect(() => {
+    // const container = containerRef.current;
+    const registerBtn = registerBtnRef.current;
+    const loginBtn = loginBtnRef.current;
+
+    const handleRegisterClick = () => {
+      setIsActive(true);
+    };
+
+    const handleLoginClick = () => {
+      setIsActive(false);
+    };
+
+    registerBtn.addEventListener('click', handleRegisterClick);
+    loginBtn.addEventListener('click', handleLoginClick);
+
+    
+
+    // Clean up event listeners
+    return () => {
+      registerBtn.removeEventListener('click', handleRegisterClick);
+      loginBtn.removeEventListener('click', handleLoginClick);
+    };
+  }, []);
 
   return (
-    <div className='dcontainer'>
-      <h2>Doctor Login</h2>
-      {error && <p>{error}</p>}
-      <form className='loginform' onSubmit={handleSubmit}>
-        <div className='dc1'>
-          <label htmlFor="phoneNumber">Phnnumbr:</label>
-          <input
-            type="text"
-            id="phoneNumber"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
+    <div className="screen">
+      <div className='login-box' ref={containerRef}>
+      {/* <div className={`form-container sign-up ${isActive ? 'active' : ''}`}>
+        <form>
+          <h1>Create Account</h1>
+          <div className="social-icons">
+            <FaGooglePlusG />
+          </div>
+          <input type="text" placeholder="Name"/>
+          <input type="email" placeholder="Email"/>
+          <input type="password" placeholder="Password"/>
+          <span>or use your email for registration</span>
+          <button ref={registerBtnRef}>Sign Up</button>
+        </form>
+      </div> */}
+      <div className={`form-container sign-in ${isActive ? '' : 'active'}`}>
+      {error && <p style={{position:'absolute', top:'30px', left:'90px', color:'red'}}>{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <h1>Sign In</h1>
+          <div className="social-icons">
+            <FaGooglePlusG />
+          </div>
+          <span>or use your email password</span>
+          <input type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+          <input type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+          <a href="#">Forget Your Password?</a>
+          <button type='submit' ref={loginBtnRef}>Sign In</button>
+        </form>
+      </div>
+      <div className="toggle-container">
+        <div className="toggle">
+          <div className="toggle-panel toggle-left">
+            <h1>Welcome Back!</h1>
+            <p>Enter your personal details to use all of site features</p>
+            <button className={`hidden ${isActive ? '' : 'active'}`} ref={loginBtnRef} >Sign In</button>
+          </div>
+          <div className="toggle-panel toggle-right">
+            <h1>Hello, Friend!</h1>
+            <p>Register with your personal details to use all of site features</p>
+            <button className={`hidden ${isActive ? 'active' : ''}`} ref={registerBtnRef}>Sign Up</button>
+          </div>
         </div>
-        <div className='dc2'>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>  
-      </form>
+      </div>
     </div>
+    </div>
+    
   );
-};
+}
 
-export default DoctorLogin;
+export default LoginPage;

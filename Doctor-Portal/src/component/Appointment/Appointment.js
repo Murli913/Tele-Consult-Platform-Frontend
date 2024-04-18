@@ -11,6 +11,7 @@ const Appointment = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const [year, setYear] = useState(new Date().getFullYear());
+  const [searchQuery, setSearchQuery] = useState('');
   // Get location object
 
   const months = [
@@ -88,13 +89,25 @@ const Appointment = () => {
     console.log({prescription});
     navigate('/prescription', { state: { patientId, patientName, prescription } });
   };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Function to filter patients based on search query
+  const filteredPatients = appointmentList.filter((appointment) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      appointment.patient.name.toLowerCase().includes(query)
+    );
+  });
   
   return (
     <div className='outer1'>
     <div className='container'>
       <div className='searchfilter'>
       <div className='searchbar'>
-        <input type='text' placeholder='Search...'></input>
+      <input type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Search your appointments..." />
         <button class="search-button">Search</button>
       </div>
       <div className='filters'>
@@ -117,7 +130,7 @@ const Appointment = () => {
       </div>
       <hr />
       <div className="callhistory">
-        {appointmentList.map(appointment => (
+        {filteredPatients.map(appointment => (
           <div key={appointment.id} className="card">
             <div className="left">
               <div>Patient id: PID{appointment.patient.id}</div><br/>

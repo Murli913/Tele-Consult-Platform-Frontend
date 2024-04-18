@@ -38,6 +38,7 @@ const RoomPage = () => {
   const [callHistory, setCallHistory] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [prescription1, setPrescription1] = useState("");
+  const authtoken = localStorage.getItem('token');
 
   const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
@@ -149,7 +150,7 @@ const handleEndCall = () => {
       // Set a delay of 2 seconds before making the next API call
       setTimeout(() => {
         const doctorId = localStorage.getItem('loggedInDoctorId');
-        axios.put(`http://localhost:8080/doctor/${doctorId}/reject-call`);
+        axios.put(`http://localhost:8080/callhistory/${doctorId}/reject-call`);
       }, 2000); // Delay of 2000 milliseconds (2 seconds)
     })
     .catch(error => {
@@ -230,7 +231,11 @@ const handleEndCall = () => {
   
       try {
         if(patientId){
-        const response = await axios.get(`http://localhost:8080/patient/${patientId}`);
+        const response = await axios.get(`http://localhost:8080/doctor/pt/${patientId}`, {
+          headers: {
+            'Authorization': `Bearer ${authtoken}`
+          }
+        });
         const pname = response.data.name;
         const pgender = response.data.gender;
         setGender(pgender);
@@ -253,7 +258,7 @@ const handleEndCall = () => {
         gender: gender
     };
       await axios.put(`http://localhost:8080/callhistory/${cid}/update-prescription/${prescription}`)
-      await axios.put(`http://localhost:8080/patient/${patientId}`, requestBody)
+      await axios.put(`http://localhost:8080/callhistory/${patientId}`, requestBody);
       console.log("Prescription added successfully!");
     } catch (error) {
       console.error("Error adding prescription:", error);

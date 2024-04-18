@@ -23,10 +23,9 @@ const Home = () => {
   const [incomingCall, setIncomingCall] = useState(null);
   const [error, setError] = useState('');
   const [doctorname, setDoctorName] = useState(null);
-
   const navigate = useNavigate(); // Hook for navigation
 
-
+  const authtoken = localStorage.getItem('token');
 
   const handleSearch = async () => {
     try {
@@ -44,6 +43,7 @@ const Home = () => {
       } else {
         // Fetch call history for the doctor within the specified time range
         response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}`, {
+
           params: {
             date: formattedDate,
             startTime: searchStartTime,
@@ -183,8 +183,16 @@ useEffect(() => {
           return;
       }
       // Fetch the incoming call details for the logged-in doctor
-      const response = await axios.get(`http://localhost:8080/doctor/${doctorId}/incoming-call`);
-      const responsename = await axios.get(`http://localhost:8080/doctor/${doctorId}/fetchname`);
+      const response = await axios.get(`http://localhost:8080/doctor/${doctorId}/incoming-call`, {
+        headers: {
+          'Authorization': `Bearer ${authtoken}`
+        }
+      });
+      const responsename = await axios.get(`http://localhost:8080/doctor/fetchname/${doctorId}`,{
+        headers: {
+          'Authorization': `Bearer ${authtoken}`
+        }
+      });
       console.log(response.data);
       console.log(responsename.data);
       setDoctorName(responsename.data);
@@ -202,7 +210,11 @@ useEffect(() => {
     // Extract the patient's ID from the phone number in incoming call
     const fetchPatientId = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/patient/id?phoneNumber=${incomingCall}`);
+        const response = await axios.get(`http://localhost:8080/doctor/id?phoneNumber=${incomingCall}`,{
+          headers: {
+            'Authorization': `Bearer ${authtoken}`
+          }
+        });
         console.log(response.data.id);
         console.log(response.data.name);
         if (response.data.name === null) {
