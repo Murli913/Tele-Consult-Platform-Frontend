@@ -1,18 +1,18 @@
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { MdOutlineMenu } from "react-icons/md";
 import "./AreaTop.scss";
-import { useContext, useEffect, useRef, useState } from "react";
 import { SidebarContext } from "../../../context/SidebarContext";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { addDays } from "date-fns";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AreaTop = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    if(localStorage.getItem("token") === null)
-    {
+    if (localStorage.getItem("token") === null) {
       navigate("/");
     }
   }, []);
@@ -28,13 +28,18 @@ const AreaTop = () => {
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   const dateRangeRef = useRef(null);
+  
+  
 
   const handleInputClick = () => {
     setShowDatePicker(true);
   };
 
   const handleClickOutside = (event) => {
-    if (dateRangeRef.current && !dateRangeRef.current.contains(event.target)) {
+    if (
+      dateRangeRef.current &&
+      !dateRangeRef.current.contains(event.target)
+    ) {
       setShowDatePicker(false);
     }
   };
@@ -74,6 +79,7 @@ const AreaTop = () => {
             showMonthAndYearPickers={false}
           />
         </div>
+       
       </div>
     </section>
   );

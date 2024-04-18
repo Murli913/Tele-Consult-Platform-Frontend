@@ -1,38 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import './AddDoctor.scss'; // Import the SCSS file for styling
+import React, { useState } from 'react';
+import './AddDoctor.scss';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const AddDoctor = ({ onClose, onAddDoctor }) => {
+const AddDoctor = ({ onClose }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
-  // Function to handle adding a new doctor
-  const handleAddDoctor = () => {
-    const navigate = useNavigate();
-    useEffect(() => {
-      if(localStorage.getItem("token") === null)
-      {
-        navigate("/");
+  const navigate = useNavigate();
+
+  const handleAddDoctor = async () => {
+    try { const response = await axios.post('http://localhost:8080/doctor/register',
+     { name, email, password, gender, phoneNumber  // Include sdid in the request body 
+    },
+     {
+       headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` }
+       });
+      if (response.status === 200) {
+        console.log(response.data.message); // Log success message
+        onClose(); // Close modal after successful registration
       }
-    }, []);
-    // Perform validation if needed
-    const newDoctor = {
-      name,
-      email,
-      password,
-      gender,
-      phoneNumber
-    };
-    onAddDoctor(newDoctor);
-    // Clear input fields after adding doctor
-    setName('');
-    setEmail('');
-    setPassword('');
-    setGender('');
-    setPhoneNumber('');
+    } catch (error) {
+      console.error('Error registering doctor:', error);
+    }
   };
 
   return (

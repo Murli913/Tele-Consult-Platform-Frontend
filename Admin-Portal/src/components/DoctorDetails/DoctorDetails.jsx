@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './DoctorDetails.scss'; // Import the SCSS file for styling
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DoctorDetails = () => {
   const navigate = useNavigate();
@@ -25,7 +27,8 @@ const DoctorDetails = () => {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
-      setDoctors(response.data);
+      const sortedDoctors = response.data.sort((a, b) => a.name.localeCompare(b.name));
+      setDoctors(sortedDoctors);
     } catch (error) {
       console.error('Error fetching doctors:', error);
     }
@@ -52,8 +55,10 @@ const DoctorDetails = () => {
         }
       });
       fetchDoctors();
+      toast.success("Doctor deleted successfully");
     } catch (error) {
       console.error('Error deleting doctor:', error);
+      toast.error("Error occurred while deleting doctor");
     }
   };
 
@@ -95,6 +100,7 @@ const DoctorDetails = () => {
           ))}
         </tbody>
       </table>
+      <ToastContainer />
     </div>
   );
 };

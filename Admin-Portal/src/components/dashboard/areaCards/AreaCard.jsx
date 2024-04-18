@@ -1,3 +1,4 @@
+// AreaCard.js
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,12 +17,13 @@ const AreaCard = ({ colors, percentFillValue, cardInfo }) => {
       navigate("/");
     }
   }, []);
+
   const filledValue = (percentFillValue / 100) * 360; // 360 degress for a full circle
   const remainedValue = 360 - filledValue;
 
   const data = [
-    { name: "Remained", value: remainedValue },
-    { name: "Achieved Sales", value: filledValue },
+    { name: "Available", value: remainedValue },
+    { name: "Appointments", value: filledValue },
   ];
 
   const renderTooltipContent = (value) => {

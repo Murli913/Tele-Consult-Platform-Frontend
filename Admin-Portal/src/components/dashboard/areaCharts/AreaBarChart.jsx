@@ -1,4 +1,5 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import {
   BarChart,
   Bar,
@@ -9,75 +10,50 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ThemeContext } from "../../../context/ThemeContext";
-import { FaArrowUpLong } from "react-icons/fa6";
 import { LIGHT_THEME } from "../../../constants/themeConstants";
 import "./AreaCharts.scss";
 import { useNavigate } from "react-router-dom";
 
-const data = [
-  {
-    month: "Jan",
-    loss: 70,
-    profit: 100,
-  },
-  {
-    month: "Feb",
-    loss: 55,
-    profit: 85,
-  },
-  {
-    month: "Mar",
-    loss: 35,
-    profit: 90,
-  },
-  {
-    month: "April",
-    loss: 90,
-    profit: 70,
-  },
-  {
-    month: "May",
-    loss: 55,
-    profit: 80,
-  },
-  {
-    month: "Jun",
-    loss: 30,
-    profit: 50,
-  },
-  {
-    month: "Jul",
-    loss: 32,
-    profit: 75,
-  },
-  {
-    month: "Aug",
-    loss: 62,
-    profit: 86,
-  },
-  {
-    month: "Sep",
-    loss: 55,
-    profit: 78,
-  },
-];
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const AreaBarChart = () => {
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
+  const [appointments, setAppointments] = useState([]);
+
   useEffect(() => {
-    if(localStorage.getItem("token") === null)
-    {
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/callhistory/all", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setAppointments(response.data);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      }
+    };
+
+    if (localStorage.getItem("token")) {
+      fetchAppointments();
+    } else {
       navigate("/");
     }
-  }, []);
-  const { theme } = useContext(ThemeContext);
+  }, [navigate]);
+
+  // Prepare data for rendering
+  const data = months.map(month => ({
+    month,
+    count: appointments.filter(appointment => new Date(appointment.callDate).getMonth() === months.indexOf(month)).length
+  }));
 
   const formatTooltipValue = (value) => {
     return `${value}k`;
   };
 
   const formatYAxisLabel = (value) => {
-    return `${value}k`;
+    return `${value}`;
   };
 
   const formatLegendValue = (value) => {
@@ -89,10 +65,8 @@ const AreaBarChart = () => {
       <div className="bar-chart-info">
         <h5 className="bar-chart-title">Total Appointment</h5>
         <div className="chart-info-data">
-          <div className="info-data-value">50</div>
-          <div className="info-data-text">
-           
-          </div>
+          <div className="info-data-value">{appointments.length}</div>
+          <div className="info-data-text"></div>
         </div>
       </div>
       <div className="bar-chart-wrapper">
@@ -140,16 +114,8 @@ const AreaBarChart = () => {
               formatter={formatLegendValue}
             />
             <Bar
-              dataKey="Done"
+              dataKey="count"
               fill="#475be8"
-              activeBar={false}
-              isAnimationActive={false}
-              barSize={24}
-              radius={[4, 4, 4, 4]}
-            />
-            <Bar
-              dataKey="loss"
-              fill="#e3e7fc"
               activeBar={false}
               isAnimationActive={false}
               barSize={24}

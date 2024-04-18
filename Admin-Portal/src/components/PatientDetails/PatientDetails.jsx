@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const PatientDetails = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)
     {
@@ -25,12 +25,13 @@ const PatientDetails = () => {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
-      setPatients(response.data);
+      const sortedPatients = response.data.sort((a, b) => a.name.localeCompare(b.name));
+      setPatients(sortedPatients);
     } catch (error) {
       console.error('Error fetching patients:', error);
     }
   };
-console.log("patient", patients);
+
   // Function to handle search query change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -50,7 +51,7 @@ console.log("patient", patients);
     <div className="patient-details">
       <h1>Patient Details</h1>
       <div className="search-container">
-      <label style={{fontWeight: 'bold', fontFamily: 'Arial, sans-serif'}}>Search</label>
+        <label style={{fontWeight: 'bold', fontFamily: 'Arial, sans-serif'}}>Search</label>
         <input type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Search patients by name, email, or phone number..." />
         {/* Add a search icon button here if needed */}
       </div>
