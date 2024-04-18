@@ -1,4 +1,5 @@
 // ViewDoctorUnderSeniorDoctor.scss
+
 .view-doctor {
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -6,21 +7,6 @@
   h1 {
     font-size: 24px;
     margin-bottom: 20px;
-  }
-
-  .add-doctor-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #0056b3;
-    }
   }
 
   .search-container {
@@ -67,6 +53,18 @@
 
     tr:nth-child(even) {
       background-color: #f9f9f9;
+    }
+
+    select {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
     }
 
     button {
