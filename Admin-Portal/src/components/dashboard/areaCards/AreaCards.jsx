@@ -71,7 +71,7 @@ const AreaCards = () => {
           text: "Total Appointment.",
         }}
       />
-        {/* <AreaCard
+        <AreaCard
         colors={["#e4e8ef", "#475be8"]}
         percentFillValue={(totalDoctors / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
@@ -88,7 +88,7 @@ const AreaCards = () => {
           value: totalPatients,
           text: "Patients.",
         }}
-      /> */}
+      />
       {/* Other AreaCards remain the same */}
     </section>
   );
