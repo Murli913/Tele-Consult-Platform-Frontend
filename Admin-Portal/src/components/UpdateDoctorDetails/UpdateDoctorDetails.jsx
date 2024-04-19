@@ -48,7 +48,7 @@ const UpdateDoctorDetails = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8080/doctor/${doctorId}`, {
+      const response = await axios.put(`http://localhost:8080/doctor/updateDoctor/${doctorId}`, {
         name: name,
         gender: gender,
         phoneNumber: phoneNumber,

@@ -29,7 +29,7 @@ const ViewDoctorUnderSeniorDoctor = () => {
 
   const fetchSdidOptions = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/sdid-options`, {
+      const response = await axios.get(`http://localhost:8080/under-senior/sdid-options`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
