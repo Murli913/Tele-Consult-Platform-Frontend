@@ -57,6 +57,7 @@ export default function BasicTable() {
   return (
       <div className="Table">
       <h3>Today's Appointments</h3>
+      <br/>
         <TableContainer
           component={Paper}
           style={{ boxShadow: "0px 13px 20px 0px #80808029" }}

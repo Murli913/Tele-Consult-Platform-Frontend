@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './Doctors.css'; // Import your CSS file for styling
+import './DoctorUnderSenior.css'; // Import your CSS file for styling
 import axios from 'axios';
 
-const Doctors = () => {
+const DoctorUnderSenior = () => {
   // Dummy data for doctors (replace with your actual data)
   const [doctors, setDoctors] = useState([]);
   useEffect(() => {
@@ -57,4 +57,4 @@ const Doctors = () => {
   );
 };
 
-export default Doctors;
+export default DoctorUnderSenior;

@@ -3,84 +3,62 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Appointment.css'; // Import your CSS file for styling
 import axios from 'axios';
 import { Button } from '@mui/material';
+
 const Appointments = () => {
-  // Dummy data for appointments (replace with your actual data)
-  const [appointments, setAppointments] = useState([]);
-  const navigate=useNavigate();
+  const [doctorId, setDoctorId] = useState(null);
+  const [doctorHistoryData, setDoctorHistoryData] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    loadUsers();
+    const loadDoctorId = async () => {
+      try {
+        const email = localStorage.getItem("email");
+        const tkn = localStorage.getItem("token");
+        console.log(tkn);
+        // console.log(`http://localhost:8080/doctor/by-email/${email}`);
+        const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setDoctorId(result.data);
+        console.log("Doctor ID:", result.data);
+      } catch (error) {
+        console.error('Error fetching doctor ID:', error);
+      }
+    };
+    loadDoctorId();
   }, []);
 
-  const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/callhistory/getappointment/2");
-    setAppointments(result.data);
-    console.log("appointment", result.data);
+  useEffect(() => {
+    if (doctorId) {
+      fetchDoctorHistory();
+    }
+  }, [doctorId]);
+console.log("doctorid", doctorId);
+  const fetchDoctorHistory = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      console.log("Response:", response.data);
+      setDoctorHistoryData(response.data);
+    } catch (error) {
+      console.error('Error fetching doctor history:', error);
+    }
   };
 
-
-  const gotoaddappointment = () => {
-   navigate("/addappointment");
+  const gotoAddAppointment = () => {
+    navigate("/saddappointment");
   };
-
 
   return (
     <div className="appointments-container">
-     
-
-      {/* Form to add new appointment
-      <form onSubmit={handleSubmit} className="appointment-form">
-        <div className="form-group">
-          <label htmlFor="patientName">Patient Name:</label>
-          <input
-            type="text"
-            id="patientName"
-            name="patientName"
-            value={formData.patientName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="doctorName">Doctor Name:</label>
-          <input
-            type="text"
-            id="doctorName"
-            name="doctorName"
-            value={formData.doctorName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="time">Time:</label>
-          <input
-            type="time"
-            id="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn-submit">Add Appointment</button>
-      </form> */}
- <h2>Appointments</h2>
-        <Button onClick={gotoaddappointment}> Add Appointment</Button>
-      <div className={`appointments-list-container ${appointments.length > 2 ? 'sliding' : ''}`}>
-       
-
-        {/* Table to display appointments */}
+      <h2>Appointments</h2>
+      <Button onClick={gotoAddAppointment}>Add Appointment</Button>
+      <div className={`appointments-list-container ${doctorHistoryData.length > 2 ? 'sliding' : ''}`}>
         <table className="appointments-table">
           <thead>
             <tr>
@@ -92,17 +70,14 @@ const Appointments = () => {
             </tr>
           </thead>
           <tbody>
-            {appointments.map(appointment => (
+            {doctorHistoryData.map(appointment => (
               <tr key={appointment.id}>
                 <td>{appointment.id}</td>
                 <td>{appointment.callDate}</td>
                 <td>{appointment.callTime}</td>
                 <td>{appointment.patient.id}</td>
                 <td className="action-column">
-                  {/* Link to view appointment */}
-                  <Link to={`/appointments/${appointment.id}`} className="action-linkk">View</Link> |{' '}
-                  
-                  {/* Link to edit appointment */}
+                  <Link to={`/sappointments/${appointment.id}`} className="action-linkk">View</Link> |{' '}
                   <Link to={`/appointments/${appointment.id}/edit`} className="action-linkk">Edit</Link>
                 </td>
               </tr>

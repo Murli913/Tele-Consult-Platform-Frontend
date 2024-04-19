@@ -31,24 +31,24 @@ const navigate=useNavigate();
         </div>
         {/* menu */}
         <div className="menu">
-        <Link to="/" className={selected === "dashboard" ? "menuItem active" : "menuItem"} onClick={() => setSelected("dashboard")}>
+        <Link to="/maindash" className={selected === "dashboard" ? "menuItem active" : "menuItem"} onClick={() => setSelected("dashboard")}>
         <BiSolidDashboard /> Dashboard
           </Link>
-           <Link to="/appointments" className={selected === "appointments" ? "menuItem active" : "menuItem"} onClick={() => setSelected("appointments")}>
+           <Link to="/sappointments" className={selected === "appointments" ? "menuItem active" : "menuItem"} onClick={() => setSelected("appointments")}>
            <FaAppStore /> Appointments
           </Link>
-          <Link to="/patienthistory" className={selected === "patient-history" ? "menuItem active" : "menuItem"} onClick={() => setSelected("patient-history")}>
+          <Link to="/spatienthistory" className={selected === "patient-history" ? "menuItem active" : "menuItem"} onClick={() => setSelected("patient-history")}>
           <FaPerson /> Patient History
           </Link>
           
-          <Link to="/doctors" className={selected === "doctors" ? "menuItem active" : "menuItem"} onClick={() => setSelected("doctors")}>
+          <Link to="/doctorundersenior" className={selected === "doctors" ? "menuItem active" : "menuItem"} onClick={() => setSelected("doctors")}>
           <FaUserDoctor /> Doctors
           </Link>
        
          
           <div className="menuItem" onClick={() => setSelected(null)}>
             <UilSignOutAlt />
-            <Link to="/login"><span>Signout</span></Link>
+            <Link to="/loginsd"><span>Signout</span></Link>
           </div>
         </div>
       </div>

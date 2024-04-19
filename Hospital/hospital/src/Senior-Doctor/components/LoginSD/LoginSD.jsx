@@ -36,7 +36,7 @@ const LoginSD = () => {
       console.log(token + " " + message);
       localStorage.setItem("token", token);
       localStorage.setItem("email", message);
-      naviagte("/seniordoctor");
+      naviagte("/maindash");
     } catch (error) {
       setErrorMessage("Invalid Email or password");
     }
@@ -86,17 +86,11 @@ const LoginSD = () => {
       {/* Right side */}
       <div className="relative">
         <img
-          src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg"
+          src="https://media.baamboozle.com/uploads/images/75518/1593048433_804210"
           alt="img"
           className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
         />
-        {/* Text on image */}
-        <div className="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block">
-          <span className="text-white text-xl">
-            We've been using Untitle to kick start every new project and can't
-            imagine working without it.
-          </span>
-        </div>
+       
       </div>
     </div>
   </div>

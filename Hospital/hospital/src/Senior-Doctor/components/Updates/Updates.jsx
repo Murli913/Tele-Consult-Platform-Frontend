@@ -5,7 +5,7 @@ import { UpdatesData } from "../../Data/Data";
 
 const Updates = () => {
   return (
-    <div className="Updates">
+    <div className="Updates" style={{ width: '100%' }}>
       {UpdatesData.map((update) => {
         return (
           <div className="update">
