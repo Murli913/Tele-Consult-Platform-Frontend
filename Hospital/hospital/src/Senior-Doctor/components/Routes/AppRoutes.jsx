@@ -9,6 +9,7 @@ import ViewPatientHistory from '../Pages/ViewPatientHistory/ViewPatientHistory';
 import AddAppointment from '../Pages/AddAppointment/AddAppointment';
 import ViewAppointment from '../Pages/ViewAppointment/ViewAppointment';
 import DoctorUnderSenior from '../Pages/DoctorUnderSenior/DoctorUnderSenior';
+import UpdateAppointment from '../Pages/UpdateAppointment/UpdateAppointment';
 
 
 const AppRoutes = () => {
@@ -18,7 +19,7 @@ const AppRoutes = () => {
       <Route path="/sappointments" element={<Appointments />} />
       <Route path="/doctorundersenior" element={<DoctorUnderSenior />} />
       <Route path="/spatienthistory" element={<PatientHistorys />} />
-   
+      <Route path="/updateappointment" element={<UpdateAppointment />} />
       <Route path="/editappointment" element={<EditAppointment />} />
       <Route path="/sappointments/:id" element={<ViewAppointment />} />
      

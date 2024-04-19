@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Appointment.css'; // Import your CSS file for styling
 import axios from 'axios';
 import { Button } from '@mui/material';
-
+import "./Appointment.css"
 const Appointments = () => {
   const [doctorId, setDoctorId] = useState(null);
   const [doctorHistoryData, setDoctorHistoryData] = useState([]);
@@ -13,16 +12,12 @@ const Appointments = () => {
     const loadDoctorId = async () => {
       try {
         const email = localStorage.getItem("email");
-        const tkn = localStorage.getItem("token");
-        console.log(tkn);
-        // console.log(`http://localhost:8080/doctor/by-email/${email}`);
         const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
           }
         });
         setDoctorId(result.data);
-        console.log("Doctor ID:", result.data);
       } catch (error) {
         console.error('Error fetching doctor ID:', error);
       }
@@ -35,7 +30,12 @@ const Appointments = () => {
       fetchDoctorHistory();
     }
   }, [doctorId]);
-console.log("doctorid", doctorId);
+
+  const handleupdatedoctor = (appointmentId) => {
+    console.log("appointtest", appointmentId);
+    navigate('/updateappointment',{ state : { appointmentId }});
+  };
+
   const fetchDoctorHistory = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
@@ -43,7 +43,6 @@ console.log("doctorid", doctorId);
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
-      console.log("Response:", response.data);
       setDoctorHistoryData(response.data);
     } catch (error) {
       console.error('Error fetching doctor history:', error);
@@ -77,8 +76,7 @@ console.log("doctorid", doctorId);
                 <td>{appointment.callTime}</td>
                 <td>{appointment.patient.id}</td>
                 <td className="action-column">
-                  <Link to={`/sappointments/${appointment.id}`} className="action-linkk">View</Link> |{' '}
-                  <Link to={`/appointments/${appointment.id}/edit`} className="action-linkk">Edit</Link>
+                <button onClick={() => handleupdatedoctor(appointment.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Update</button>
                 </td>
               </tr>
             ))}

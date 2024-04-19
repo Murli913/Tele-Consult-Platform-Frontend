@@ -21,6 +21,7 @@ import ViewAppointment from './Senior-Doctor/components/Pages/ViewAppointment/Vi
 import AddAppointment from './Senior-Doctor/components/Pages/AddAppointment/AddAppointment'
 import ViewPatientHistory from './Senior-Doctor/components/Pages/ViewPatientHistory/ViewPatientHistory'
 import DoctorUnderSenior from './Senior-Doctor/components/Pages/DoctorUnderSenior/DoctorUnderSenior'
+import UpdateAppointment from './Senior-Doctor/components/Pages/UpdateAppointment/UpdateAppointment'
 
 
 
@@ -40,7 +41,7 @@ const App = () => {
       <Route path="/loginsd" element={<LoginSD/>}/>
 
       <Route element={<SeniorDoctor />}>
-
+      <Route path="/updateappointment" element={<UpdateAppointment />} />
       <Route path="/maindash" element={<MainDash />} />
       <Route path="/sappointments" element={<Appointments />} />
       <Route path="/doctorundersenior" element={< DoctorUnderSenior/>} />
