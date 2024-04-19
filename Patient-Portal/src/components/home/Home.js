@@ -3,6 +3,7 @@ import './Home.css';
 import { IoCloseCircle } from "react-icons/io5";
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import DisplayRating from '../rating/rating';
 
 function HomePage() {
     const navigate=useNavigate();
@@ -11,16 +12,18 @@ function HomePage() {
           navigate("/");
         } }, []);
 
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
     const [appointments, setAppointments] = useState([]);
     const [pastAppointments, setPastAppointments] = useState([]);
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
+    const [doctors, setDoctors] = useState([]);
 
-    const openModal = () => {
-        setShowModal(true);
+    const openModal = (doctor) => {
+        setSelectedDoctor(doctor);
     };
 
     const closeModal = () => {
-        setShowModal(false);
+        setSelectedDoctor(null);
     };
 
     useEffect(() => {
@@ -29,6 +32,10 @@ function HomePage() {
 
     useEffect(() => {
         fetchPastData();
+    }, []);
+
+    useEffect(() => {
+        fetchDoctors();
     }, []);
 
     useEffect(() => {
@@ -125,6 +132,58 @@ function HomePage() {
     };
 
 
+    const fetchDoctors = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:8080/patient/getsnrdoctors`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setDoctors(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error fetching doctors:', error);
+            // Handle error
+        }
+    };
+
+
+
+    const renderModal = () => {
+        if (!selectedDoctor) return null;
+        const doctor = selectedDoctor;
+
+        return (
+            <div className="modal-overlay">
+                <div className="modal">
+                    <div className="modal-header">
+                        <h2 className='doc-name'>Dr. {doctor.name}</h2>
+                        <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
+                    </div>
+                    <div className="modal-body-up">
+                        <div className="modal-info-up" style={{ textAlign: 'left' }}>
+                            {/* <img src="./images/maharshi.jpg" className='doc-img past-modal-img' alt="" /> */}
+                            <div className="doctorDetails">
+                                <p><b>Gender:</b> {doctor.gender}</p>
+                                <p><b>Email:</b> {doctor.email}</p>
+                                <p><b>Phone Number:</b> {doctor.phoneNumber}</p>
+                                <p><b>Rating:</b>  <DisplayRating rating={doctor.totalRating} /></p>
+                                {console.log(doctor.rating)}
+                                <p><b>No. of Appointments:</b> {doctor.appointmentCount} </p>
+                            </div>
+                        </div>
+                        <div className="modal-graphs">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+
+
     return (
         <div className="home-content">
             <div className="top-content">
@@ -136,8 +195,8 @@ function HomePage() {
                             {appointments.map((appointment, index) => (
                                 <div key={index} className='up-left'>
                                     <div className="up-inner">
-                                        <h4 className='up-apt'>Doctor Name: {appointment.doctorName}</h4>
-                                        <p className='up-apt'><b>Status:</b> Not Attended</p>
+                                        <b className='up-apt'><b>Doctor Name:</b> {appointment.doctorName}</b>
+                                        <p className='up-apt'><b>Reason:</b> {appointment.reason}</p>
                                     </div>
                                     <div className="up-inner">
                                         <p className='up-apt' style={{'margin-right':'40px'}}><b>Date:</b> {appointment.callDate}</p>  
@@ -176,55 +235,17 @@ function HomePage() {
             <div className="bottom-content">
                 <h3 className='head'>Top Doctors</h3>
                 <div className="bt-parent">
-                <div className='bt-content'>
-                    <h4 className='up-apt doc-name'> 
-                    <img src="./images/maharshi.jpg" className='doc-img' alt="" />
-                        Dr. Maharshi Patel (MBBS)
-                        </h4>
-                        <button onClick={openModal} className='view-btn'>View Statistics</button>
-                            {showModal && (
-                                <div className="modal-overlay">
-                                    <div className="modal">
-                                        <div className="modal-header">
-                                        <h2 className='doc-name'><img src   ="./images/maharshi.jpg" className='doc-img' alt="" /> Dr. Maharshi Patel</h2>
-                                        <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="modal-info" style={{ textAlign: 'left' }}   >
-                                                <p><b>Qualification: </b>MBBS</p>
-                                                <p><b>No. of patients: </b>203</p>
-                                                <p><b>Rating: </b>4.3/5</p>
-                                            </div>
-                                            <div className="modal-graphs">
-
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            )}
-                </div>
-                <div className='bt-content'>
-                    <h4 className='up-apt doc-name'> 
-                    <img src="./images/maharshi.jpg" className='doc-img' alt="" />
-                        Dr. Maharshi Patel (MBBS)
-                        </h4>
-                        <button onClick={openModal} className='view-btn'>View Statistics</button>
-                </div>
-                <div className='bt-content'>
-                    <h4 className='up-apt doc-name'> 
-                    <img src="./images/maharshi.jpg" className='doc-img' alt="" />
-                        Dr. Maharshi Patel (MBBS)
-                        </h4>
-                        <button onClick={openModal} className='view-btn'>View Statistics</button>
-                </div>
-                <div className='bt-content'>
-                    <h4 className='up-apt doc-name'> 
-                    <img src="./images/maharshi.jpg" className='doc-img' alt="" />
-                        Dr. Maharshi Patel (MBBS)</h4>
-                        <button onClick={openModal} className='view-btn'>View Statistics</button>
-                </div>
+                {doctors.map((doctor, index) => (
+                    <div className='bt-content'>
+                        <h4 className='up-apt doc-name'> 
+                        <img src="./images/maharshi.jpg" className='doc-img' alt="" />
+                            Dr. {doctor.name} 
+                            </h4>
+                            <button onClick={() => openModal(doctor)} className='view-btn'>View Statistics</button>
+                    </div>
+                    ))}
                 </div>                    
+                {renderModal()}
             </div>
         </div>
     );

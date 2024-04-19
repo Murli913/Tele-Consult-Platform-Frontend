@@ -10,6 +10,10 @@ function ProfilePage() {
         navigate("/");
       } }, []);
   const [patientDetails, setPatientDetails] = useState(null);
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
   useEffect(() => {
     // Fetch patient details from backend using the token
@@ -36,15 +40,27 @@ function ProfilePage() {
     });
   }, []);  // Empty dependency array ensures useEffect runs only once after initial render
 
+  const handleUpdateDetails = () => {
+    // Handle update details logic here
+  };
+
   return (
-    <div className="profile-content">
+    <div className="profile-page">
       <h2>Profile</h2>
+      {/* <h1>Profile</h1> */}
+        <div className="profile-photo">
+          {/* Profile photo goes here */}
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf1y2A8q1zP66KMRjOJZfXsbZKVuv1QmlyIOGTVH0J8A&s" alt="Profile" />
+        </div>
       {patientDetails ? (
-        <div>
-          <p>Name: {patientDetails.name}</p>
-          <p>Email: {patientDetails.email}</p>
-          <p>Gender: {patientDetails.gender}</p>
-          <p>Phone Number: {patientDetails.phoneNumber}</p>
+        <div className="personal-details">
+          <input type="text" placeholder="Admin" value={patientDetails.name} onChange={(e) => setName(e.target.value)} />
+          <input type="email" placeholder="admin@gmail.com" value={patientDetails.email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder="*********" value={patientDetails.password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="text" placeholder="9131487737" value={patientDetails.phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+          <button className="update-details-btn" onClick={handleUpdateDetails}>Update Details</button>
+          {"  "}
+          <button className="close-btn" >Close</button>
         </div>
       ) : (
         <p>Loading...</p>

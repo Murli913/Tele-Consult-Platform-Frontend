@@ -150,7 +150,7 @@ body{
   position: absolute;
   width: 20px;
   top: 5px;
-  z-index: 100;
+  z-index: 1;
   height: 24px;
 }
 .dark_mode_label svg.sun {

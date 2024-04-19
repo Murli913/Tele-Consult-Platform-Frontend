@@ -5,6 +5,7 @@ import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import DisplayRating from '../rating/rating';
 
 function BookNow() {
     const navigate=useNavigate();
@@ -18,7 +19,7 @@ function BookNow() {
     const [doctors, setDoctors] = useState([]);
     const [minDate, setMinDate] = useState('');
     const [selectedTimeSlot, setSelectedTimeSlot] = useState();
-    const [popupMessage, setPopupMessage] = useState('');
+    const [reasonVal, setReasonVal] = useState('');
 
     useEffect(() => {
         fetchDoctors();
@@ -74,12 +75,16 @@ function BookNow() {
     };
     
 
-    const handleDoctorChange = (event) => {
-        setSelectedDoctor(event.target.value);
+    const handleDoctorChange = (doctorId) => {
+        setSelectedDoctor(doctorId);
     };
 
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
+    };
+
+    const handleReasonChange = (event) => {
+        setReasonVal(event.target.value);
     };
 
     const handleTimeSlotChange = (event) => {
@@ -136,6 +141,7 @@ function BookNow() {
         const patientId = localStorage.getItem('patientId');
         const callDate = new Date(selectedDate);
         const sltime = new Date(selectedTimeSlot);
+        const reason = reasonVal;
         sltime.setSeconds(0);
         const callTime = new Intl.DateTimeFormat("en-US", {
             timeZone: "Asia/Kolkata",
@@ -150,8 +156,8 @@ function BookNow() {
                 patient : {id: patientId},
                 doctor: {id: selectedDoctor},
                 callDate,
-                callTime
-    
+                callTime,
+                reason
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -182,47 +188,53 @@ function BookNow() {
             <form className='form' onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="cause" className='label1'>1. Cause/Reason*</label>
-                    <input type="text" id="cause" name="cause" placeholder="Reason for appointment" required />
+                    <input 
+                        type="text" 
+                        id="cause" 
+                        name="cause" 
+                        placeholder="Reason for appointment" 
+                        value={reasonVal} 
+                        onChange={handleReasonChange} 
+                        required />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="medicalHistory" className='label1'>2. Medical History</label>
-                    <textarea style={{resize: 'vertical'}} id="medicalHistory" name="medicalHistory" placeholder="Mention any past health issues, unhealthy habits etc"></textarea>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="activeCondition" className='label1'>3. Active health condition</label>
-                    <textarea style={{resize: 'vertical'}} id="activeCondition" name="activeCondition" placeholder="Mention if any active health condition"></textarea>
-                </div>
-                <div className="form-group2">
-                    <label htmlFor="selectDoctor" className='label2'>4. Select a Doctor*</label>
-                    <select style={{padding: '10px 8px', margin: '14px 14px 14px 40px'}} id="selectDoctor" name="selectDoctor" value={selectedDoctor} onChange={handleDoctorChange} required>
-                        <option value="">Select a doctor</option>
-                        {/* Populate options with fetched doctors */}
+                    <label htmlFor="selectDoctor" className='label2'>2. Select a Doctor*</label>
+                    <div className="doctors-list">
                         {doctors.map(doctor => (
-                            <option key={doctor.id} value={doctor.id}>{doctor.name}</option>
+                        <div className={`doctor ${selectedDoctor === doctor.id ? 'selected' : ''}`} key={doctor.id} onClick={() => handleDoctorChange(doctor.id)}>
+                            <h4>Dr. {doctor.name}</h4>
+                            <p>Rating: <DisplayRating rating={doctor.totalRating} /></p>
+                        </div>
                         ))}
-                    </select>
+                    </div>
                 </div>
-                <div className="form-group2">
-                    <label htmlFor="selectDate" className='label2'>5. Select a Date*</label>
-                    <input style={{margin: '14px 14px 14px 55px'}} type="date" id="selectDate" name="selectDate" min={minDate} value={selectedDate} onChange={handleDateChange} required />
+                <div className="form-group">
+                    <label htmlFor="selectDate" className='label2'>3. Select a Date*</label>
+                    <input 
+                        style={{margin: '14px 14px 14px 55px'}} 
+                        type="date" 
+                        id="selectDate" 
+                        name="selectDate" 
+                        min={minDate} 
+                        value={selectedDate} 
+                        onChange={handleDateChange} 
+                        required />
                 </div>
-                <div className="form-group2">
-                    <label htmlFor="selectTimeSlot" className='label2'>6. Select a Time Slot*</label>
-                    <select style={{padding: '10px 18px', margin: '14px 14px 14px 22px'}} id="selectTimeSlot" name="selectTimeSlot" onChange={handleTimeSlotChange} required>
-                        <option value="" >Select a time slot</option>
-                        {/* Populate time slots based on selected doctor */}
-                        {timeSlots.map(slot => (
-                            <option key={slot} value={slot}>{slot}</option>
-                        ))}
+                <div className="form-group">
+                    <label htmlFor="selectTimeSlot" className='label2'>4. Select a Time Slot*</label>
+                    <select 
+                        style={{padding: '10px 18px', margin: '14px 14px 14px 22px'}} 
+                        id="selectTimeSlot" 
+                        name="selectTimeSlot" 
+                        onChange={handleTimeSlotChange} 
+                        required>
+                            <option value="" >Select a time slot</option>
+                            {timeSlots.map(slot => (
+                                <option key={slot} value={slot}>{slot}</option>
+                            ))}
                     </select>
                 </div>
                 <button className='book-btn' type="submit">Book Appointment<GoPlusCircle /></button>
-                {popupMessage && (
-                    <div className="popup-message">
-                        {/* <span className="close" onClick={() => setPopupMessage('')}>&times;</span> */}
-                        <p>{popupMessage}</p>
-                    </div>
-                )}
             </form>
             <ToastContainer />
         </div>
@@ -230,3 +242,21 @@ function BookNow() {
 }
 
 export default BookNow;
+
+
+
+
+
+{/* <select 
+                        style={{padding: '10px 8px', margin: '14px 14px 14px 40px'}}
+                        id="selectDoctor" 
+                        name="selectDoctor" 
+                        value={selectedDoctor} 
+                        onChange={handleDoctorChange} 
+                        required>
+                            <option value="">Select a doctor</option>
+                            Populate options with fetched doctors */}
+                            {/* {doctors.map(doctor => (
+                                <option key={doctor.id} value={doctor.id}>{doctor.name}</option>
+                            ))}
+                    </select> */}

@@ -79,7 +79,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* padding-left: 20px; */
+    padding-left: 20px;
 }
 
 .up-content-left {
@@ -217,5 +217,9 @@
 
 .modal-body{
     display: flex;
+}
+
+.modal-body-up{
+    /* display: flex; */
 }
 
