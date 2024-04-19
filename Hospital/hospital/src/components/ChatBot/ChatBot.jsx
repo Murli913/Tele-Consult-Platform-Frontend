@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaUser } from 'react-icons/fa';
-import { AiOutlineAudio, AiOutlineRobot } from 'react-icons/ai';
 import { IoMdPerson } from "react-icons/io";
 import { FaUserDoctor } from "react-icons/fa6";
 import { MdOutlineRecordVoiceOver, MdVoiceOverOff } from "react-icons/md";
@@ -9,27 +8,43 @@ function ChatBot() {
   const [messages, setMessages] = useState([]);
   const [initialMessageSent, setInitialMessageSent] = useState(false);
   const [listening, setListening] = useState(false);
-  const recognition = new window.webkitSpeechRecognition();
+  const [recognition, setRecognition] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    const recognitionInstance = new window.webkitSpeechRecognition();
+    setRecognition(recognitionInstance);
+
+    return () => {
+      if (recognitionInstance) {
+        recognitionInstance.stop();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!initialMessageSent) {
       setMessages([
+        { text: "What kind of Symptoms you are feeling", sender: "bot" },
         { text: "1. Fever", sender: "bot" },
         { text: "2. Cough", sender: "bot" },
         { text: "3. Sore throat", sender: "bot" },
         { text: "4. Fatigue", sender: "bot" },
         { text: "5. Body aches", sender: "bot" },
         { text: "6. Headache", sender: "bot" },
-        { text: "7. Shortness of breath", sender: "bot" },
-        { text: "8. Loss of taste or smell", sender: "bot" },
-        { text: "9. Congestion or runny nose", sender: "bot" },
-        { text: "10. Nausea or vomiting", sender: "bot" },
-        { text: "11. Diarrhea", sender: "bot" }
+        // { text: "7. Shortness of breath", sender: "bot" },
+        // { text: "8. Loss of taste or smell", sender: "bot" },
+        // { text: "9. Congestion or runny nose", sender: "bot" },
+        // { text: "10. Nausea or vomiting", sender: "bot" },
+        // { text: "11. Diarrhea", sender: "bot" }
       ]);
       setInitialMessageSent(true);
     }
   }, [initialMessageSent]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
   const handleBotResponse = (userMessage) => {
     const userMessages = userMessage.toLowerCase();
     if (userMessages.toLowerCase().includes("fever")) {
@@ -205,27 +220,36 @@ function ChatBot() {
   };
 
   const startListening = () => {
-    recognition.onstart = () => {
-      setListening(true);
-    };
+    if (recognition) {
+      recognition.onstart = () => {
+        setListening(true);
+      };
 
-    recognition.onresult = (event) => {
-      const message = event.results[0][0].transcript;
-      handleUserMessage(message);
-    };
+      recognition.onresult = (event) => {
+        const message = event.results[0][0].transcript;
+        handleUserMessage(message);
+      };
 
-    recognition.start();
+      recognition.start();
+    }
   };
 
   const stopListening = () => {
-    recognition.stop();
-    setListening(false);
+    if (recognition) {
+      recognition.stop();
+      setListening(false);
+    }
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="fixed bottom-20 right-20 w-400 h-500 bg-white border border-gray-300 rounded-lg overflow-hidden shadow-md">
-      <div className="h-430 overflow-y-auto p-2">
-        <h3 className="text-lg font-semibold">Medico-Bot</h3>
+      <div className="h-100 overflow-y-auto p-2">
+        <h1 className="text-black font-semibold ">Tele-Consult</h1>
+        <br/>
         {messages.map((message, index) => (
           <div key={index} className={`flex items-center ${message.sender === "user" ? "justify-end" : "justify-start"} mb-2`}>
             {message.sender === "user" ? null : <FaUserDoctor className="w-8 h-8 mr-2 text-blue-500" />}
@@ -233,13 +257,14 @@ function ChatBot() {
             {message.sender === "user" ? <IoMdPerson className="w-6 h-6 ml-2 text-blue-500" /> : null}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className="flex items-center justify-between px-4 py-2">
         <div className="flex items-center">
           {listening ? (
-            <MdOutlineRecordVoiceOver onClick={stopListening} className="text-red-400 cursor-pointer w-7 h-7" />
+            <MdOutlineRecordVoiceOver onClick={stopListening} className="text-red-500 cursor-pointer w-8 h-8" />
           ) : (
-            <MdVoiceOverOff onClick={startListening} className="text-green-400 cursor-pointer w-7 h-7" />
+            <MdVoiceOverOff onClick={startListening} className="text-green-500 cursor-pointer w-8 h-8" />
           )}
           <input
             type="text"
@@ -250,7 +275,7 @@ function ChatBot() {
                 e.target.value = "";
               }
             }}
-            className="w-full p-4 ml-0 mr-2 rounded-lg border border-gray-300 bg-gray-100 text-gray-800"
+            className="w-full p-1 ml-0 rounded-lg border border-gray-300 bg-gray-100 text-gray-800"
           />
         </div>
       </div>

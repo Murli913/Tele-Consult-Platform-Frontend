@@ -98,36 +98,18 @@ const Navbar = () => {
             >
               HealthCheck
             </Link>
-         
-          </nav>
-{/* 
-          <div className=" hidden lg:flex">
-            <button
-              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
-              onClick={openForm}
-            >
-             LoginSD
-            </button>
-
-          </div> */}
-
-          <div className=" hidden lg:flex">
-            <button
+            <Link
               className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
               onClick={login}
             >
              Login
-            </button>
+            </Link>
+         
+          </nav>
 
-          </div>
-          {/* <div className=" hidden lg:flex">
-            <button
-              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
-              onClick={gotopatient}
-            >
-             LoginP
-            </button>
-          </div> */}
+
+       
+        
 
           {showForm && <Contact closeForm={closeForm} />}
 
@@ -203,21 +185,16 @@ const Navbar = () => {
             >
               HealthCheck
             </Link>
+          
+              <Link
+                className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+                style={{ width: "100px", display: "block", margin: "0 auto" }}
+                onClick={login}
+              >
+                Login
+              </Link>
+           
 
-          {/* <div className=" lg:hidden">
-            <button
-              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
-              onClick={openForm}
-            >
-              LoginSD
-            </button>
-            <button
-              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
-              onClick={gotopatient}
-            >
-              LoginP
-            </button>
-          </div> */}
         </div>
       </div>
     </div>
