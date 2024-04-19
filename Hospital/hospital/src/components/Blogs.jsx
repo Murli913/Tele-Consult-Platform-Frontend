@@ -17,8 +17,7 @@ const Blogs = () => {
             Latest Post
           </h1>
           <p className=" mt-2 text-center lg:text-start">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus,
-            quidem.
+          As a community hospital, we are deeply invested in the health and vitality of the [IITB] community.
           </p>
         </div>
         <div className=" mt-4 lg:mt-0">

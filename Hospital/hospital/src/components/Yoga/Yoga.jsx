@@ -8,37 +8,37 @@ import { FaArrowRight } from "react-icons/fa";
 const Yoga = () => {
   const data = [
     {
-      img: "/src/assets/img/yogagif1.gif",
+      img: "https://i.pinimg.com/originals/64/41/61/644161b5ce15397473f2c4a49620ee8f.gif",
       name: "Dhanurasana Pose",
-      specialties: " It helps in weight loss and boosts digestion and blood circulation.",
+      specialties: "It helps in weight loss and boosts digestion and blood circulation.",
       
     },
     {
-      img: "/src/assets/img/yogagif2.gif",
+      img: "https://i.gifer.com/74y4.gif",
       name: "Triangle pose",
       specialties: "It help relieve back pain and help with emotional baggage too.",
      
     },
     {
-      img: "/src/assets/img/yogagif3.gif",
-      name: "Paschimottanasana Pose",
+      img: "https://cdnl.iconscout.com/lottie/premium/thumb/girl-doing-king-warrior-yoga-pose-5465539-4562551.gif",
+      name: "Paschimottanasana",
       specialties: "It help relieve back pain and help with emotional baggage too.",
       
     },
     {
-      img: "/src/assets/img/yogagif4.gif",
+      img: "https://www.careerguide.com/career/wp-content/uploads/2020/02/image_processing20190915-23847-1hdqdop.gif",
       name: "Camel pose",
       specialties: "It help relieve back pain and help with emotional baggage too.",
       
     },
     {
-      img: "/src/assets/img/yogagif5.gif",
+      img: "https://media1.giphy.com/media/H3SYd8rWzFXQrAWLNc/giphy.gif?cid=6c09b952sbzarsgo9y720fyki05654iod09yxa71vyxjugi6&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g",
       name: "Mountain Pose",
       specialties: "It help relieve back pain and help with emotional baggage too.",
       
     },
     {
-      img: "/src/assets/img/yogagif6.gif",
+      img: "https://cdn.dribbble.com/users/974028/screenshots/14943333/media/f0d927649fc3566932c7b7c209c901e0.gif",
       name: "Paschimottanasana",
       specialties: "It help relieve back pain and help with emotional baggage too.",
     
@@ -127,7 +127,7 @@ const Yoga = () => {
 
               <div className=" flex flex-col justify-center items-center">
                 <h1 className=" font-semibold text-xl pt-4">{e.name}</h1>
-                <h3 className=" pt-2">{e.specialties}</h3>
+                <h3 className=" pt-2 , ml-4 mr-2">{e.specialties}</h3>
               </div>
             </div>
           ))}

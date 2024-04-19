@@ -29,10 +29,9 @@ const Home = () => {
           Empowering Health Choices for a Vibrant Life Your Trusted..
         </h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam magnam
-          omnis natus accusantium quos. Reprehenderit incidunt expedita
-          molestiae impedit at sequi dolorem iste sit culpa, optio voluptates
-          fugiat vero consequatur?
+        Our mission is to improve the health and well-being of our community by delivering high-quality, patient-centered 
+        care in a compassionate and respectful environment. We strive to be a leader in healthcare innovation, continuously 
+        seeking ways to enhance our services and improve patient outcomes.
         </p>
         <Button title="See Services" onClick={handleChatBotToggle} />
       </div>
