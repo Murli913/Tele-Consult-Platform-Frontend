@@ -21,14 +21,10 @@ function Sidebar() {
         <div className="side-content">
             <div className="top-buttons">
                 <Link to="/home" className='btn btn-home' ><MdDashboard />Dashboard</Link>
-                <Link to="/history" className='btn btn-history'><GoHistory />History</Link>
                 <Link to="/book" className='btn btn-bnow'><GoPlusCircle />Book Now</Link>
-                {/* <button className='btn btn-home' onClick={() => { window.location.href = "/home"; }}><MdDashboard />Dashboard</button> */}
-                {/* <button className='btn btn-history' onClick={() => { window.location.href = "/history"; }}><GoHistory />History</button> */}
-                {/* <button className='btn btn-bnow' onClick={() => { window.location.href = "/book"; }}><GoPlusCircle />Book Now</button> */}
+                <Link to="/history" className='btn btn-history'><GoHistory />History</Link>
             </div>
             <Link to="/" className='btn logout-btn txt' onClick={gotoclear}><BiLogOutCircle />Logout</Link>
-            {/* <button className='btn logout-btn txt' onClick={() => { window.location.href = "/"; }}><BiLogOutCircle />Logout</button> */}
         </div>
     );
 }

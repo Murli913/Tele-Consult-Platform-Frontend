@@ -14,25 +14,35 @@
 
 
 /* Style scrollbar */
-.book-content::-webkit-scrollbar {
+.book-content::-webkit-scrollbar,
+.doctors-list::-webkit-scrollbar {
     width: 8px; 
     background-color: transparent; 
     scroll-margin-right: 30px;
 }
 
+.doctors-list::-webkit-scrollbar{
+    height: 10px;
+}
+
 /* Track */
-.book-content::-webkit-scrollbar-track {
-    background: transparent; /* Set the background color of the track */
+.book-content::-webkit-scrollbar-track,
+.doctors-list::-webkit-scrollbar-track {
+    /* background: #eee; */
+    border-radius: 5px; /* Set the background color of the track */
+    margin: 4px;
 }
 
 /* Handle */
-.book-content::-webkit-scrollbar-thumb {
+.book-content::-webkit-scrollbar-thumb,
+.doctors-list::-webkit-scrollbar-thumb {
     background: #b9b9b9; 
     border-radius: 5px;  /* Set the border radius of the scrollbar handle */
 }
 
 /* Handle on hover */
-.book-content::-webkit-scrollbar-thumb:hover {
+.book-content::-webkit-scrollbar-thumb:hover,
+.doctors-list::-webkit-scrollbar-thumb:hover {
     background: #555;/* Change color of scrollbar handle on hover */
 }
 
@@ -43,13 +53,11 @@
     margin-top: 20px;
 }
 
-    /* .form-group2{
-        
-        /* margin-left: 20px; */
-    /* } */ 
+.form-group{
+    margin-bottom: 20px;
+}
 
 .label1 {
-    display: block;
     font-size: 16px;
     font-weight:600 ;
     margin: 10px 30px;
@@ -62,35 +70,29 @@
 }
 
 
-input[type="text"],textarea{
+input[type="text"]{
     color: var(--body_color);
     padding: 10px;
-    margin-left: 60px;
-    width: 70%;
+    /* margin-left: 60px; */
+    width: 80%;
     border: 1px solid lightgray;
     border-radius: 12px;
     font-family: Arial, Helvetica, sans-serif; 
-    background-color: var(--tile_color);
+    background-color: var(--book-color);
 }
 
 input[type="date"], select{
     /* padding: 10px; */
     color: var(--body_color);
-    background-color: var(--tile_color);
+    background-color: var(--book-color);
     border: 1px solid lightgray;
     border-radius: 12px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-input::placeholder, textarea::placeholder{
+input::placeholder{
     color: var(--place_color);
 }
-
-/* input[type="date"]{
-    padding: px;
-} */
-
-
 
 select:hover, input[type="date"]{
     cursor: pointer;
@@ -98,18 +100,14 @@ select:hover, input[type="date"]{
 
 
 input[type="date"]{
-    margin-left: 30px;
     padding: 10px 25px;
 }
 
 .book-btn{
-    position: absolute;
-    right: 10px;
-    /* bottom: 5px; */
     padding: 12px 30px;
     margin: 20px 30px;
     border: none;
-    border-radius: 50px;
+    border-radius: 10px; 
     background-color: orange;
     color: black;
     font-size: 15px;
@@ -132,36 +130,37 @@ input[type="date"]{
     background-color: rgb(255, 181, 42);
 }
 
-
-.popup-message {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #62b127;
-    border: 1px solid #ced4da;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.317);
-    padding: 20px;
-    border-radius: 30px;
-    z-index: 9999;
-    color: white;
-    /* transition: translate 10s ease-out; */
+.doctors-list {
+    max-width: 97%;
+    display: flex;
+    flex-wrap: nowrap; /* Prevent items from wrapping */
+    justify-content: flex-start; /* Align items from left to right */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    border: 1px solid lightgray;
+    margin: 10px 20px 10px 40px;
+    border-radius: 12px;
+  }
+  
+  .doctors-list::-webkit-scrollbar {
+    display: none;
 }
 
-.popup-message p {
-    margin: 0;
-    /* opacity: 1; */
-}
-
-/* .popup-message .close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
+  .doctor {
+    min-width: 200px;
+    margin: 20px 10px; /* Adjust margin */
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    padding: 10px; /* Adjust padding */
+    flex-grow: 1; /* Allow items to grow to fill the available space */
     cursor: pointer;
-    font-size: 18px;
-    color: #6c757d;
 }
 
-.popup-message .close:hover {
-    color: #343a40;
-} */
+.doctor.selected {
+    border: 1px solid #000000; /* Example: Change border color to blue */
+    background-color: var(--book-doc-color);
+}
+
+.doctors-list h4,p {
+    margin: 3px;
+}
+

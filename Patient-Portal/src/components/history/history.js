@@ -3,6 +3,8 @@ import './history.css';
 import { IoCloseCircle } from "react-icons/io5";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import DisplayRating from '../rating/rating';
+
 
 function History() {
     const navigate=useNavigate();
@@ -25,6 +27,8 @@ function History() {
     useEffect(() => {
         fetchPastData();
     }, []);
+    
+
 
     const fetchPastData = async () => {
         try {
@@ -76,17 +80,28 @@ function History() {
             <div className="modal-overlay">
                 <div className="modal">
                     <div className="modal-header">
-                        <h2 className='doc-name'>Appointment ID: {appointment.id}</h2>
+                        <h2 className='doc-name'>Purpose: {appointment.reason}</h2>
                         <button onClick={closeModal} className='close-btn'><IoCloseCircle /></button>
                     </div>
                     <div className="modal-body">
                         <div className="modal-info" style={{ textAlign: 'left' }}>
-                            <img src="./images/maharshi.jpg" className='doc-img past-modal-img' alt="" />
-                            <p><b>Date: </b>{appointment.callDate}</p>
-                            <p><b>Time: </b>{appointment.callTime}</p>
-                            <p><b>Doctor Name: </b>Dr. {appointment.doctorName}</p>
-                            <p><b>Prescription: </b>{appointment.prescription}</p>
-                            <p><b>Call Duration: </b>{appointment.duration}</p>
+                            {/* <img src="./images/maharshi.jpg" className='doc-img past-modal-img' alt="" /> */}
+                            <div className="doctorDetails">
+                            <h3>Doctor Details</h3>
+                                <p><b>Name: </b> Dr. {appointment.doctorName}</p>
+                                <p><b>Gender:</b> {appointment.doctorGender}</p>
+                                <p><b>Email:</b> {appointment.doctorEmail}</p>
+                                <p><b>Phone Number:</b> {appointment.doctorPhoneNumber}</p>
+                                <p><b>Rating:</b>  <DisplayRating rating={appointment.doctorRating} /></p>
+                            </div>
+                            <div className="aptDetails">
+                                <h3>Appointment Details</h3>
+                                <p><b>Date: </b>{appointment.callDate}</p>
+                                <p><b>Time: </b>{appointment.callTime}</p>
+                                <p><b>Prescription: </b>{appointment.prescription}</p>
+                                <p><b>Call Duration: </b>{appointment.duration}</p>
+                                <p><b>Call Rating: </b><DisplayRating rating={appointment.callRating} /></p>
+                            </div>
                         </div>
                         <div className="modal-graphs">
 
