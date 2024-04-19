@@ -1,260 +1,282 @@
-import "./ChatBox.css";
-import { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { FaUser } from 'react-icons/fa';
+import { IoMdPerson } from "react-icons/io";
+import { FaUserDoctor } from "react-icons/fa6";
+import { MdOutlineRecordVoiceOver, MdVoiceOverOff } from "react-icons/md";
 
 function ChatBot() {
-  const humanMessage = useRef();
-  const botmessage = useRef();
-  const input = useRef();
+  const [messages, setMessages] = useState([]);
+  const [initialMessageSent, setInitialMessageSent] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [recognition, setRecognition] = useState(null);
+  const messagesEndRef = useRef(null);
 
-  const date = new Date();
-  const hours = date.getHours();
-  const seconds = date.getSeconds();
-  const day = date.getDay();
-  const month = date.getMonth();
-  const year = date.getFullYear();
+  useEffect(() => {
+    const recognitionInstance = new window.webkitSpeechRecognition();
+    setRecognition(recognitionInstance);
 
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+    return () => {
+      if (recognitionInstance) {
+        recognitionInstance.stop();
+      }
+    };
+  }, []);
 
-  const [time, setTime] = useState(`${hours}:${seconds}`);
-  const [dateTime, setDateTime] = useState(
-    `${days[day]}, ${months[month]} ${year}`
-  );
-
-  const checkStatus = (e) => {
-    let isActive = true;
-    if (dateTime === "Thursday, Aug 13 2022") {
-      isActive = false;
+  useEffect(() => {
+    if (!initialMessageSent) {
+      setMessages([
+        { text: "What kind of Symptoms you are feeling", sender: "bot" },
+        { text: "1. Fever", sender: "bot" },
+        { text: "2. Cough", sender: "bot" },
+        { text: "3. Sore throat", sender: "bot" },
+        { text: "4. Fatigue", sender: "bot" },
+        { text: "5. Body aches", sender: "bot" },
+        { text: "6. Headache", sender: "bot" },
+        // { text: "7. Shortness of breath", sender: "bot" },
+        // { text: "8. Loss of taste or smell", sender: "bot" },
+        // { text: "9. Congestion or runny nose", sender: "bot" },
+        // { text: "10. Nausea or vomiting", sender: "bot" },
+        // { text: "11. Diarrhea", sender: "bot" }
+      ]);
+      setInitialMessageSent(true);
     }
-    const status = document.querySelector(".status");
-    if (isActive === true) {
-      status.innerHTML = "Active";
-      status.style.color = "green";
-    } else {
-      status.innerHTML = "Not Active";
-      status.style.color = "red";
+  }, [initialMessageSent]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  const handleBotResponse = (userMessage) => {
+    const userMessages = userMessage.toLowerCase();
+    if (userMessages.toLowerCase().includes("fever")) {
+      const precautions = "Here are some precautions you can take for fever: rest, drink plenty of fluids, and take over-the-counter fever reducers like acetaminophen or ibuprofen.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    } 
+    else if (userMessages.toLowerCase().includes("cough")) {
+      const precautions = "Here are some precautions 1. Stay hydrated by drinking warm fluids. 2. Use cough drops or lozenges to soothe throat irritation. 3. Avoid exposure to smoke and other respiratory irritants";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+
+    else if (userMessages.toLowerCase().includes("sore throat")) {
+      const precautions = "Here are some precautions 1. Gargle with warm salt water. 2. Stay hydrated by drinking warm liquids. 3. Avoid irritants like tobacco smoke.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+
+    else if (userMessages.toLowerCase().includes("fatigue")) {
+      const precautions = "Here are some precautions 1. Get plenty of rest and sleep. 2.  Maintain a balanced diet to ensure proper nutrition. 3.  Avoid excessive caffeine intake, especially before bedtime.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+    else if (userMessages.toLowerCase().includes("body aches")) {
+      const precautions = "Here are some precautions 1. Take over-the-counter pain relievers like acetaminophen or ibuprofen. 2.  Apply heat packs or take warm baths to soothe muscles.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+    else if (userMessages.toLowerCase().includes("headache")) {
+      const precautions = "Here are some precautions 1. Stay hydrated by drinking warm fluids. 2. Use cough drops or lozenges to soothe throat irritation. 3. Avoid exposure to smoke and other respiratory irritants";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+    else if (userMessages.toLowerCase().includes("shortness of breath:")) {
+      const precautions = "Here are some precautions 1. Sit upright and practice deep breathing exercises. 2.Use a fan or open a window to increase airflow. 3. Seek medical attention if severe or persistent";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+    else if (userMessages.toLowerCase().includes("loss of taste or smell")) {
+      const precautions = "Here are some precautions 1. Stay hydrated and consume flavorful foods. 2. Use spices and seasonings to enhance taste. 3. Practice good oral hygiene.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+    else if (userMessages.toLowerCase().includes("congestion or runny nose")) {
+      const precautions = "Here are some precautions 1.Use saline nasal sprays or irrigation to clear nasal passages. 2. Use a humidifier to add moisture to the air. 3. Avoid irritants like smoke and strong odors.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+    else if (userMessages.toLowerCase().includes("nausea or vomiting")) {
+      const precautions = "Here are some precautions 1.Stay hydrated by sipping clear fluids. 2. Eat small, bland meals like crackers or toast. 3. Avoid spicy, greasy, or heavy foods.";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+
+    else if (userMessages.toLowerCase().includes("diarrhea")) {
+      const precautions = "Here are some precautions 1.Stay hydrated by drinking water, clear broths, or oral rehydration solutions. 2.Eat bland, easy-to-digest foods like rice, bananas, or boiled potatoes. 3. Avoid caffeine, alcohol, and dairy products until symptoms improve."
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+    }
+
+    
+    else {
+      const precautions = "Hye You can consult with our doctors on toll free number for any query Toll-Free-9131487737";
+      const words = precautions.split(" ");
+      const maxLength = 5;
+      let response = "";
+      for (let i = 0; i < words.length; i++) {
+        response += words[i] + " ";
+        if ((i + 1) % maxLength === 0 && i !== words.length - 1) {
+          response += "<br />";
+        }
+      }
+      return response.trim();
+      
     }
   };
 
-  const handleInput = () => {
-    const botMessage = document.querySelector("#message1");
-    const userMessage = document.querySelector("#message2");
-    const inputRef = input.current;
-    const getHumanMessage = humanMessage.current;
-    const getBotMessage = botmessage.current;
-
-    let badwords = ["fuck|bad|stupid|useless|bitch|crazy|nonsense"];
-    let words = new RegExp(badwords);
-    if (words.test(document.querySelector("#input").value)) {
-      // if the input contains bad words
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "Please do not use bad words"; // display the message
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-    let welcome = [
-      "hi|hello|Hello|hey|sup|yo|wassup|whats up|howdy|greetings|good morning|good afternoon|good evening",
-    ];
-    let words2 = new RegExp(welcome);
-    if (words2.test(document.querySelector("#input").value)) {
-      const status = document.querySelector(".status");
-      // if the input contains welcome words
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "Hello There how are you doing today?"; // display the message
-        status.innerText = "Active";
-        status.style.color = "green";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-    let bye = ["bye|Bye|goodbye|see you later|cya|goodnight|goodbye"];
-    let words3 = new RegExp(bye);
-    if (words3.test(document.querySelector("#input").value)) {
-      const status = document.querySelector(".status");
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "Bye, have a nice day";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-      setTimeout(() => {
-        status.innerText = "Not active";
-        status.style.color = "red";
-      }, 5000);
-    }
-    let thanks = [
-      "Thanks|thanks|thank you|thank you very much|Thank you very much",
-    ];
-    let words4 = new RegExp(thanks);
-    if (words4.test(document.querySelector("#input").value)) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "You are welcome";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-    let how = [
-      "How are you|how are you doing|how are you doing today|how are you doing today|How are you|how are you",
-    ];
-    let words5 = new RegExp(how);
-    if (words5.test(document.querySelector("#input").value)) {
-      const status = document.querySelector(".status");
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "I am fine, thank you";
-        status.innerText = "Active";
-        status.style.color = "green";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-    let good = [
-      "That's good|Sound nice|that sounds awesome|that sounds great|Great|great|sounds great|that's sounds good|Nice|nice",
-    ];
-    let words6 = new RegExp(good);
-    if (words6.test(document.querySelector("#input").value)) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "😁";
-        inputRef.value = ""; // clear the input
-      }, 1000);
-    }
-
-    let response = [
-      "I'm fine|I am fine|I am fine today|I am fine today|i'm fine|i'm great|I'm fine|I'm great|I'm good|i'm good|great|Great",
-    ];
-    let words7 = new RegExp(response);
-    if (words7.test(document.querySelector("#input").value)) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "That is good";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-
-    let nameAsk = [
-      "What's your name|what's your name|What is your name|what is your name",
-    ];
-    let words8 = new RegExp(nameAsk);
-    if (words8.test(document.querySelector("#input").value)) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "My name is Bot";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-
-    let owner = [
-      "Who is the owner|who is the owner|Who is the owner of this bot|who is the owner of this bot|Who made you|who made you|Who is your maker|Who made you|who is your maker|who is your owner|Who is your owner",
-    ];
-    let words9 = new RegExp(owner);
-    if (words9.test(document.querySelector("#input").value)) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "The owner of this bot is Treasure";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-
-    let owner2 = [
-      "Who's Treasure|who's Treasure|Who is Treasure|who is Treasure",
-    ];
-    let words10 = new RegExp(owner2);
-    if (words10.test(document.querySelector("#input").value)) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText =
-          "Treasure is a programmer based on ReactJS and NodeJS he is the owner of a youtube channel called Creative Tutorials";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-
-    let ageAsk = [
-      "What's your age|what's your age|What is your age|what is your age|How old are you|how old are you",
-    ]; //adding the age-question
-    let words11 = new RegExp(ageAsk);
-    if (words11.test(document.querySelector("#input").value)) {
-      // if the input contains some question
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = "I am 1 year old";
-        inputRef.value = ""; // clear the input
-      }, 2000);
-    }
-    getHumanMessage.innerText = inputRef.value; // display the message
+  const handleUserMessage = (message) => {
+    setMessages((prevMessages) => [...prevMessages, { text: message, sender: "user" }]);
+    setTimeout(() => {
+      const botResponse = handleBotResponse(message);
+      setMessages((prevMessages) => [...prevMessages, { text: botResponse, sender: "bot" }]);
+    }, 500);
   };
 
-  const handleClose = () => {
-    window.history.back(); // Go back to the previous page
+  const startListening = () => {
+    if (recognition) {
+      recognition.onstart = () => {
+        setListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        const message = event.results[0][0].transcript;
+        handleUserMessage(message);
+      };
+
+      recognition.start();
+    }
+  };
+
+  const stopListening = () => {
+    if (recognition) {
+      recognition.stop();
+      setListening(false);
+    }
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="App" onLoad={checkStatus}>
-      <div className="wrapper">
-        <div className="content">
-          <div className="header">
-            <div className="img">
-              <img src={"https://media.istockphoto.com/id/1096227322/photo/medical-technology-concept.jpg?s=612x612&w=0&k=20&c=2wsdSG6rdeouoQudlzUJML4gWQmz_n2VMpPzyA264m0="} alt="" />
-            </div>
-            <div className="right">
-              <div className="name">ChatBot</div>
-              <div className="status">Active</div>
-            </div>
+    <div className="fixed bottom-20 right-20 w-400 h-500 bg-white border border-gray-300 rounded-lg overflow-hidden shadow-md">
+      <div className="h-100 overflow-y-auto p-2">
+        <h1 className="text-black font-semibold ">Tele-Consult</h1>
+        <br/>
+        {messages.map((message, index) => (
+          <div key={index} className={`flex items-center ${message.sender === "user" ? "justify-end" : "justify-start"} mb-2`}>
+            {message.sender === "user" ? null : <FaUserDoctor className="w-8 h-8 mr-2 text-blue-500" />}
+            <span className={`bg-${message.sender === "user" ? "yellow" : "blue"}-100 border border-${message.sender === "user" ? "yellow" : "blue"}-300 rounded-lg px-4 py-2 max-w-2/3 break-words text-${message.sender === "user" ? "gray" : "gray"}-800`} dangerouslySetInnerHTML={{ __html: message.text }}></span>
+            {message.sender === "user" ? <IoMdPerson className="w-6 h-6 ml-2 text-blue-500" /> : null}
           </div>
-          <div className="main">
-            <div className="main_content">
-              <div className="messages">
-                <div
-                  className="bot-message"
-                  id="message1"
-                  ref={botmessage}
-                ></div>
-                <div
-                  className="human-message"
-                  id="message2"
-                  ref={humanMessage}
-                ></div>
-              </div>
-            </div>
-          </div>
-          <div className="bottom">
-            <div className="btm">
-              <div className="input">
-                <input
-                  type="text"
-                  id="input"
-                  placeholder="Enter your message"
-                  ref={input}
-                />
-              </div>
-              <div className="btn">
-                <button onClick={handleInput}>
-                  <i className="fas fa-paper-plane"></i>Send
-                </button>
-              </div>
-            </div>
-          </div>
-
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+      <div className="flex items-center justify-between px-4 py-2">
+        <div className="flex items-center">
+          {listening ? (
+            <MdOutlineRecordVoiceOver onClick={stopListening} className="text-red-500 cursor-pointer w-8 h-8" />
+          ) : (
+            <MdVoiceOverOff onClick={startListening} className="text-green-500 cursor-pointer w-8 h-8" />
+          )}
+          <input
+            type="text"
+            placeholder="Type your message..."
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.target.value.trim() !== "") {
+                handleUserMessage(e.target.value);
+                e.target.value = "";
+              }
+            }}
+            className="w-full p-1 ml-0 rounded-lg border border-gray-300 bg-gray-100 text-gray-800"
+          />
         </div>
       </div>
     </div>

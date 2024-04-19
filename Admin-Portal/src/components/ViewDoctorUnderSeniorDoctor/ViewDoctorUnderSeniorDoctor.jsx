@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import "./ViewDoctorUnderSeniorDoctor.scss";
-
+import "./ViewDoctorUnderSeniorDoctor.scss"
 const ViewDoctorUnderSeniorDoctor = () => {
   const { id } = useParams(); // Retrieve the senior doctor's ID from the URL
   const [doctorsUnderSenior, setDoctorsUnderSenior] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-console.log("seniordoctorid", id);
+  const [selectedSdid, setSelectedSdid] = useState('');
+  const [sdidOptions, setSdidOptions] = useState([]);
+
   useEffect(() => {
     fetchDoctorsUnderSenior();
+    fetchSdidOptions();
   }, [id]); // Ensure useEffect runs whenever the senior doctor's ID changes
 
   const fetchDoctorsUnderSenior = async () => {
@@ -25,27 +27,40 @@ console.log("seniordoctorid", id);
     }
   };
 
+  const fetchSdidOptions = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/under-senior/sdid-options`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setSdidOptions(response.data);
+    } catch (error) {
+      console.error('Error fetching sdid options:', error);
+    }
+  };
+
+  const handleUpdateSdid = async (doctorId) => {
+    try {
+      await axios.put(`http://localhost:8080/doctor/${doctorId}/update-sdid/${selectedSdid}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      // Optionally, you can refresh the doctor list after updating sdid
+      fetchDoctorsUnderSenior();
+    } catch (error) {
+      console.error('Error updating sdid:', error);
+    }
+  };
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  const styles = {
-    editButton: {
-      padding: '8px 12px',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s ease',
-      backgroundColor: '#007bff',
-      color: '#fff',
-      marginRight: '5px',
-  
-      '&:hover': {
-        backgroundColor: '#0056b3',
-      },
-    },
+  const handleSelectSdid = (e) => {
+    setSelectedSdid(e.target.value);
   };
-  
 
   // Filter doctors based on search query
   const filteredDoctors = doctorsUnderSenior.filter((doctor) => {
@@ -57,56 +72,55 @@ console.log("seniordoctorid", id);
     );
   });
 
-
-  
-
   return (
-    <div className="view-doctor">
-      <h1>Doctors Under Senior Doctor</h1>
-    
-      <div className="search-container">
-      
-
-        <input
-          type="text"
-          placeholder="Search by name,email or phonenumber..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-      </div>
-      <button className="add-doctor-btn">Add New Doctor</button>
-      <br/>
-      <br/>
-      <table className="doctor-table">
-        <thead>
-          <tr>
-            <th>Doctor-id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Gender</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredDoctors.map((doctor, index) => (
-            <tr key={index}>
-              <td>{doctor.id}</td>
-              <td>{doctor.name}</td>
-              <td>{doctor.email}</td>
-              <td>{doctor.phoneNumber}</td>
-              <td>{doctor.gender}</td>
-              <td>
-              <button style={styles.editButton}>Edit</button>
-
-               
-              </td>
+ 
+      <div className="view-doctor">
+        <h1>Doctors Under Senior Doctor</h1>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search by name, email, or phone number..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <table className="doctor-table">
+          <thead>
+            <tr>
+              <th>Doctor ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Gender</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+          </thead>
+          <tbody>
+            {filteredDoctors.map((doctor) => (
+              <tr key={doctor.id}>
+                <td>{doctor.id}</td>
+                <td>{doctor.name}</td>
+                <td>{doctor.email}</td>
+                <td>{doctor.phoneNumber}</td>
+                <td>{doctor.gender}</td>
+                <td>
+                  <select value={selectedSdid} onChange={(e) => handleUpdateSdid(doctor.id, e.target.value)}>
+                    <option value="">Select SDID</option>
+                    {sdidOptions.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+    
+
 };
 
 export default ViewDoctorUnderSeniorDoctor;

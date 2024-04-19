@@ -62,6 +62,9 @@ const DoctorDetails = () => {
     }
   };
 
+  const handleupdatedoctor = (doctorId) => {
+    navigate('/updatedoctordetails',{ state : { doctorId }});
+  };
   const handleViewCallHistory = (doctorId) => {
     navigate('/viewdoctorhistory',{ state : { doctorId }});
   };
@@ -96,7 +99,9 @@ const DoctorDetails = () => {
               <td>{doctor.phoneNumber}</td>
               <td>{doctor.gender}</td>
               <td>
-                <button onClick={() => handleViewCallHistory(doctor.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>View Call History</button>
+                <button onClick={() => handleupdatedoctor(doctor.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Update</button>
+                {" | "}
+                <button onClick={() => handleViewCallHistory(doctor.id)} style={{ backgroundColor: 'green', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>View Call History</button>
                 {" | "}
                 <button onClick={() => handleDeleteDoctor(doctor.id)} style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Delete</button>
               </td>

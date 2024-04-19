@@ -13,6 +13,13 @@ import Footer from '../Footer';
 const MainRoute = () => {
   return (
     <>
+     <style>
+        {`
+          body {
+            background-color: #f4f4f4; /* Change this to the desired background color */
+          }
+        `}
+      </style>
       <Navbar />
       <main>
         <div id="home">
@@ -34,9 +41,12 @@ const MainRoute = () => {
           <Blogs />
         </div>
       </main>
+    
       <div id="healthcheck">
         <HealthCheck />
       </div>
+      <br/>
+      <br/>
       <div id="gomap">
         <GoMap />
       </div>
