@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './AddAppointment.css';
 import axios from 'axios';
 
 const AddAppointment = () => {
@@ -10,26 +9,24 @@ const AddAppointment = () => {
         callTime: '',
     });
 
-    // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Send appointment details to the backend
-            console.log("formdata", formData);
-            await axios.post("http://localhost:8080/callhistory/add", formData);
+            await axios.post("http://localhost:8080/callhistory/doctor/add", formData, {
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+              });
             alert("Appointment added successfully!");
-            // Reset form fields after successful submission
             setFormData({ did: '', pid: '', callDate: '', callTime: '' });
-            
         } catch (error) {
             console.error("Error adding appointment:", error);
             alert("Failed to add appointment. Please try again later.");
         }
     };
 
-    // Function to handle input changes
     const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     return (
