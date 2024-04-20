@@ -4,15 +4,40 @@ import './PatientHistorys.css'; // Import your CSS file for styling
 import axios from 'axios';
 
 const PatientHistorys = () => {
+  const [doctorId, setDoctorId] = useState(null);
   const [patientHistory, setPatientHistory] = useState([]);
-
   useEffect(() => {
-    loadPatientHistory();
+    const loadDoctorId = async () => {
+      try {
+        const email = localStorage.getItem("email");
+        const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setDoctorId(result.data);
+      
+      } catch (error) {
+        console.error('Error fetching doctor ID:', error);
+      }
+    };
+    loadDoctorId();
   }, []);
 
+  console.log("doctorid", doctorId);
+  useEffect(() => {
+    if (doctorId) {
+      console.log("hye");
+      loadPatientHistory();
+    }
+  }, [doctorId]);
   const loadPatientHistory = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/callhistory/seniordoctors/1");
+      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
       setPatientHistory(response.data);
       console.log("Patient History", response.data);
     } catch (error) {

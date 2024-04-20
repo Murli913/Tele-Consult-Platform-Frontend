@@ -57,7 +57,7 @@ const Appointments = () => {
     <div className="appointments-container">
       <h2>Appointments</h2>
       <Button onClick={gotoAddAppointment}>Add Appointment</Button>
-      <div className={`appointments-list-container ${doctorHistoryData.length > 2 ? 'sliding' : ''}`}>
+      <div className={`appointments-list-container ${doctorHistoryData.length > 10 ? 'sliding' : ''}`}>
         <table className="appointments-table">
           <thead>
             <tr>
