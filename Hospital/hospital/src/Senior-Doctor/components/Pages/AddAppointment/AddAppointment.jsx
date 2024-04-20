@@ -1,5 +1,9 @@
+// AddAppointment.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./AddAppointment.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AddAppointment = () => {
     const [formData, setFormData] = useState({
@@ -16,12 +20,14 @@ const AddAppointment = () => {
                 headers: {
                   'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
-              });
-            alert("Appointment added successfully!");
+            });
+         
             setFormData({ did: '', pid: '', callDate: '', callTime: '' });
+            toast.success("Add Apoointment successfully");
         } catch (error) {
             console.error("Error adding appointment:", error);
-            alert("Failed to add appointment. Please try again later.");
+            toast.error("Error occurred while adding appointment");
+        
         }
     };
 
@@ -30,55 +36,64 @@ const AddAppointment = () => {
     };
 
     return (
-        <div className="appointments-container">
-            <h2>Add Appointment</h2>
-            <form onSubmit={handleSubmit} className="appointment-form">
-                <div className="form-group">
-                    <label htmlFor="patientId">Doctor ID:</label>
-                    <input
-                        type="text"
-                        id="patientId"
-                        name="did"
-                        value={formData.did}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="doctorId">Patient ID:</label>
-                    <input
-                        type="text"
-                        id="doctorId"
-                        name="pid"
-                        value={formData.pid}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="date">Date:</label>
-                    <input
-                        type="date"
-                        id="date"
-                        name="callDate"
-                        value={formData.callDate}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="time">Time:</label>
-                    <input
-                        type="time"
-                        id="time"
-                        name="callTime"
-                        value={formData.callTime}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn-submit">Add Appointment</button>
-            </form>
+        <div className="dialog-box">
+            <div className="form-column">
+                <form onSubmit={handleSubmit} className="appointment-form">
+                    <h2 className="add-appointment-heading">Add Appointment</h2>
+                    <br/>
+                    <div className="form-group">
+                        <label htmlFor="doctorId">Doctor ID:</label>
+                        <input
+                            type="text"
+                            id="doctorId"
+                            name="did"
+                            value={formData.did}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="patientId">Patient ID:</label>
+                        <input
+                            type="text"
+                            id="patientId"
+                            name="pid"
+                            value={formData.pid}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+             
+                    <div className="form-group">
+                        <label htmlFor="date">Date:{" "}{" "}</label>
+                        <input
+                            type="date"
+                            id="date"
+                            name="callDate"
+                            value={formData.callDate}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="time">Time: {" "}{" "}</label>
+                        <input
+                            type="time"
+                            id="time"
+                            name="callTime"
+                            value={formData.callTime}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn-submit">Add Appointment</button>
+                </form>
+            </div>
+            <div className="image-column">
+                <img src="https://media.licdn.com/dms/image/D5612AQH8InK04zt5MA/article-cover_image-shrink_600_2000/0/1653677155362?e=2147483647&v=beta&t=tMpvukUVEMkxQBL9ONAgpResi904jtPJetDNbLfgGuc" alt="Doctor" className="doctor-image" />
+               
+            </div>
+            <ToastContainer />
         </div>
     );
 };

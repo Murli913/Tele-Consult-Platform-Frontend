@@ -1,172 +1,83 @@
 .appointments-container {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 600px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .appointment-form {
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="date"],
-  input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .btn-submit {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-submit:hover {
-    background-color: #0056b3;
-  }
-  
-  .appointment-list {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  ul li {
-    margin-bottom: 10px;
-  }
-  .appointments-container {
-    margin: 20px auto;
-    max-width: 800px;
-  }
-  
-  .appointments-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .appointments-table th,
-  .appointments-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .appointments-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .action-column {
-    text-align: center;
-  }
-  
-  .action-linkk {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .action-linkk:hover {
-    text-decoration: underline;
-  }
-  .appointments-container {
-    margin: 20px auto;
-    max-width: 800px;
-  }
-  
-  .appointment-form {
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="date"],
-  input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .btn-submit {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-submit:hover {
-    background-color: #0056b3;
-  }
-  
-  .appointments-list-container {
-    overflow: hidden;
-  }
-  
-  .appointments-list-container.sliding {
-    max-height: 150px; /* Adjust height as needed */
-    transition: max-height 0.3s ease;
-  }
-  
-  .appointments-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .appointments-table th,
-  .appointments-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .appointments-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .action-column {
-    text-align: center;
-  }
-  
-  .action-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .action-link:hover {
-    text-decoration: underline;
-  }
-      
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.appointment-heading h2 {
+  font-weight: bold;
+}
+
+.btn-add-appointment {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-appointment:hover {
+  background-color: #0056b3;
+}
+
+.appointments-list-container {
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.appointments-list-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointments-list-container th,
+.appointments-list-container td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.appointments-list-container th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.action-column {
+  text-align: center;
+}
+
+.btn-update {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-update:hover {
+  background-color: #0056b3;
+}
+
+.search-input {
+  margin-bottom: 10px;
+ margin-right:200px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}

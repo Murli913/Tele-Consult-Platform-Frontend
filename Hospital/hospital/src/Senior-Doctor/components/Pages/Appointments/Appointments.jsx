@@ -3,9 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import "./Appointment.css"
+
 const Appointments = () => {
   const [doctorId, setDoctorId] = useState(null);
   const [doctorHistoryData, setDoctorHistoryData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,9 +34,18 @@ const Appointments = () => {
     }
   }, [doctorId]);
 
-  const handleupdatedoctor = (appointmentId) => {
+  useEffect(() => {
+    if (searchText === '') {
+      setFilteredData(doctorHistoryData);
+    } else {
+      const filtered = doctorHistoryData.filter(appointment => appointment.id.toString().includes(searchText));
+      setFilteredData(filtered);
+    }
+  }, [searchText, doctorHistoryData]);
+
+  const handleUpdateDoctor = (appointmentId) => {
     console.log("appointtest", appointmentId);
-    navigate('/updateappointment',{ state : { appointmentId }});
+    navigate('/updateappointment', { state: { appointmentId } });
   };
 
   const fetchDoctorHistory = async () => {
@@ -44,6 +56,7 @@ const Appointments = () => {
         }
       });
       setDoctorHistoryData(response.data);
+      setFilteredData(response.data);
     } catch (error) {
       console.error('Error fetching doctor history:', error);
     }
@@ -53,35 +66,51 @@ const Appointments = () => {
     navigate("/saddappointment");
   };
 
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+  };
+
   return (
     <div className="appointments-container">
-      <h2>Appointments</h2>
-      <Button onClick={gotoAddAppointment}>Add Appointment</Button>
-      <div className={`appointments-list-container ${doctorHistoryData.length > 10 ? 'sliding' : ''}`}>
+      <div className="appointment-heading">
+        <h2>Appointments</h2>
+        <Button onClick={gotoAddAppointment} className="btn-add-appointment">Add Appointment</Button>
+      </div>
+      <input
+        type="text"
+        placeholder="Search by Appointment ID"
+        value={searchText}
+        onChange={handleSearch}
+        className="search-input"
+      />
+      <div className={`appointments-list-container ${doctorHistoryData.length > 6 ? 'sliding' : ''}`}>
         <table className="appointments-table">
           <thead>
             <tr>
-              <th>Appointment-id</th>
-              <th>Call-Date</th>
-              <th>Call-Time</th>
-              <th>Patient-Id</th>
+              <th>Appointment ID</th>
+              <th>Call Date</th>
+              <th>Call Time</th>
+              <th>Patient ID</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {doctorHistoryData.map(appointment => (
+            {filteredData.slice(0, 6).map(appointment => ( // Display only the first 6 filtered records
               <tr key={appointment.id}>
                 <td>{appointment.id}</td>
                 <td>{appointment.callDate}</td>
                 <td>{appointment.callTime}</td>
                 <td>{appointment.patient.id}</td>
                 <td className="action-column">
-                <button onClick={() => handleupdatedoctor(appointment.id)} style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer' }}>Update</button>
+                  <button onClick={() => handleUpdateDoctor(appointment.id)} className="btn-update">Update</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {doctorHistoryData.length > 6 && ( // Show a message if there are more than 6 records
+          <p className="scroll-message">Showing 6 out of {doctorHistoryData.length} records.</p>
+        )}
       </div>
     </div>
   );

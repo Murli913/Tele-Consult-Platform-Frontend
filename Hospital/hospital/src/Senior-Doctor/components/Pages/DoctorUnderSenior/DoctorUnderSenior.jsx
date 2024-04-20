@@ -44,7 +44,7 @@ const naviagte=useNavigate();
     setDoctors(result.data);
   
   };
-
+console.log("lkength", doctors.length);
   // Function to handle doctor removal
   const  handlepatientunderDoctor = (doctorId) => {
     naviagte('/viewpatientunderdoctor',{ state : { doctorId }});

@@ -65,7 +65,7 @@ const SAreaCards = () => {
 
   const fetchTotalDoctorsCount = async() => {
     try {
-      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/doctors/count`, {
+      const response = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
@@ -80,7 +80,7 @@ const SAreaCards = () => {
     // New function to fetch total patients count
     const fetchTotalPatientsCount = async() => {
       try {
-        const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/patients/count`, {
+        const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
           }
@@ -103,19 +103,19 @@ const SAreaCards = () => {
       />
         <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalDoctors / 100) * 100} // Example: assuming max 1000 appointments
+        percentFillValue={(totalDoctors.length / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
           title: "Doctors",
-          value: totalDoctors,
+          value: totalDoctors.length,
           text: "Total Doctor.",
         }}
       />
         <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalPatients / 100) * 100} // Example: assuming max 1000 appointments
+        percentFillValue={(totalPatients.length / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
           title: "Patients",
-          value: totalPatients,
+          value: totalPatients.length,
           text: "Patients.",
         }}
       />
