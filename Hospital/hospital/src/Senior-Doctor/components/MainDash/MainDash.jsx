@@ -4,6 +4,7 @@ import Table from "../Table/Table";
 import "./MainDash.css";
 import SAreaCards from "../Cards/SAreaCards";
 import { useNavigate } from "react-router-dom";
+import OngoingCall from "../Ongoingcall/Ongoingcall";
 const MainDash = () => {
   const navigate=useNavigate();
   useEffect(() => {
@@ -14,18 +15,16 @@ const MainDash = () => {
   return (
   
     <div className="MainDash" style={{ marginTop: '40px' }}>
-      <br/>
+     <br/>
       <h1 class="big-bold-heading">Dashboard</h1>
 
-     
-     
       <SAreaCards />
-      <br/>
-      <br/>
-      <br/>
+     
       
-      
-      <Table />
+      <div className="table-container">
+        <Table />
+        <OngoingCall />
+      </div>
     </div>
   );
 };

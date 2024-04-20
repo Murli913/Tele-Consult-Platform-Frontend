@@ -7,11 +7,7 @@ import SAreaCard from "./SAreaCard";
 
 const SAreaCards = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      navigate("/");
-    } 
-},[]);
+
   const [doctorId, setDoctorId] = useState(null);
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0);
@@ -40,6 +36,7 @@ const SAreaCards = () => {
       console.error('Error fetching doctor ID:', error);
     }
   };
+  console.log("doctorid", doctorId);
 
   const fetchTotalAppointmentsCount = async () => {
     try {
