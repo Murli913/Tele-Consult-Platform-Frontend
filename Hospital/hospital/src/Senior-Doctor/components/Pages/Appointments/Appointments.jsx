@@ -76,13 +76,18 @@ const Appointments = () => {
         <h2>Appointments</h2>
         <Button onClick={gotoAddAppointment} className="btn-add-appointment">Add Appointment</Button>
       </div>
-      <input
-        type="text"
-        placeholder="Search by Appointment ID"
-        value={searchText}
-        onChange={handleSearch}
-        className="search-input"
-      />
+      <div className="search-container">
+  
+  <input
+    type="text"
+    placeholder="Search by Appointment ID"
+    value={searchText}
+    onChange={handleSearch}
+    className="search-input"
+  />
+</div>
+
+
       <div className={`appointments-list-container ${doctorHistoryData.length > 6 ? 'sliding' : ''}`}>
         <table className="appointments-table">
           <thead>

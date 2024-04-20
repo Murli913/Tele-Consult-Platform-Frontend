@@ -1,4 +1,3 @@
-// AreaCards.js
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,42 +12,29 @@ const SAreaCards = () => {
   const [totalDoctors, setTotalDoctors] = useState(0);
   const [totalPatients, setTotalPatients] = useState(0);
 
-
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
       navigate("/");
     }
+    fetchDoctorId();
     fetchTotalAppointmentsCount();
     fetchTotalDoctorsCount();
     fetchTotalPatientsCount();
   }, []);
 
-
-  useEffect(() => {
-    const loadDoctorId = async () => {
-      try {
-        const email = localStorage.getItem("email");
-        const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-          }
-        });
-        setDoctorId(result.data);
-      } catch (error) {
-        console.error('Error fetching doctor ID:', error);
-      }
-    };
-    loadDoctorId();
-  }, []);
-
-  useEffect(() => {
-    if (doctorId) {
-        fetchTotalAppointmentsCount();
-        fetchTotalDoctorsCount();
-        fetchTotalPatientsCount();
+  const fetchDoctorId = async () => {
+    try {
+      const email = localStorage.getItem("email");
+      const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setDoctorId(result.data);
+    } catch (error) {
+      console.error('Error fetching doctor ID:', error);
     }
-  }, [doctorId]);
-
+  };
 
   const fetchTotalAppointmentsCount = async () => {
     try {
@@ -63,7 +49,7 @@ const SAreaCards = () => {
     }
   };
 
-  const fetchTotalDoctorsCount = async() => {
+  const fetchTotalDoctorsCount = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
         headers: {
@@ -72,24 +58,23 @@ const SAreaCards = () => {
       });
       setTotalDoctors(response.data);
     } catch (error) {
-      console.error("Error fetching total appointments count:", error);
+      console.error("Error fetching total doctors count:", error);
     }
   };
 
+  const fetchTotalPatientsCount = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setTotalPatients(response.data);
+    } catch (error) {
+      console.error("Error fetching total patients count:", error);
+    }
+  };
 
-    // New function to fetch total patients count
-    const fetchTotalPatientsCount = async() => {
-      try {
-        const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-          }
-        });
-        setTotalPatients(response.data);
-      } catch (error) {
-        console.error("Error fetching total patients count:", error);
-      }
-    };
   return (
     <section className="content-area-cards">
       <SAreaCard
@@ -98,28 +83,27 @@ const SAreaCards = () => {
         cardInfo={{
           title: "Appointment",
           value: totalAppointments,
-          text: "Total Appointment.",
+          text: "Total Appointments.",
         }}
       />
-        <SAreaCard
+      <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalDoctors.length / 100) * 100} // Example: assuming max 1000 appointments
+        percentFillValue={(totalDoctors.length / 100) * 100} // Example: assuming max 1000 doctors
         cardInfo={{
           title: "Doctors",
           value: totalDoctors.length,
-          text: "Total Doctor.",
+          text: "Total Doctors.",
         }}
       />
-        <SAreaCard
+      <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalPatients.length / 100) * 100} // Example: assuming max 1000 appointments
+        percentFillValue={(totalPatients.length / 100) * 100} // Example: assuming max 1000 patients
         cardInfo={{
           title: "Patients",
           value: totalPatients.length,
-          text: "Patients.",
+          text: "Total Patients.",
         }}
       />
-      {/* Other AreaCards remain the same */}
     </section>
   );
 };

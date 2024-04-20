@@ -2,7 +2,8 @@
 .doctor-dialog-container {
   display: flex;
   justify-content: center;
-  margin-top: 50;
+  margin-top: 50px;
+  margin-left: 30px; /* Added 'px' unit */
 }
 
 .doctor-dialog {

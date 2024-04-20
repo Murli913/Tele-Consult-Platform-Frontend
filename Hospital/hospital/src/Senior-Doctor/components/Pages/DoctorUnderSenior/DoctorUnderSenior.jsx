@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const DoctorUnderSenior = () => {
   const [doctors, setDoctors] = useState([]);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [doctorId, setDoctorId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,17 +33,34 @@ const DoctorUnderSenior = () => {
     }
   }, [doctorId]);
 
+  useEffect(() => {
+    // Filter doctors based on searchQuery
+    const filtered = doctors.filter(doctor =>
+      doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doctor.phoneNumber.includes(searchQuery)
+    );
+    setFilteredDoctors(filtered);
+  }, [searchQuery, doctors]);
+
   const loadUsers = async () => {
-    const result = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-    setDoctors(result.data);
+    try {
+      const result = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setDoctors(result.data);
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+    }
   };
 
   const handlePatientUnderDoctor = (doctorId) => {
     navigate('/viewpatientunderdoctor', { state: { doctorId } });
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -53,8 +72,10 @@ const DoctorUnderSenior = () => {
         <div className="search-container">
           <input
             type="text"
-            placeholder="Search Doctor..."
+            placeholder="Search Doctor by name or phonenumber..."
             className="search-input"
+            value={searchQuery}
+            onChange={handleSearch}
           />
         </div>
 
@@ -70,7 +91,7 @@ const DoctorUnderSenior = () => {
             </tr>
           </thead>
           <tbody>
-            {doctors.map(doctor => (
+            {filteredDoctors.map(doctor => (
               <tr key={doctor.id}>
                 <td>{doctor.id}</td>
                 <td>{doctor.gender}</td>

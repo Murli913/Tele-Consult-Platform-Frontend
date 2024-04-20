@@ -1,51 +1,55 @@
-/* ViewPatientUnderDoctor.css */
-.view-doctor-history {
-  max-width: 800px;
+.appointments-container {
   margin: 20px auto;
+  max-width: 800px;
   padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.doctor-list-heading {
-  font-size: 24px;
+.doctor-list-container {
   text-align: center;
-  margin-bottom: 10px;
-  color: #000000;
+}
+
+.doctor-list-container h2 {
+  font-weight: bold;
 }
 
 .search-container {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .search-input {
-  width: 300px;
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 8px;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 16px;
+  width: 300px;
 }
 
-.doctor-history-table {
+.appointments-list-container {
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.appointments-list-container table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.doctor-history-table th,
-.doctor-history-table td {
-  border: 1px solid #ccc;
+.appointments-list-container th,
+.appointments-list-container td {
+  border: 1px solid #ddd;
   padding: 10px;
   text-align: left;
 }
 
-.doctor-history-table th {
+.appointments-list-container th {
   background-color: #f2f2f2;
   font-weight: bold;
 }
-
-.doctor-history-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.doctor-history-table tbody tr:hover {
-  background-color: #f2f2f2;
+.doctor-list-heading {
+  font-size: 32px;
+  font-weight: bold;
 }

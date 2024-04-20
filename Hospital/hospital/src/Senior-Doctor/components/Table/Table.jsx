@@ -9,7 +9,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { MdCall } from "react-icons/md";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const BasicTable = () => {
@@ -39,8 +38,6 @@ const BasicTable = () => {
     }
   }, [doctorId]);
 
-
-
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/today`, {
@@ -49,85 +46,39 @@ const BasicTable = () => {
         }
       });
       console.log("response", response);
-     
-        setAppointments(response.data);
-       
-      
+      setAppointments(response.data);
     } catch (error) {
       console.error("Error fetching appointments: ", error);
     }
   };
 
-
-  const makeStyle = (status) => {
-    if (status === "Approved") {
-      return {
-        background: "rgb(145 254 159 / 47%)",
-        color: "green",
-      };
-    } else if (status === "Pending") {
-      return {
-        background: "#ffadad8f",
-        color: "red",
-      };
-    } else {
-      return {
-        background: "#59bfff",
-        color: "white",
-      };
-    }
-  };
-
   return (
-    <div className="Table">
-      <h3>Today's Appointments</h3>
-      <br />
-      <TableContainer
-        component={Paper}
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <div className="appointments-container">
+      <div className="appointment-heading">
+        <h2>Today's Appointments</h2>
+        {/* You can add a button for adding appointments if needed */}
+      </div>
+      <TableContainer component={Paper} className="appointments-list-container">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Doctor Name</TableCell>
-              <TableCell align="left">Patient Name</TableCell>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left"></TableCell>
+              <TableCell>Patient Name</TableCell>
+              <TableCell>Start Time</TableCell>
+              <TableCell>End Time</TableCell>
+              <TableCell>Call</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody style={{ color: "white" }}>
+          <TableBody>
             {appointments.map((appointment) => (
-              <TableRow
-                key={appointment.id}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  {appointment.doctor.name} {/* Assuming 'name' is the doctor's name */}
+              <TableRow key={appointment.id}>
+                <TableCell>{appointment.patient.name}</TableCell>
+                <TableCell>{appointment.callTime}</TableCell>
+                <TableCell>{appointment.endTime}</TableCell>
+                <TableCell className="action-column">
+                  <Button variant="contained" color="primary" startIcon={<MdCall />}>
+                    Call
+                  </Button>
                 </TableCell>
-                <TableCell align="left">
-                  {appointment.patient.name} {/* Assuming 'name' is the patient's name */}
-                </TableCell>
-                <TableCell align="left">
-                  {appointment.callDate} {/* Assuming 'callDate' is the date of the appointment */}
-                </TableCell>
-                <TableCell align="left">
-                  <span
-                    className="status"
-                    style={makeStyle(appointment.status)}
-                  >
-                    {appointment.status}
-                  </span>
-                </TableCell>
-                <Button
-               
-                  align="left"
-                  className="Details"
-                >
-                  <MdCall /> Call
-                </Button>
               </TableRow>
             ))}
           </TableBody>

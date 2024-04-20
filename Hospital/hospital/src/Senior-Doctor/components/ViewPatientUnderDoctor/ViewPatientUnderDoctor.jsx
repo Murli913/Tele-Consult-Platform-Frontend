@@ -1,4 +1,3 @@
-// ViewPatientUnderDoctor.js
 import React, { useState, useEffect } from 'react';
 import './ViewPatientUnderDoctor.css';
 import axios from 'axios';
@@ -36,8 +35,13 @@ const ViewPatientUnderDoctor = () => {
   };
 
   return (
-    <div className="view-doctor-history">
-      <h1 className="doctor-list-heading">Doctor History</h1>
+    <div className="appointments-container">
+      <div className="doctor-list-container">
+      <h1 className="doctor-list-heading">Doctor List</h1>
+        <br/>
+        {/* Render your doctor list here */}
+      </div>
+      <hr />
       <div className="search-container">
         <input
           type="text"
@@ -47,28 +51,30 @@ const ViewPatientUnderDoctor = () => {
           className="search-input"
         />
       </div>
-      <table className="doctor-history-table">
-        <thead>
-          <tr>
-            <th>Patient ID</th>
-            <th>Doctor ID</th>
-            <th>Consultant Date</th>
-            <th>Consultant Time</th>
-            <th>Prescription</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredDoctorHistory.map((record, index) => (
-            <tr key={index}>
-              <td>{record.patient.id}</td>
-              <td>{record.doctor.id}</td>
-              <td>{record.callDate}</td>
-              <td>{record.callTime}</td>
-              <td>{record.prescription}</td>
+      <div className="appointments-list-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient ID</th>
+              <th>Doctor ID</th>
+              <th>Consultant Date</th>
+              <th>Consultant Time</th>
+              <th>Prescription</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredDoctorHistory.map((record, index) => (
+              <tr key={index}>
+                <td>{record.patient.id}</td>
+                <td>{record.doctor.id}</td>
+                <td>{record.callDate}</td>
+                <td>{record.callTime}</td>
+                <td>{record.prescription}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
