@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './EditAppointment.css';
+import { useNavigate } from 'react-router-dom';
 const EditAppointment = () => {
   const [patientName, setPatientName] = useState('');
   const [doctorName, setDoctorName] = useState('');
@@ -7,6 +8,12 @@ const EditAppointment = () => {
   const [time, setTime] = useState('');
 
   const handleEdit = () => {
+    const navigate=useNavigate();
+    useEffect(() => {
+      if (!localStorage.getItem("token")) {
+        navigate("/");
+      } 
+  },[]);
     // Handle edit functionality here
     console.log('Editing...');
   };

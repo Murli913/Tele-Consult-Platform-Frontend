@@ -2,8 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Updates.css";
 import { FaStar, FaRegStar as FaStarRegular } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 const Updates = () => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
+
   const [topDoctors, setTopDoctors] = useState([]);
   const renderStars = (totalRating) => {
     const stars = [];

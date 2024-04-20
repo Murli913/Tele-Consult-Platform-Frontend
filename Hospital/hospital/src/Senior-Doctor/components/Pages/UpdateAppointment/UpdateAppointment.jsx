@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import "./UpdateAppointment.css"; // Import the CSS file for styling
@@ -10,8 +10,15 @@ const UpdateAppointment = () => {
     const [callTime, setCallTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const location = useLocation();
-    const { appointmentId } = location.state;
     const navigate=useNavigate();
+
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+          navigate("/");
+        } 
+    },[]);
+    const { appointmentId } = location.state;
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("appointment", appointmentId);

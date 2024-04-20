@@ -10,8 +10,15 @@ import Paper from "@mui/material/Paper";
 import { MdCall } from "react-icons/md";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BasicTable = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   const [doctorId, setDoctorId] = useState(null);
   const [appointments, setAppointments] = useState([]);
   

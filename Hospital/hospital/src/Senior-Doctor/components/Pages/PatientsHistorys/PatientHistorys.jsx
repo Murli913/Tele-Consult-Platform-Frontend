@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './PatientHistorys.css';
+import { useNavigate } from 'react-router-dom';
 
 const PatientHistorys = () => {
   const [doctorId, setDoctorId] = useState(null);
@@ -10,6 +11,12 @@ const PatientHistorys = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [filteredPatientHistory, setFilteredPatientHistory] = useState([]);
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
 
   useEffect(() => {
     const loadDoctorId = async () => {

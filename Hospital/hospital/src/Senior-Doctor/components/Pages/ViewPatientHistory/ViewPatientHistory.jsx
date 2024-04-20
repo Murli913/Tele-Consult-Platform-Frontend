@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ViewPatientHistory.css'; // Import your CSS file for styling
 import axios from 'axios';
 
 const ViewPatientHistory = ({ match }) => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   const [patientHistory, setPatientHistory] = useState([]);
 
   useEffect(() => {

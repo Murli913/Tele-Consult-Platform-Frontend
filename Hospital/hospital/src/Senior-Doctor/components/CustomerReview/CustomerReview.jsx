@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import axios from "axios"; // Don't forget to import axios
+import { useNavigate } from "react-router-dom";
 
 const CustomerReview = () => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {

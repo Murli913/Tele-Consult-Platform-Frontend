@@ -1,5 +1,5 @@
 // AddAppointment.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "./AddAppointment.css";
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 const AddAppointment = () => {
     const navigate=useNavigate();
+    useEffect(() => {
+        if (!localStorage.getItem("token")) {
+          navigate("/");
+        } 
+    },[]);
     const [formData, setFormData] = useState({
         did: '',
         pid: '',

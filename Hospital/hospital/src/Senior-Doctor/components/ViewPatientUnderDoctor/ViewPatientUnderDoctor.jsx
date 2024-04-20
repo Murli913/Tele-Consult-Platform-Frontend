@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './ViewPatientUnderDoctor.css';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ViewPatientUnderDoctor = () => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   const [doctorHistoryData, setDoctorHistoryData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();

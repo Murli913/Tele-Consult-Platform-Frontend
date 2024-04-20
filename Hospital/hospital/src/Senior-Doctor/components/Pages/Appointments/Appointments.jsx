@@ -10,6 +10,11 @@ const Appointments = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
 
   useEffect(() => {
     const loadDoctorId = async () => {

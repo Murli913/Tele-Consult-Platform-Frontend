@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomerReview from "../CustomerReview/CustomerReview";
 import Updates from "../Updates/Updates";
 import "./RightSide.css";
+import { useNavigate } from "react-router-dom";
 
 const RightSide = () => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   return (
     <div className="RightSide">
       <div>

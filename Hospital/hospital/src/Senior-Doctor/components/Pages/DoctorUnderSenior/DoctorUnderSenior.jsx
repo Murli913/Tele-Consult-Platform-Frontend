@@ -9,6 +9,11 @@ const DoctorUnderSenior = () => {
   const [doctorId, setDoctorId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
 
   useEffect(() => {
     const loadDoctorId = async () => {

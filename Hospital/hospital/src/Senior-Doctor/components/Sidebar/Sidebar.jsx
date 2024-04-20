@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { UilSignOutAlt, UilBars } from "@iconscout/react-unicons";
@@ -6,21 +6,29 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaPerson } from "react-icons/fa6";
 import { FaAppStore } from "react-icons/fa";
 import { BiSolidDashboard } from "react-icons/bi";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   const [selected, setSelected] = useState(null);
   const [expanded, setExpanded] = useState(true);
-  const navigate = useNavigate();
+  
 
   const toggleSidebar = () => {
     setExpanded(!expanded);
   };
-  const history = useNavigate();
+ 
 
 const handleSignOut = () => {
   toast.success("Logout successfully");
     localStorage.clear(); 
-    history('/loginsd');
+    navigate('/');
 };
 
   const gotologin = () => {
@@ -85,6 +93,7 @@ const handleSignOut = () => {
 
           </div>
         </div>
+        <ToastContainer/>
       </div>
     </>
   );
