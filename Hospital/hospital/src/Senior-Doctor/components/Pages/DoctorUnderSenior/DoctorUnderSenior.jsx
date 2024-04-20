@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './DoctorUnderSenior.css'; // Import your CSS file for styling
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const DoctorUnderSenior = () => {
   // Dummy data for doctors (replace with your actual data)
   const [doctors, setDoctors] = useState([]);
   const [doctorId, setDoctorId] = useState(null);
-
+const naviagte=useNavigate();
   useEffect(() => {
     const loadDoctorId = async () => {
       try {
@@ -45,11 +46,9 @@ const DoctorUnderSenior = () => {
   };
 
   // Function to handle doctor removal
-  const handleRemoveDoctor = async (id) => {
-    await axios.delete(`http://localhost:8080/doctor/doctor/${id}`);
-    loadUsers();
+  const  handlepatientunderDoctor = (doctorId) => {
+    naviagte('/viewpatientunderdoctor',{ state : { doctorId }});
   };
-
   return (
     <div className="doctor-page-container">
       <h2>Doctor List</h2>
@@ -76,7 +75,7 @@ const DoctorUnderSenior = () => {
              
               <td className="action-column">
                 {/* Remove action link */}
-                <button onClick={() => handleRemoveDoctor(doctor.id)} className="remove-btn">Remove</button>
+                <button onClick={() => handlepatientunderDoctor(doctor.id)} className="remove-btn">Patient-History</button>
               </td>
             </tr>
           ))}

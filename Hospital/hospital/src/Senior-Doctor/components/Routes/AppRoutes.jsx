@@ -10,6 +10,7 @@ import AddAppointment from '../Pages/AddAppointment/AddAppointment';
 import ViewAppointment from '../Pages/ViewAppointment/ViewAppointment';
 import DoctorUnderSenior from '../Pages/DoctorUnderSenior/DoctorUnderSenior';
 import UpdateAppointment from '../Pages/UpdateAppointment/UpdateAppointment';
+import ViewPatientUnderDoctor from '../ViewPatientUnderDoctor/ViewPatientUnderDoctor';
 
 
 const AppRoutes = () => {
@@ -22,7 +23,7 @@ const AppRoutes = () => {
       <Route path="/updateappointment" element={<UpdateAppointment />} />
       <Route path="/editappointment" element={<EditAppointment />} />
       <Route path="/sappointments/:id" element={<ViewAppointment />} />
-     
+      <Route path="/viewpatientunderdoctor" element={<ViewPatientUnderDoctor />} />
       <Route path="/saddappointment" element={<AddAppointment />} />
       <Route path="/viewpatienthistory/:id"   element={<ViewPatientHistory />} />
 

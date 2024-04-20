@@ -1,0 +1,67 @@
+.view-doctor-history {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .view-doctor-history h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333; /* Text color */
+  }
+  
+  .view-doctor-history .search-container {
+    margin-bottom: 20px;
+  }
+  
+  .view-doctor-history .search-container label {
+    font-weight: bold;
+    color: #666; /* Label text color */
+  }
+  
+  .view-doctor-history .search-container input[type='text'] {
+    width: calc(100% - 20px);
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .view-doctor-history .search-container input[type='text']:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .view-doctor-history .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .view-doctor-history .card-container .call-record {
+    width: calc(33.33% - 20px);
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9; /* Card background color */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .view-doctor-history .card-container .call-record:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .view-doctor-history .card-container .call-record h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333; /* Heading color */
+  }
+  
+  .view-doctor-history .card-container .call-record p {
+    font-size: 16px;
+    color: #666; /* Text color */
+    margin-bottom: 5px;
+  }
+  
