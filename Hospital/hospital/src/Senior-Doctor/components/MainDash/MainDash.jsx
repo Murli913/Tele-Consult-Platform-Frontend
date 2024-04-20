@@ -1,7 +1,8 @@
 import React from "react";
-import Cards from "../Cards/Cards";
+
 import Table from "../Table/Table";
 import "./MainDash.css";
+import SAreaCards from "../Cards/SAreaCards";
 const MainDash = () => {
   return (
   
@@ -11,7 +12,7 @@ const MainDash = () => {
      
       <br/>
       <br/>
-      <Cards />
+      <SAreaCards />
       <br/>
       <br/>
       <br/>

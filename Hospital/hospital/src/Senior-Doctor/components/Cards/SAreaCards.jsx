@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import AreaCard from "./AreaCard";
-import "./SAreaCards.css";
 
-const AreaCards = () => {
+import "./SAreaCards.css";
+import SAreaCard from "./SAreaCard";
+
+const SAreaCards = () => {
   const navigate = useNavigate();
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0);
@@ -62,7 +63,7 @@ const AreaCards = () => {
     };
   return (
     <section className="content-area-cards">
-      <AreaCard
+      <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
         percentFillValue={(totalAppointments / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
@@ -71,7 +72,7 @@ const AreaCards = () => {
           text: "Total Appointment.",
         }}
       />
-        <AreaCard
+        <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
         percentFillValue={(totalDoctors / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
@@ -80,7 +81,7 @@ const AreaCards = () => {
           text: "Total Doctor.",
         }}
       />
-        <AreaCard
+        <SAreaCard
         colors={["#e4e8ef", "#475be8"]}
         percentFillValue={(totalPatients / 100) * 100} // Example: assuming max 1000 appointments
         cardInfo={{
@@ -94,4 +95,4 @@ const AreaCards = () => {
   );
 };
 
-export default AreaCards;
+export default SAreaCards;
