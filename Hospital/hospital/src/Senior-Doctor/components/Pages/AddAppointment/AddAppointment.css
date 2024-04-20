@@ -12,12 +12,14 @@
 }
 
 .form-column {
-  width: 45%;
+  width: 50%;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .image-column {
-  width: 45%;
+  width: 50%;
   padding: 20px;
   text-align: center;
 }
@@ -27,33 +29,43 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 }
 
 label {
-  display: block;
+  display: inline-block;
   font-weight: bold;
-  text-align: left; /* Align label text to the left */
+  width: 120px;
+  text-align: center; /* Center the label */
+  margin-right: 20px;
 }
 
-label[for="date"], label[for="time"] {
-  text-align: left; /* Align specific labels to the left */
-  margin-left: -30px; /* Add margin for better spacing */
+/* Adjust the margin for the Time label */
+label[for="time"] {
+  margin-right: 60px; /* Move the Time label a little to the left */
+}
+
+/* Reduce margin between Date label and Date input field */
+label[for="date"] {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 input[type="text"],
 input[type="date"],
 input[type="time"] {
-  width: 200px; /* Make input fields full width */
-  max-width: 250px; /* Limit maximum width */
+  flex: 1; /* Expand input to fill remaining space */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 
 .btn-submit {
   background-color: #007bff;
@@ -64,7 +76,7 @@ input[type="time"] {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
-  max-width: 150px; /* Limit maximum width */
+  max-width: 150px;
 }
 
 .btn-submit:hover {

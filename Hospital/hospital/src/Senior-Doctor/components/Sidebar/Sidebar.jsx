@@ -15,6 +15,13 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setExpanded(!expanded);
   };
+  const history = useNavigate();
+
+const handleSignOut = () => {
+  toast.success("Logout successfully");
+    localStorage.clear(); 
+    history('/loginsd');
+};
 
   const gotologin = () => {
     navigate("/login");
@@ -74,7 +81,8 @@ const Sidebar = () => {
           </Link>
           <div className="menuItem" onClick={() => setSelected(null)}>
             <UilSignOutAlt />
-            <Link to="/loginsd"><span>Signout</span></Link>
+            <button onClick={handleSignOut}>Sign Out</button>
+
           </div>
         </div>
       </div>

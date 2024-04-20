@@ -10,6 +10,11 @@ import {
 } from "recharts";
 
 const SAreaCard = ({ colors, percentFillValue, cardInfo }) => {
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/loginsd");
+    } 
+},[]);
   const navigate = useNavigate();
   useEffect(() => {
     if(localStorage.getItem("token") === null)

@@ -4,8 +4,10 @@ import axios from 'axios';
 import "./AddAppointment.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const AddAppointment = () => {
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({
         did: '',
         pid: '',
@@ -24,6 +26,7 @@ const AddAppointment = () => {
          
             setFormData({ did: '', pid: '', callDate: '', callTime: '' });
             toast.success("Add Apoointment successfully");
+            navigate("/sappointments");
         } catch (error) {
             console.error("Error adding appointment:", error);
             toast.error("Error occurred while adding appointment");
@@ -65,7 +68,7 @@ const AddAppointment = () => {
                     </div>
              
                     <div className="form-group">
-                        <label htmlFor="date">Date:{" "}{" "}</label>
+                        <label htmlFor="date">Date:</label>
                         <input
                             type="date"
                             id="date"
