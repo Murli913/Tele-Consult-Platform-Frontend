@@ -5,12 +5,41 @@ import axios from 'axios';
 const DoctorUnderSenior = () => {
   // Dummy data for doctors (replace with your actual data)
   const [doctors, setDoctors] = useState([]);
+  const [doctorId, setDoctorId] = useState(null);
+
+  useEffect(() => {
+    const loadDoctorId = async () => {
+      try {
+        const email = localStorage.getItem("email");
+        const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setDoctorId(result.data);
+      } catch (error) {
+        console.error('Error fetching doctor ID:', error);
+      }
+    };
+    loadDoctorId();
+  }, []);
+
+  useEffect(() => {
+    if (doctorId) {
+     loadUsers();
+    }
+  }, [doctorId]);
+
   useEffect(() => {
     loadUsers();
   }, []);
 
   const loadUsers = async () => {
-  const result = await axios.get("http://localhost:8080/doctor/supervisor/1");
+  const result = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+  });
     setDoctors(result.data);
   
   };
