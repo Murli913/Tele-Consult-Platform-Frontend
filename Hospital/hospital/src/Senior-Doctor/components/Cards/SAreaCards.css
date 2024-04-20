@@ -4,6 +4,23 @@
   margin-top: 12px;
   gap: 16px;
 }
+.content-area-cards {
+ /* Adds rounded corners to the section */
+  padding: 10px; /* Add padding inside the section */
+}
+
+.content-area-cards > * {
+  margin-bottom: 20px;
+  border: 2px solid black; /* Border around the entire section */
+  border-radius: 15px;  /* Add margin below each SAreaCard */
+}
+
+.s-area-card {
+  border: 2px solid black; /* Border around each SAreaCard */
+  border-radius: 15px; /* Adds rounded corners to each SAreaCard */
+  padding: 20px; /* Add padding inside each SAreaCard */
+}
+
 
 @media (max-width: 992px) {
   .content-area-cards {

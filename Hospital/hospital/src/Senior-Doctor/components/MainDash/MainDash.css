@@ -5,6 +5,11 @@
     justify-content: space-evenly;
 }
 
+.big-bold-heading {
+    font-size: 2em; /* Adjust the size as needed */
+    font-weight: bold;
+  }
+  
 @media screen and (max-width: 1200px) {
     .MainDash{
         justify-content:flex-start;

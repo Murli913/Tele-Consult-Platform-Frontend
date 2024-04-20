@@ -14,11 +14,11 @@ const MainDash = () => {
   return (
   
     <div className="MainDash" style={{ marginTop: '40px' }}>
-      
-      <h1>Dashboard</h1>
+      <br/>
+      <h1 class="big-bold-heading">Dashboard</h1>
+
      
-      <br/>
-      <br/>
+     
       <SAreaCards />
       <br/>
       <br/>

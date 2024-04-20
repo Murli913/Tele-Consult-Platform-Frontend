@@ -19,7 +19,7 @@ const Login = () => {
 
     const gotoD = () => {
         // Navigate to login doctor page
-        navigate("/logind");
+        navigate("/loginsd");
     };
 
     const gotomaindash = () => {

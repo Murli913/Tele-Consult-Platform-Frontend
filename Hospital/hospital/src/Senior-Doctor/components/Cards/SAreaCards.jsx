@@ -6,8 +6,6 @@ import "./SAreaCards.css";
 import SAreaCard from "./SAreaCard";
 
 const SAreaCards = () => {
-  
-  
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -84,34 +82,37 @@ const SAreaCards = () => {
 
   return (
     <section className="content-area-cards">
-      <SAreaCard
-        colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalAppointments / 100) * 100} // Example: assuming max 1000 appointments
-        cardInfo={{
-          title: "Appointment",
-          value: totalAppointments,
-          text: "Total Appointments.",
-        }}
-      />
-      <SAreaCard
-        colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalDoctors.length / 100) * 100} // Example: assuming max 1000 doctors
-        cardInfo={{
-          title: "Doctors",
-          value: totalDoctors.length,
-          text: "Total Doctors.",
-        }}
-      />
-      <SAreaCard
-        colors={["#e4e8ef", "#475be8"]}
-        percentFillValue={(totalPatients.length / 100) * 100} // Example: assuming max 1000 patients
-        cardInfo={{
-          title: "Patients",
-          value: totalPatients.length,
-          text: "Total Patients.",
-        }}
-      />
-    </section>
+    <SAreaCard
+      colors={["#e4e8ef", "#475be8"]}
+      percentFillValue={(totalAppointments / 100) * 100} // Example: assuming max 1000 appointments
+      cardInfo={{
+        title: "Appointment",
+        value: totalAppointments,
+        text: "Total Appointments.",
+      }}
+    />
+  
+    <SAreaCard
+      colors={["#e4e8ef", "#475be8"]}
+      percentFillValue={(totalDoctors.length / 100) * 100} // Example: assuming max 1000 doctors
+      cardInfo={{
+        title: "Doctors",
+        value: totalDoctors.length,
+        text: "Total Doctors.",
+      }}
+    />
+    
+    <SAreaCard
+      colors={["#e4e8ef", "#475be8"]}
+      percentFillValue={(totalPatients.length / 100) * 100} // Example: assuming max 1000 patients
+      cardInfo={{
+        title: "Patients",
+        value: totalPatients.length,
+        text: "Total Patients.",
+      }}
+    />
+  </section>
+  
   );
 };
 

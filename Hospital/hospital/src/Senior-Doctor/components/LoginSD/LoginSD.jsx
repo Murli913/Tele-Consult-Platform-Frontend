@@ -5,11 +5,7 @@ import { checkValidData } from '../../../utils/validate';
 const LoginSD = () => {
  
   const naviagte=useNavigate();
-  useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      naviagte("/");
-    } 
-},[]);
+
   const email = useRef(null);
   const password = useRef(null);
   const [errorMessage, setErrorMessage] = useState(null);
