@@ -12,7 +12,7 @@ const RightSide = () => {
         <Updates />
       </div>
       <div>
-        <h3 class=" font-bold text-left"> Patient Feedback</h3>
+      
         <CustomerReview />
       </div>
     </div>
