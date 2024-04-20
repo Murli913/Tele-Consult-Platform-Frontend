@@ -22,4 +22,20 @@
 
 .noti>div>span:nth-of-type(1){
     font-weight: bold;
+    font-size: large;
 }
+/* Adjust the CSS to display the label and stars on the same line */
+.star-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* Adjust spacing between stars as needed */
+  }
+  
+  /* Style the strong tag for the label */
+  span strong {
+    margin-right: 3px;
+    margin-left: 10px; /* Add some space between the label and stars */
+    font-weight: bold; /* Make the label bold */
+  }
+  
+  

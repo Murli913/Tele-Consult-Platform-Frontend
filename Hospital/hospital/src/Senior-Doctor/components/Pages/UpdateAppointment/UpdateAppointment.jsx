@@ -71,7 +71,9 @@ const UpdateAppointment = () => {
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn-submit">Update Details</button>
-                    <button type="button" className="btn-cancel">Close</button>
+                    <br/>
+
+<br/>                    <button type="button" className="btn-cancel">Close</button>
                 </div>
             </form>
         </div>

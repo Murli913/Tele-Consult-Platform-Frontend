@@ -6,46 +6,72 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaPerson } from "react-icons/fa6";
 import { FaAppStore } from "react-icons/fa";
 import { BiSolidDashboard } from "react-icons/bi";
+
 const Sidebar = () => {
   const [selected, setSelected] = useState(null);
   const [expanded, setExpanded] = useState(true);
-const navigate=useNavigate();
+  const navigate = useNavigate();
+
   const toggleSidebar = () => {
     setExpanded(!expanded);
   };
+
   const gotologin = () => {
     navigate("/login");
   };
 
-
   return (
     <>
-      <div className="bars" style={expanded ? { left: "60%" } : { left: "5%" }} onClick={toggleSidebar}>
-     
+      <div
+        className={`bars ${expanded ? 'expanded' : ''}`}
+        style={{ left: `${expanded ? '60%' : '5%'}` }}
+        onClick={toggleSidebar}
+      >
+        <UilBars size="32" />
       </div>
-      <div className={expanded ? 'sidebar expanded' : 'sidebar'}>
-        {/* logo */}
+      <div className={`sidebar ${expanded ? 'expanded' : ''}`}>
+      <div className="logo">
+        <FaUserDoctor/>
+       </div>
+       <br/>
         <div className="logo">
-          <FaUserDoctor />
-          <span>Senior<br/>Doctor</span>
-        </div>
-        {/* menu */}
-        <div className="menu">
-        <Link to="/maindash" className={selected === "dashboard" ? "menuItem active" : "menuItem"} onClick={() => setSelected("dashboard")}>
-        <BiSolidDashboard /> Dashboard
-          </Link>
-           <Link to="/sappointments" className={selected === "appointments" ? "menuItem active" : "menuItem"} onClick={() => setSelected("appointments")}>
-           <FaAppStore /> Appointments
-          </Link>
-          <Link to="/spatienthistory" className={selected === "patient-history" ? "menuItem active" : "menuItem"} onClick={() => setSelected("patient-history")}>
-          <FaPerson /> Patient History
-          </Link>
-          
-          <Link to="/doctorundersenior" className={selected === "doctors" ? "menuItem active" : "menuItem"} onClick={() => setSelected("doctors")}>
-          <FaUserDoctor /> Doctors
-          </Link>
-       
          
+        
+          <span>SeniorDoctor</span>
+        </div>
+        <div className="menu">
+          <Link
+            to="/maindash"
+            className={`menuItem ${selected === "dashboard" ? "active" : ""}`}
+            onClick={() => setSelected("dashboard")}
+          >
+            <BiSolidDashboard />
+            <span>Dashboard</span>
+          </Link>
+          <Link
+            to="/sappointments"
+            className={`menuItem ${selected === "appointments" ? "active" : ""}`}
+            onClick={() => setSelected("appointments")}
+          >
+            <FaAppStore />
+            <span>Appointments</span>
+          </Link>
+          <Link
+            to="/spatienthistory"
+            className={`menuItem ${selected === "patient-history" ? "active" : ""}`}
+            onClick={() => setSelected("patient-history")}
+          >
+            <FaPerson />
+            <span>Patient List</span>
+          </Link>
+          <Link
+            to="/doctorundersenior"
+            className={`menuItem ${selected === "doctors" ? "active" : ""}`}
+            onClick={() => setSelected("doctors")}
+          >
+            <FaUserDoctor />
+            <span>Doctors</span>
+          </Link>
           <div className="menuItem" onClick={() => setSelected(null)}>
             <UilSignOutAlt />
             <Link to="/loginsd"><span>Signout</span></Link>

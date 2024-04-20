@@ -23,13 +23,20 @@ const ViewPatientHistory = ({ match }) => {
       console.error("Error fetching patient history:", error);
     }
   };
-  
 
   return (
     <div className="view-patient-history-container">
-      <h2>View Patient History</h2>
+      <h2 className="doctor-list-heading">Patient History</h2>
 
-      <table className="view-patient-history-table">
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search by Patient ID..."
+          className="search-input"
+        />
+      </div>
+
+      <table className="doctor-table">
         <thead>
           <tr>
             <th>Consultant ID</th>

@@ -1,9 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Updates.css";
+import { FaStar, FaRegStar as FaStarRegular } from 'react-icons/fa';
 
 const Updates = () => {
   const [topDoctors, setTopDoctors] = useState([]);
+  const renderStars = (totalRating) => {
+    const stars = [];
+  
+    // Add filled stars
+    for (let i = 0; i < totalRating; i++) {
+      stars.push(<FaStar key={i} />);
+    }
+  
+    // Add empty stars for remaining count (assuming total is out of 5)
+    for (let i = totalRating; i < 5; i++) {
+      stars.push(<FaStarRegular key={i} />);
+    }
+  
+    return <span className="star-container">{stars}</span>;
+  };
+  
 
   useEffect(() => {
     const fetchRatings = async () => {
@@ -63,9 +80,12 @@ const Updates = () => {
             <img src="https://img.freepik.com/premium-vector/picture-doctor-with-glasses-lab-coat_410516-87465.jpg" alt={`Doctor ${doctor.id}`} />
             <div className="noti">
               <div style={{ marginBottom: "0.5rem" }}>
-                <span>Name: {doctor.name}</span>
-                <span>Rating: {doctor.totalRating}</span>
-                <span>Phone Number: {doctor.phoneNumber}</span>
+                <span>Name: Dr. {doctor.name}</span>
+                <br/>
+                <span><strong>Rating:</strong> {renderStars(doctor.totalRating)}</span>
+
+
+                
               </div>
              
             </div>

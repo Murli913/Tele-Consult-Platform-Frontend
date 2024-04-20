@@ -4,10 +4,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const DoctorUnderSenior = () => {
-  // Dummy data for doctors (replace with your actual data)
   const [doctors, setDoctors] = useState([]);
   const [doctorId, setDoctorId] = useState(null);
-const naviagte=useNavigate();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const loadDoctorId = async () => {
       try {
@@ -27,60 +27,68 @@ const naviagte=useNavigate();
 
   useEffect(() => {
     if (doctorId) {
-     loadUsers();
+      loadUsers();
     }
   }, [doctorId]);
 
-  useEffect(() => {
-    loadUsers();
-  }, []);
-
   const loadUsers = async () => {
-  const result = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
-  });
+    const result = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
+    });
     setDoctors(result.data);
-  
   };
-console.log("lkength", doctors.length);
-  // Function to handle doctor removal
-  const  handlepatientunderDoctor = (doctorId) => {
-    naviagte('/viewpatientunderdoctor',{ state : { doctorId }});
-  };
-  return (
-    <div className="doctor-page-container">
-      <h2>Doctor List</h2>
 
-      {/* Table to display doctor entries */}
-      <table className="doctor-table">
-        <thead>
-          <tr>
-          <th>Doctor ID</th>
-            <th>Gender</th>
-            <th>Name</th>
-            <th>Phone Number</th>
-         
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {doctors.map(doctor => (
-            <tr key={doctor.id}>
-               <td>{doctor.id}</td>
-              <td>{doctor.gender}</td>
-              <td>{doctor.name}</td>
-              <td>{doctor.phoneNumber}</td>
-             
-              <td className="action-column">
-                {/* Remove action link */}
-                <button onClick={() => handlepatientunderDoctor(doctor.id)} className="remove-btn">Patient-History</button>
-              </td>
+  const handlePatientUnderDoctor = (doctorId) => {
+    navigate('/viewpatientunderdoctor', { state: { doctorId } });
+  };
+
+  return (
+    <div className="doctor-dialog-container">
+      <div className="doctor-dialog">
+        <h2 className="doctor-heading">Doctor List</h2>
+
+        {/* Search input field */}
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search Doctor..."
+            className="search-input"
+          />
+        </div>
+
+        {/* Table to display doctor entries */}
+        <table className="doctor-table">
+          <thead>
+            <tr>
+              <th>Doctor ID</th>
+              <th>Gender</th>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {doctors.map(doctor => (
+              <tr key={doctor.id}>
+                <td>{doctor.id}</td>
+                <td>{doctor.gender}</td>
+                <td>{doctor.name}</td>
+                <td>{doctor.phoneNumber}</td>
+                <td className="action-column">
+                  <button
+                    onClick={() => handlePatientUnderDoctor(doctor.id)}
+                    className="patient-history-btn"
+                  >
+                    Patient History
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
