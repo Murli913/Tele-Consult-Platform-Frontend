@@ -8,9 +8,11 @@ import SAreaCard from "./SAreaCard";
 
 const SAreaCards = () => {
   const navigate = useNavigate();
+  const [doctorId, setDoctorId] = useState(null);
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0);
   const [totalPatients, setTotalPatients] = useState(0);
+
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
@@ -21,9 +23,36 @@ const SAreaCards = () => {
     fetchTotalPatientsCount();
   }, []);
 
+
+  useEffect(() => {
+    const loadDoctorId = async () => {
+      try {
+        const email = localStorage.getItem("email");
+        const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setDoctorId(result.data);
+      } catch (error) {
+        console.error('Error fetching doctor ID:', error);
+      }
+    };
+    loadDoctorId();
+  }, []);
+
+  useEffect(() => {
+    if (doctorId) {
+        fetchTotalAppointmentsCount();
+        fetchTotalDoctorsCount();
+        fetchTotalPatientsCount();
+    }
+  }, [doctorId]);
+
+
   const fetchTotalAppointmentsCount = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/callhistory/count', {
+      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/appointments/count`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
@@ -36,7 +65,7 @@ const SAreaCards = () => {
 
   const fetchTotalDoctorsCount = async() => {
     try {
-      const response = await axios.get('http://localhost:8080/doctor/count', {
+      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/doctors/count`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
@@ -51,7 +80,7 @@ const SAreaCards = () => {
     // New function to fetch total patients count
     const fetchTotalPatientsCount = async() => {
       try {
-        const response = await axios.get('http://localhost:8080/patient/count', {
+        const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/patients/count`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
           }
