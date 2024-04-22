@@ -1,0 +1,73 @@
+.appointments-container {
+    margin: 20px auto 50px; /* Added margin at the bottom */
+    width: 95%; /* Adjusted width */
+    max-width: 1200px; /* Adjusted max-width */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointment-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .appointment-heading h2 {
+    font-weight: bold;
+  }
+  
+  .appointments-list-container {
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 30px; /* Increased margin */
+    width: 100%; /* Adjusted width */
+  }
+  
+  .appointments-list-container table {
+    border-collapse: collapse;
+    width: 100%; /* Adjusted width */
+  }
+  
+  .appointments-list-container th,
+  .appointments-list-container td {
+    border: 1px solid #ddd;
+    padding: 12px; /* Adjusted padding */
+  }
+  
+  .appointments-list-container th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .action-column {
+    text-align: center;
+  }
+  
+  .btn-add-appointment {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-add-appointment:hover {
+    background-color: #0056b3;
+  }
+  
+  .MuiButton-containedPrimary {
+    background-color: #2196f3;
+    color: white;
+    border-radius: 20px;
+  }
+  
+  .MuiButton-containedPrimary:hover {
+    background-color: #0d8af3;
+  }
+  
