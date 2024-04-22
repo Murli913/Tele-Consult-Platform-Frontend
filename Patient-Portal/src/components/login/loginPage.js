@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
 import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import bg from './bg.mp4';
+// import bg from './bg.mp4';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -16,6 +16,15 @@ function LoginPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const [isActiveTwo, setIsActiveTwo] = useState(false);
+
+  const handleRegisterClick = () => {
+    setIsActiveTwo(true);
+  };
+
+  const handleLoginClick = () => {
+    setIsActiveTwo(false);
+  };
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -77,10 +86,10 @@ function LoginPage() {
 
   return (
     <div className="screen">
-      <video autoPlay loop muted className="background-video">
+      {/* <video autoPlay loop muted className="background-video">
         <source src={bg} type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video> */}
       <div className='login-box' ref={containerRef}>
       {/* <div className={`form-container sign-up ${isActive ? 'active' : ''}`}>
         <form>
