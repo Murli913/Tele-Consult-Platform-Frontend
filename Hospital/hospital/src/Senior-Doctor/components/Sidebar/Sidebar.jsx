@@ -26,9 +26,12 @@ const Sidebar = () => {
  
 
 const handleSignOut = () => {
-  toast.success("Logout successfully");
     localStorage.clear(); 
-    navigate('/');
+    toast.success("Logout successfully");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+   
 };
 
   const gotologin = () => {
