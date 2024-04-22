@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdPhoneInTalk } from "react-icons/md";
-import { ReactComponent as Sun } from "./Sun.svg";
-import { ReactComponent as Moon } from "./Moon.svg";
+import Sun from "./Sun.svg"; // Import SVGs as files
+import Moon from "./Moon.svg"; // Import SVGs as files
 
 function PNavbar() {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     useEffect(() => {
         if (!localStorage.getItem("token")) {
-        navigate("/");
-        } }, []);
+            navigate("/");
+        }
+    }, []);
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const selectedTheme = localStorage.getItem("selectedTheme") || "light"; // Set default to "light" if not found
 
@@ -22,24 +24,24 @@ function PNavbar() {
             setDarkMode();
         }
     }, [selectedTheme]);
+
     function gotoclear() {
         // Clear the localStorage
         localStorage.clear();
-    
     }
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    const setDarkMode = () =>{
-        document.querySelector("body").setAttribute("data-theme", 'dark')
-        localStorage.setItem("selectedTheme", "dark")
+    const setDarkMode = () => {
+        document.querySelector("body").setAttribute("data-theme", 'dark');
+        localStorage.setItem("selectedTheme", "dark");
     };
 
-    const setLightMode = () =>{
-        document.querySelector("body").setAttribute("data-theme", 'light')
-        localStorage.setItem("selectedTheme", "light")
+    const setLightMode = () => {
+        document.querySelector("body").setAttribute("data-theme", 'light');
+        localStorage.setItem("selectedTheme", "light");
     };
 
     const toggleTheme = (e) => {
@@ -61,11 +63,11 @@ function PNavbar() {
                             type='checkbox'
                             id='darkmode-toggle'
                             onChange={toggleTheme}
-                            defaultChecked = {selectedTheme==="dark"} // Check if selectedTheme is "dark"
+                            defaultChecked={selectedTheme === "dark"} // Check if selectedTheme is "dark"
                         />
                         <label className='dark_mode_label' htmlFor='darkmode-toggle'>
-                            <Sun />
-                            <Moon />
+                            <img src={Sun} alt="Sun" />
+                            <img src={Moon} alt="Moon" />
                         </label>
                     </div>
                     <FaRegUserCircle />
