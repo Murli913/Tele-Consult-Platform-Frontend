@@ -117,17 +117,24 @@
 }
 
 .bottom-content {
-    flex: 1; /* Take up remaining space equally */
+    flex: 1; 
     background-color: var(--div_background);
     border-radius: 12px;
     box-shadow: 2px 2px 10px var(--div_shadow);
     overflow-y: auto;
-    /* max-height: 290px; */
+    min-height: 290px;
     /* padding: 10px 10px; */
 }
 
+.bt-parent{
+        /* /* min-width: 95%; */
+        /* display: flex; */
+    /* overflow-x: scroll; */
+}
 
 .bt-content{
+    display: block;
+    min-width: 90%;
     background-color: var(--tile_color);
     display: flex;
     justify-content: space-between;

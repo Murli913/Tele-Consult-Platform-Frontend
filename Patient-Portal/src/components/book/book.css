@@ -137,7 +137,7 @@ input[type="date"]{
     justify-content: flex-start; /* Align items from left to right */
     overflow-x: scroll; /* Enable horizontal scrolling */
     border: 1px solid lightgray;
-    margin: 10px 20px 10px 40px;
+    margin: 10px 20px;
     border-radius: 12px;
   }
   

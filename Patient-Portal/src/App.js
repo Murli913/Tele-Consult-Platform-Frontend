@@ -8,6 +8,7 @@ import History from './components/history/history';
 import BookNow from './components/book/book';
 import Sidebar from './components/sidebar/sidebar';
 // import Client from './client';
+// import LoginPage from './components/login/login'
 import ProfilePage from './components/profile/profile';
 
 function App() {
