@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
 import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
- import bg from './bg.mp4';
-import { checkValidData } from '../../../utils/validate';
+// import bg from './bg.mp4';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 function PLoginPage() {
   const [isActive, setIsActive] = useState(false);
@@ -15,40 +16,48 @@ function PLoginPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const [isActiveTwo, setIsActiveTwo] = useState(false);
 
-  const handleSignin = async () => {
-    const message = checkValidData(emailRef.current.value, passwordRef.current.value);
-    setErrorMessage(message);
-    if (message) return;
-    // Authentication
-  try {
-    const response = await fetch("http://localhost:8080/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      }),
-    });
-    console.log(response);
-    if (!response.ok) {
-      throw new Error("Login failed");
-    }
-    const data = await response.json();
-    const { token, message } = data;
-    console.log(token + " " + message);
-    localStorage.setItem("token", token);
-    localStorage.setItem("email", message);
-    naviagte("/patient");
-  } catch (error) {
-    setErrorMessage("Invalid Email or password");
-  }
+  const handleRegisterClick = () => {
+    setIsActiveTwo(true);
   };
+
+  const handleLoginClick = () => {
+    setIsActiveTwo(false);
+  };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      // Send login request to backend
+      try {
+        const response = await fetch('http://localhost:8080/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) {
+          // const errorMessage = await response.text();
+          throw new Error('Login failed');
+        }
+        const data = await response.json();
+        const { token, message } = data;
+
+        // Set patient's ID in localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('email', message);
+        // console.log(token);
+        navigate('/home');
+      // Redirect to Home.js or any desired route
+      } catch (error) {
+        toast.error("Invalid Credentials");
+        // setError('Invalid phone number or password');
+      }
+    };
+
 
   useEffect(() => {
     // const container = containerRef.current;
@@ -77,10 +86,10 @@ function PLoginPage() {
 
   return (
     <div className="screen">
-      <video autoPlay loop muted className="background-video">
+      {/* <video autoPlay loop muted className="background-video">
         <source src={bg} type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video> */}
       <div className='login-box' ref={containerRef}>
       {/* <div className={`form-container sign-up ${isActive ? 'active' : ''}`}>
         <form>
@@ -97,17 +106,16 @@ function PLoginPage() {
       </div> */}
       <div className={`form-container sign-in ${isActive ? '' : 'active'}`}>
       {error && <p style={{position:'absolute', top:'30px', left:'90px', color:'red'}}>{error}</p>}
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handleSubmit}>
           <h1>Sign In</h1>
           <div className="social-icons">
             <FaGooglePlusG />
           </div>
           <span>or use your email password</span>
-          <input ref={emailRef} type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
-          <input ref={passwordRef} type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-          <p className="text-red-500 font-bold text-lg">{errorMessage}</p>
+          <input type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+          <input type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
           <a href="#">Forget Your Password?</a>
-          <button type='submit' ref={loginBtnRef} onClick={handleSignin}>Sign In</button>
+          <button type='submit' ref={loginBtnRef}>Sign In</button>
         </form>
       </div>
       <div className="toggle-container">
@@ -125,6 +133,7 @@ function PLoginPage() {
         </div>
       </div>
     </div>
+    <ToastContainer />
     </div>
     
   );

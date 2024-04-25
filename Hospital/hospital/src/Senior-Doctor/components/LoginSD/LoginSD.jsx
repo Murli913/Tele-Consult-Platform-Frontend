@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { checkValidData } from '../../../utils/validate';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 const LoginSD = () => {
  
   const naviagte=useNavigate();
@@ -38,8 +39,13 @@ const LoginSD = () => {
       console.log(token + " " + message);
       localStorage.setItem("token", token);
       localStorage.setItem("email", message);
-      naviagte("/maindash");
+      toast.success("Login successfully");
+      setTimeout(() => {
+        naviagte("/maindash");
+      }, 1000);
+     
     } catch (error) {
+      toast.error("Error occurred while login");
       setErrorMessage("Invalid Email or password");
     }
 };
@@ -95,6 +101,7 @@ const LoginSD = () => {
        
       </div>
     </div>
+    <ToastContainer/>
   </div>
   )
 }

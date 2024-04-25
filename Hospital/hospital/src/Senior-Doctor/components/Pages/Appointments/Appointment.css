@@ -1,11 +1,13 @@
 .appointments-container {
-  margin: 20px auto;
+  margin: 0 auto 40px auto; /* Margin from top, right, bottom, and left respectively */
   max-width: 800px;
-  padding: 20px;
+  padding: 10px; /* Reduced padding */
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+
 
 .appointment-heading {
   display: flex;
