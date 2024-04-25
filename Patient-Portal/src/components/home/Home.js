@@ -238,7 +238,7 @@ function HomePage() {
                 {doctors.map((doctor, index) => (
                     <div className='bt-content'>
                         <h4 className='up-apt doc-name'> 
-                        <img src="./images/maharshi.jpg" className='doc-img' alt="" />
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf1y2A8q1zP66KMRjOJZfXsbZKVuv1QmlyIOGTVH0J8A&s" className='doc-img' alt="" />
                             Dr. {doctor.name} 
                             </h4>
                             <button onClick={() => openModal(doctor)} className='view-btn'>View Statistics</button>
