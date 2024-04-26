@@ -23,9 +23,37 @@ const Home = () => {
   const [incomingCall, setIncomingCall] = useState(null);
   const [error, setError] = useState('');
   const [doctorname, setDoctorName] = useState(null);
+  const [isAvailable, setIsAvailable] = useState();
   const navigate = useNavigate(); // Hook for navigation
 
   const authtoken = localStorage.getItem('token');
+useEffect(() => {
+  const getAvailability = async () => {
+    try {
+        const doctorId = localStorage.getItem('loggedInDoctorId');
+        const response = await axios.get(`http://localhost:8080/callhistory/avblstatus/${doctorId}`);
+        console.log(response.data);
+        setIsAvailable(response.data);
+    } catch (error) {
+        console.error('Error fetching availability:', error);
+    }
+};
+getAvailability();
+}, [isAvailable])
+
+  const handleToggle = async () => {
+    try {
+      const doctorId = localStorage.getItem('loggedInDoctorId');
+      const changetoAvailability = isAvailable ? "false" : "true";
+      await axios.put(`http://localhost:8080/callhistory/availabilitystatus/${doctorId}?avbl=${changetoAvailability}`);
+
+      const response = await axios.get(`http://localhost:8080/callhistory/avblstatus/${doctorId}`);
+      console.log(response.data);
+      setIsAvailable(response.data);
+    } catch (error) {
+      console.error('Error toggling availability:', error);
+    }
+  };
 
   const handleSearch = async () => {
     try {
@@ -240,12 +268,15 @@ return (
   <div className='outer'>
     <div className='homecontent'>
       <div className='homescreen'>
-       <p>Welcome Doctor {doctorname} <span className="cursor">|</span></p>
-       <img className='modi' src={modimg} style={{backfaceVisibility: "hidden", width: "300px", height:"300px"}}/>
+       <div className='welcome'><p>Welcome Doctor {doctorname} <span className="cursor">|</span></p></div>
+       <div className='mimage'><img className='modi' src={modimg} style={{backfaceVisibility: "hidden", width: "300px", height:"300px"}}/></div>
       </div>
       <div className='homeoptions'>
         <div className='pubications'>
-          
+          <p>Availability: {isAvailable ? 'Available' : 'Not Available'}</p>
+        <button onClick={handleToggle}>
+          {isAvailable ? 'Set Unavailable' : 'Set Available'}
+        </button>
         </div>
         <div className=''></div>
       </div>

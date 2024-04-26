@@ -19,8 +19,10 @@ import { MdPhoneMissed } from "react-icons/md";
 
 const Patientscreen = () => {
   const [email, setEmail] = useState("");
-  const [room, setRoom] = useState("");
+  // const [room, setRoom] = useState("18002347");
+  const [newroom, setNewroom] = useState("");
   const [doctors, setDoctors] = useState([]);
+  const [pincome, setpincome] = useState([]);
   const socket = useSocket();
   const navigate = useNavigate();
   const authtoken = localStorage.getItem('token');
@@ -31,7 +33,7 @@ const Patientscreen = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/doctor/all`, {
+      const response = await axios.get(`http://localhost:8080/doctor/alldoctors`, {
         headers: {
           'Authorization': `Bearer ${authtoken}`
         }
@@ -42,18 +44,45 @@ const Patientscreen = () => {
     }
   };
 
-  const handleSubmitForm = useCallback(
-    async (e) => {
-      e.preventDefault();
-      try {
-        const response = await axios.get(`http://localhost:8080/doctor?phoneNumber=${email}`, {
+  const checkAssignedDoctor = async (patientPhoneNumber) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/callhistory/checkassigneddoctor?patientphonenumber=${patientPhoneNumber}`);
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+};
+
+const fetchPatientInfo = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/doctor?phoneNumber=${email}`, {
           headers: {
             'Authorization': `Bearer ${authtoken}`
           }
         });
-        if (response.data.length === 0) {
+    console.log(response.data);
+    setpincome(response.data);
+  } catch (error) {
+    console.error('Error fetching patient information:', error);
+    // Handle error (e.g., show error message)
+  }
+};
+
+  const handleSubmitForm = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const response0 = await axios.get(`http://localhost:8080/doctor?phoneNumber=${email}`, {
+          headers: {
+            'Authorization': `Bearer ${authtoken}`
+          }
+        });
+        let room = "18002347";
+        if (response0.data.length === 0) {
           // If patient with given phone number doesn't exist, create a new patient
-          const newPatientResponse = await axios.post(`http://localhost:8080/doctor/addpt`, {
+          const newPatientResponse = await axios.post(`http://localhost:8080/callhistory/addpt`, {
             headers: {
               'Authorization': `Bearer ${authtoken}`
             }, 
@@ -61,47 +90,125 @@ const Patientscreen = () => {
           console.log('New patient created:', newPatientResponse.data);
           // Assuming the response contains the newly created patient ID
           const newPatientId = newPatientResponse.data.id;
-          await axios.post(`http://localhost:8080/doctor/join-room`, {
+          const responce0 = await axios.post(`http://localhost:8080/callhistory/join-room`, {
             patientPhoneNumber: email, 
-            doctorPhoneNumber: room 
+            doctorPhoneNumber: room
           },{
             headers: {
               'Authorization': `Bearer ${authtoken}`
             }
           });
-          setEmail("Patient@gmail.com");
-          // Now you can proceed with joining the room or any further actions
+          console.log(responce0.data);
+          if(responce0.data === 0)
+          {
+            let assignedDoctor;
+                    // Check assigned doctor repeatedly until it is not null
+            while(true)
+            {
+              const responce1 = await axios.get(`http://localhost:8080/callhistory/checkassigneddoctor?patientphonenumber=${email}`);
+              console.log(responce1);
+              if(responce1.data !== '')
+              {
+                assignedDoctor = responce1.data;
+                break;
+              }
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            
+              // Now assignedDoctor contains the assigned doctor ID
+            console.log('Assigned Doctor:', assignedDoctor);
+            let nr = room+assignedDoctor;
+            room = String(nr);
+            console.log(room);
+            setEmail("Patient@gmail.com");
+            socket.emit("room:join", { email: "Patient@gmail.com", room });
+          } else{
+              let nr = responce0.data;
+              console.log(nr);
+              console.log(typeof(nr));
+              room = String(nr);
+              console.log(room);
+              console.log(typeof(room))
+              setEmail("Patient@gmail.com");
+              socket.emit("room:join", { email: "Patient@gmail.com", room });
+          }
           
-          socket.emit("room:join", { email: "Patient@gmail.com", room });
-          
-        } else {
+        } else if(response0.data.length !== 0){
           // If patient with given phone number exists, join the room
-          const existingPatientId = response.data.name;
-          await axios.post(`http://localhost:8080/doctor/join-room`, {
+          const existingPatientId = response0.data.name;
+          
+          
+          const responde1 = await axios.post(`http://localhost:8080/callhistory/join-room`, {
             patientPhoneNumber: email, 
-            doctorPhoneNumber: room 
+            doctorPhoneNumber: room
           },{
             headers: {
               'Authorization': `Bearer ${authtoken}`
             }
           });
-          setEmail("Patient@gmail.com");// Assuming it returns an array with the first matching patient
-          socket.emit("room:join", { email: existingPatientId + "@gmail.com", room });
+          console.log(responde1.data);
+          if(responde1.data === 0)
+          {
+            let assignedDoctor1;
+                    // Check assigned doctor repeatedly until it is not null
+            while(true)
+            {
+              const responde2 = await axios.get(`http://localhost:8080/callhistory/checkassigneddoctor?patientphonenumber=${email}`);
+              console.log(responde2);
+              if(responde2.data !== '')
+              {
+                assignedDoctor1 = responde2.data;
+                break;
+              }
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            
+              // Now assignedDoctor contains the assigned doctor ID
+            console.log('Assigned Doctor:', assignedDoctor1);
+            let nr1 = room+assignedDoctor1;
+            room = String(nr1);
+            console.log(room);
+            setEmail(existingPatientId + "@gmail.com");
+            socket.emit("room:join", { email: existingPatientId + "@gmail.com", room});
+          } else{
+              let nr1 = responde1.data;
+              console.log(nr1);
+              console.log(typeof(nr1));
+              room = String(nr1);
+              console.log(room);
+              console.log(typeof(room))
+              setEmail(existingPatientId + "@gmail.com");
+              socket.emit("room:join", { email: existingPatientId + "@gmail.com", room});
+            }
         }
       } catch (error) {
         console.error('Error:', error);
       }
     },
-    [email, room, socket, setEmail]
+    [email, socket, setEmail]
   );
 
   const handleJoinRoom = useCallback(
     (data) => {
+      console.log(data);
       const { email, room } = data;
+      console.log(room);
       navigate(`/p/room/${room}`);
     },
     [navigate]
   );
+
+  const handleReject = async () => {
+    try {
+      // Send request to remove patient from the waiting queue
+      await axios.get(`http://localhost:8080/callhistory/waitingqueue/removepatient?ptphonenumber=${email}`);
+      console.log('Patient removed from waiting queue');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error removing patient from waiting queue:', error);
+      // Handle error (e.g., show error message)
+    }
+  };
 
   useEffect(() => {
     socket.on("room:join", handleJoinRoom);
@@ -133,17 +240,19 @@ const Patientscreen = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <label htmlFor="room">HelpLine Number</label>
+        <input
+          type="text"
+          id="room"
+          readOnly="true"
+          value={18002347}
+          />
         <br />
-        <label htmlFor="doctor">Select Doctor</label>
-        <select id="doctor" value={room} onChange={(e) => setRoom(e.target.value)}>
-          <option value="">Select Doctor</option>
-          {doctors.map(doctor => (
-            <option key={doctor.id} value={doctor.phoneNumber}>{doctor.name}</option>
-          ))}
-        </select>
         <br />
-        {/* <button onClick={handleSubmitForm}>Join</button> */}
       </form>
+      <div className="incomingstatus">
+          <button onClick={handleReject}>Reject</button> 
+      </div>
     </div>
     <div className="numpad">
       <div className="mainpad">

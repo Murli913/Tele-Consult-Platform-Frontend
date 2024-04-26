@@ -4,17 +4,20 @@ import { useSocket } from "../../Webrtc/SocketProvider";
 import "./Lobbystyle.css";
 
 const LobbyScreen = () => {
-  const [email, setEmail] = useState(""); // Initial value set to an empty string
-  const [room, setRoom] = useState(""); // Initial value set to an empty string
+  const [email, setEmail] = useState(""); 
+  const docid = localStorage.getItem('loggedInDoctorId');
+  let room = "18002347"+docid;// Initial value set to an empty string
+   // Initial value set to an empty string
 
   const socket = useSocket();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     // Set email and room state from location state when component mounts
+    const docid = localStorage.getItem('loggedInDoctorId');
     if (location.state && location.state.patientEmail && location.state.doctorName) {
       setEmail(location.state.patientEmail);
-      setRoom(location.state.doctorName);
+      console.log(typeof(room));
       console.log({email});
       // Optionally set room state based on your requirements
     }
@@ -30,6 +33,7 @@ const LobbyScreen = () => {
 
   const handleJoinRoom = useCallback(
     (data) => {
+      console.log(data);
       const { email, room } = data;
       navigate(`/d/room/${room}`);
     },
@@ -61,7 +65,7 @@ const LobbyScreen = () => {
           type="text"
           id="room"
           value={room}
-          onChange={(e) => setRoom(e.target.value)}
+          // onChange={(e) => setRoom(e.target.value)}
         />
         <br />
         <button>Join</button>

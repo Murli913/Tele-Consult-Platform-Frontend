@@ -38,12 +38,29 @@ const RoomPage = () => {
   const [callHistory, setCallHistory] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [prescription1, setPrescription1] = useState("");
+  const [endcall, setendcall] = useState(false);
+  const [inputelapsed, setinputelapsed] = useState(60);
+  const [inputtimer, setinputTimer] = useState(60);
   const authtoken = localStorage.getItem('token');
 
   const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
 
   const location = useLocation();
+
+  useEffect(() => {
+    let interval;
+    if (endcall) {
+      interval = setInterval(() => {
+        setinputelapsed((prevTimer) => prevTimer - 1);
+      }, 1000);
+      setinputTimer(interval);
+      if (inputelapsed === 0) {
+        navigate('/home'); // Navigate back to the home screen after 15 minutes
+      }
+    }
+    return () => clearInterval(interval);
+  }, [inputelapsed, endcall]);
 
   useEffect(() => {
     if (remoteSocketId) {
@@ -129,8 +146,8 @@ socket.on("navigate:home", () => {
   // Clear the timer
   clearInterval(timer);
   setTimer(null);
-
-  navigate("/home"); // Adjust path as per your routing setup
+  setendcall(true);
+  // navigate("/home"); 
 });
 const cid = localStorage.getItem('CallId');
 
@@ -148,6 +165,7 @@ const handleEndCall = () => {
   axios.put(`http://localhost:8080/callhistory/${cid}/updateendtime/${endtime}`)
     .then(() => {
       // Set a delay of 2 seconds before making the next API call
+      axios.put(`http://localhost:8080/callhistory/${patientId}/rjctcall`)
       setTimeout(() => {
         const doctorId = localStorage.getItem('loggedInDoctorId');
         axios.put(`http://localhost:8080/callhistory/${doctorId}/reject-call`);
@@ -375,6 +393,7 @@ const handleEndCall = () => {
       <div className="duration">
       {myStream && remoteSocketId && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
       </div>
+      {!endcall && (
       <div className="trio">
       {myStream && <IconButton className="str" onClick={toggleAudioStream}>{isAudioOn ?  <IoMdMicOff /> : <IoMdMic />}</IconButton>}
       {myStream && <IconButton className="str" color="primary" aria-label="record" onClick={toggleRecording}>
@@ -382,11 +401,15 @@ const handleEndCall = () => {
                         </IconButton>}
       {myStream && <IconButton className="str" onClick={handleDownloadRecording}><MdDownloading /></IconButton>}
       </div>
-      {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
+      )}
+      {!endcall && remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
+      {!endcall && (
       <div className="duo">
       {remoteSocketId && myStream && <button className="endbtn" onClick={handleEndCall}><ImPhoneHangUp /></button>}
       {myStream && <button className="sendbtn" onClick={sendStreams}><IoSend /></button>}
       </div>
+      )}
+      {endcall && <div className="callended">Call Ended</div>}
       {myStream && (
         < >
           <ReactPlayer
@@ -409,6 +432,7 @@ const handleEndCall = () => {
       )}
       </div>
       <div className="Input">
+      {endcall && <p style={{color:"black"}}>Closing in : {formatTime(inputelapsed)}</p>}
       {remoteSocketId && (
       <form onSubmit={handleSubmit}>
         <label>
