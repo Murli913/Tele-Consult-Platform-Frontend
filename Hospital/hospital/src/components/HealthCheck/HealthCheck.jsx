@@ -232,6 +232,7 @@ const HealthCheck = () => {
         onChange={(e) => setRestingHeartRate(parseInt(e.target.value))}
       />
     </label>
+   
     <button onClick={calculateBMR} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center">
       <FontAwesomeIcon icon={faUtensils} className="mr-2" /> Calculate BMR and Generate Meal Plan
     </button>
@@ -267,7 +268,7 @@ const HealthCheck = () => {
       <strong>Your recommended daily calorie intake is:</strong> {calorieIntake} calories/day
     </div>
     <div className="result-item">
-      <strong>Your recommended daily water intake is:</strong> {waterIntake} ml/day
+      <strong>Your recommended daily water intake is:</strong> {waterIntake} liter/day
     </div>
     <div className="result-item">
       <strong>Your BMI is:</strong> {bmi}
@@ -286,8 +287,10 @@ const HealthCheck = () => {
       <strong>Your recommended daily protein intake is:</strong> {proteinIntake} grams/day
     </div>
   </div>
+ 
   <div className="meal-plan">
-    <h3>Meal Plan</h3>
+  <h3 class="font-bold">Meal Plan</h3>
+
     <ul>
       {/* Meal plan items */}
       {mealPlan.map((item, index) => (

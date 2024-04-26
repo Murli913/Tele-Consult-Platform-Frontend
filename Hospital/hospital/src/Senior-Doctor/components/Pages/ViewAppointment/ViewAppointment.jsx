@@ -1,8 +1,14 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import './ViewAppointment.css'; // Import your CSS file for styling
 
 const ViewAppointment = ({ appointments }) => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
   const { id } = useParams();
   const appointment = appointments.find(appointment => appointment.id === parseInt(id));
 

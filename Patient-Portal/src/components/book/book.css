@@ -1,41 +1,48 @@
 .book-content {
     position: fixed;
-    background-color: white;
+    background-color: var(--div_background);
     border-radius: 12px;
     width: calc(100% - 250px); /* Adjusted width */
     height: calc(100vh - 120px);
     top: 90px;
     margin-left: 230px; /* Adjusted to accommodate the sidebar width */
     margin-right: 20px; /* Added margin from the right end */
-    box-shadow: 2px 2px 10px #9bafaf;
+    box-shadow: 2px 2px 10px var(--div_shadow);
     overflow-y: auto; /* Add scrollbar if content overflows vertically */
-    
+    color: var(--body_color);
 }
 
-.head{
-    text-decoration: underline;
-}
 
 /* Style scrollbar */
-.book-content::-webkit-scrollbar {
+.book-content::-webkit-scrollbar,
+.doctors-list::-webkit-scrollbar {
     width: 8px; 
     background-color: transparent; 
     scroll-margin-right: 30px;
 }
 
+.doctors-list::-webkit-scrollbar{
+    height: 10px;
+}
+
 /* Track */
-.book-content::-webkit-scrollbar-track {
-    background: transparent; /* Set the background color of the track */
+.book-content::-webkit-scrollbar-track,
+.doctors-list::-webkit-scrollbar-track {
+    /* background: #eee; */
+    border-radius: 5px; /* Set the background color of the track */
+    margin: 4px;
 }
 
 /* Handle */
-.book-content::-webkit-scrollbar-thumb {
+.book-content::-webkit-scrollbar-thumb,
+.doctors-list::-webkit-scrollbar-thumb {
     background: #b9b9b9; 
     border-radius: 5px;  /* Set the border radius of the scrollbar handle */
 }
 
 /* Handle on hover */
-.book-content::-webkit-scrollbar-thumb:hover {
+.book-content::-webkit-scrollbar-thumb:hover,
+.doctors-list::-webkit-scrollbar-thumb:hover {
     background: #555;/* Change color of scrollbar handle on hover */
 }
 
@@ -46,13 +53,11 @@
     margin-top: 20px;
 }
 
-    /* .form-group2{
-        
-        /* margin-left: 20px; */
-    /* } */ 
+.form-group{
+    margin-bottom: 20px;
+}
 
 .label1 {
-    display: block;
     font-size: 16px;
     font-weight:600 ;
     margin: 10px 30px;
@@ -65,27 +70,29 @@
 }
 
 
-input[type="text"],textarea{
+input[type="text"]{
+    color: var(--body_color);
     padding: 10px;
-    margin-left: 60px;
-    width: 70%;
+    /* margin-left: 60px; */
+    width: 80%;
     border: 1px solid lightgray;
     border-radius: 12px;
     font-family: Arial, Helvetica, sans-serif; 
+    background-color: var(--book-color);
 }
 
 input[type="date"], select{
     /* padding: 10px; */
+    color: var(--body_color);
+    background-color: var(--book-color);
     border: 1px solid lightgray;
     border-radius: 12px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* input[type="date"]{
-    padding: px;
-} */
-
-
+input::placeholder{
+    color: var(--place_color);
+}
 
 select:hover, input[type="date"]{
     cursor: pointer;
@@ -93,18 +100,14 @@ select:hover, input[type="date"]{
 
 
 input[type="date"]{
-    margin-left: 30px;
     padding: 10px 25px;
 }
 
 .book-btn{
-    position: absolute;
-    right: 10px;
-    /* bottom: 5px; */
     padding: 12px 30px;
     margin: 20px 30px;
     border: none;
-    border-radius: 50px;
+    border-radius: 10px; 
     background-color: orange;
     color: black;
     font-size: 15px;
@@ -126,3 +129,38 @@ input[type="date"]{
     cursor: pointer;
     background-color: rgb(255, 181, 42);
 }
+
+.doctors-list {
+    max-width: 97%;
+    display: flex;
+    flex-wrap: nowrap; /* Prevent items from wrapping */
+    justify-content: flex-start; /* Align items from left to right */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    border: 1px solid lightgray;
+    margin: 10px 20px;
+    border-radius: 12px;
+  }
+  
+  .doctors-list::-webkit-scrollbar {
+    display: none;
+}
+
+  .doctor {
+    min-width: 200px;
+    margin: 20px 10px; /* Adjust margin */
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    padding: 10px; /* Adjust padding */
+    flex-grow: 1; /* Allow items to grow to fill the available space */
+    cursor: pointer;
+}
+
+.doctor.selected {
+    border: 1px solid #000000; /* Example: Change border color to blue */
+    background-color: var(--book-doc-color);
+}
+
+.doctors-list h4,p {
+    margin: 3px;
+}
+

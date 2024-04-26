@@ -22,8 +22,9 @@ const Services = () => {
             Our Services
           </h1>
           <p className=" mt-2 text-center lg:text-start">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus,
-            quidem.
+          Our state-of-the-art facilities are equipped with the latest technology and amenities 
+          to ensure the comfort, safety, and well-being of our patients. From advanced medical 
+          
           </p>
         </div>
         <div className=" mt-4 lg:mt-0">

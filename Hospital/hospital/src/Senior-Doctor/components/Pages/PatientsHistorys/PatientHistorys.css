@@ -1,40 +1,76 @@
+/* PatientHistorys.css */
 .patient-history-container {
-    margin: 20px auto;
-    max-width: 800px;
-  }
-  
-  .patient-history-table {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .patient-history-table th,
-  .patient-history-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .patient-history-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .action-column {
-    text-align: center;
-  }
-  
-  .action-link {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .action-link:hover {
-    background-color: #0056b3;
-  }
-  
+  margin: 20px auto 20px; /* Adjust top margin */
+  max-width: 800px;
+  height: auto;
+  padding: 5px;
+  border: 2px solid #000000; /* Border color */
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+
+.patient-history-heading {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center; /* Center align the heading */
+  color: #000000; /* Highlight color */
+  margin-bottom: 20px; /* Add some space below the heading */
+}
+
+/* PatientHistorys.css */
+/* PatientHistorys.css */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items horizontally */
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.search-input {
+  padding: 15px;
+  width: 80%; /* Increase the width */
+  max-width: 400px; /* Maximum width */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.search-filters {
+  margin-top: 5px;
+  display: flex;
+}
+
+.search-filters select {
+  padding: 8px;
+  margin: 0 5px; /* Add space between dropdowns */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.patient-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.patient-history-table th,
+.patient-history-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.patient-history-table th {
+  background-color: #f2f2f2;
+  color: #000000;
+}
+
+.patient-history-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.patient-history-table tbody tr:hover {
+  background-color: #f2f2f2;
+}

@@ -5,6 +5,11 @@
     justify-content: space-evenly;
 }
 
+.big-bold-heading {
+    font-size: 2em; /* Adjust the size as needed */
+    font-weight: bold;
+  }
+  
 @media screen and (max-width: 1200px) {
     .MainDash{
         justify-content:flex-start;
@@ -18,3 +23,18 @@
         align-items: center;
     }
 }
+.table-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .table-container > * {
+    flex: 1;
+  }
+  
+  /* Add margin to the second table */
+  .table-container > *:nth-child(2) {
+    margin-left: 20px; /* Adjust the space between the tables */
+  }
+  
+  

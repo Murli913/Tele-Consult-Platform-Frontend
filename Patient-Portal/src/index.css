@@ -1,8 +1,41 @@
+:root {
+  --body_background: rgb(215, 250, 248);
+  --body_color: black;
+  --link_color: black;
+  --div_background: white;
+  --div_shadow: #9bafaf;
+  --btn_hover: #EFEFEFEF;
+  --tile_color: #faeed1b1;
+  --tile_btn: #fff;
+  --nav_background: #fff;
+  --title_btn_hover: #f1f1f1;
+  --place_color: none;
+  --book-color:white;
+  --book-doc-color:rgb(250, 250, 250);
+} 
+
+[data-theme="dark"] {
+  --body_background: #0b0514;
+  --body_color: white;
+  --link_color: cyan;
+  --div_background: #232029;
+  --div_shadow: rgba(9, 9, 9, 0);
+  --btn_hover: #5350586a;
+  --tile_color: #716d7b;
+  --tile_btn: #8c8894;
+  --nav_background:#3a3740; 
+  --title_btn_hover: rgb(128, 124, 134);
+  --place_color: #c3c3c3;
+  --book-color:#716d7b;
+  --book-doc-color:#716d7b;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

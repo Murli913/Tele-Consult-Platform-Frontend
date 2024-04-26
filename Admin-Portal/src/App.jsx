@@ -16,6 +16,9 @@ import SeniorDoctorDetails from "./components/SeniorDoctorDetails/SeniorDoctorDe
 import ViewDoctorUnderSenior from "./components/ViewDoctorUnderSeniorDoctor/ViewDoctorUnderSeniorDoctor";
 import AddDoctorInSeniorDoctor from "./components/AddDoctorInSeniorDoctor/AddDoctorInSeniorDoctor";
 import Profile from "./components/Profile/Profile";
+import ViewPatientHistory from "./components/ViewPatientHistory/ViewPatientHistory";
+import ViewDoctorHistory from "./components/ViewDoctorHistory/ViewDoctorHistory";
+import UpdateDoctorDetails from "./components/UpdateDoctorDetails/UpdateDoctorDetails";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -32,7 +35,9 @@ function App() {
   return (
     <>
       <Router>
+    
         <Routes>
+        
         <Route path="/" element={<Login />} />
           <Route element={<BaseLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -42,7 +47,10 @@ function App() {
             <Route path="/adddoctor" element={<AddDoctor />} />
             <Route path="/seniordoctordetails" element={<SeniorDoctorDetails />} />
             <Route path="/viewdoctorundersenior/:id" element={<ViewDoctorUnderSenior />} />
+            <Route path="/viewpatienthistory" element={<ViewPatientHistory />} />
             <Route path="/adddoctorinseniordoctor" element={<AddDoctorInSeniorDoctor />} />
+            <Route path="/viewdoctorhistory" element={<ViewDoctorHistory />} />
+            <Route path="/updatedoctordetails" element={<UpdateDoctorDetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>

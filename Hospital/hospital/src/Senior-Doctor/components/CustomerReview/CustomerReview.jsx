@@ -1,63 +1,114 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
-
+import axios from "axios"; // Don't forget to import axios
+import { useNavigate } from "react-router-dom";
 
 const CustomerReview = () => {
-  const data = {
-    series: [
-      {
-        name: "Review",
-        data: [10, 50, 30, 90, 40, 120, 100],
-      },
-    ],
-    options: {
-      chart: {
-        type: "area",
-        height: "auto",
-      },
+  const navigate=useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    } 
+},[]);
+  const [ratings, setRatings] = useState([]);
 
-      fill: {
-        colors: ["#fff"],
-        type: "gradient",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-        colors: ["#ff929f"],
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm",
-        },
-      },
-      grid: {
-        show: false,
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z",
-        ],
-      },
-      yaxis: {
-        show: false
-      },
-      toolbar:{
-        show: false
+  useEffect(() => {
+    fetchRatings();
+  }, []);
+
+  const fetchRatings = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/patient/getAllRating", {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setRatings(response.data);
+     
+    } catch (error) {
+      console.error("Error fetching ratings: ", error);
+    }
+  };
+
+  // Extracting doctor IDs and ratings from the fetched data
+  const doctorIds = ratings.map((rating) => rating.id);
+  const doctorRatings = ratings.map((rating) => rating.totalRating);
+
+  const options = {
+    chart: {
+      type: "bar",
+      height: 350,
+      background: '#f4f4f4',
+      foreColor: '#333'
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        borderRadius: 5,
       }
     },
+    xaxis: {
+      categories: doctorIds,
+      labels: {
+        formatter: function (val) {
+          return "Doctor " + val;
+        }
+      }
+    },
+    yaxis: {
+      title: {
+        text: "Ratings",
+        style: {
+          fontSize: '16px',
+          fontWeight: 600,
+          fontFamily: 'Arial, sans-serif',
+        }
+      },
+      max: 5 // Limit y-axis to 5
+    },
+    fill: {
+      colors: ['#59bfff']
+    },
+    dataLabels: {
+      enabled: false
+    },
+    title: {
+      text: "Patient-FeedBack",
+      align: 'center',
+      margin: 20,
+      offsetY: 20,
+      style: {
+        fontSize: '20px',
+        fontWeight: 600,
+        fontFamily: 'Arial, sans-serif',
+      }
+    },
+    tooltip: {
+      enabled: true,
+      shared: false, // Changed to false
+      intersect: false, // Added intersect: false
+      y: {
+        formatter: function (val) {
+          return val
+        }
+      }
+    }
   };
-  return <div className="CustomerReview">
-        <Chart options={data.options} series={data.series} type="area" />
-  </div>;
+
+  const series = [
+    {
+      name: "Ratings",
+      data: doctorRatings
+    }
+  ];
+
+  return (
+    <div className="CustomerReview">
+  
+      <Chart options={options} series={series} type="bar" height={350} />
+    </div>
+  );
 };
 
 export default CustomerReview;
