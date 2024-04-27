@@ -7,8 +7,7 @@ import HomePage from './components/home/Home';
 import History from './components/history/history';
 import BookNow from './components/book/book';
 import Sidebar from './components/sidebar/sidebar';
-// import Client from './client';
-// import LoginPage from './components/login/login'
+import Client from './components/client/client';
 import ProfilePage from './components/profile/profile';
 
 function App() {
@@ -34,7 +33,7 @@ function AppContent() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/history" element={<History />} />
         <Route path="/book" element={<BookNow />} />
-        {/* <Route path='/client' element={<Client />} /> */}
+        <Route path='/client' element={<Client />} />
         <Route path='/profile' element={<ProfilePage />} />
       </Routes>
       </div>
