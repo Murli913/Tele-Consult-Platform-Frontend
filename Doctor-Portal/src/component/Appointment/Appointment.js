@@ -101,6 +101,8 @@ const Appointment = () => {
       appointment.patient.name.toLowerCase().includes(query)
     );
   });
+
+  
   
   return (
     <div className='outer1'>

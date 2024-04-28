@@ -210,6 +210,22 @@ const fetchPatientInfo = async () => {
     }
   };
 
+  const wantcallback = async () => {
+    try{
+      await axios.put(`http://localhost:8080/callhistory/callback?ptphonenumber=${email}&needcallback=true`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const nocallback = async() => {
+    try{
+      await axios.put(`http://localhost:8080/callhistory/callback?ptphonenumber=${email}&needcallback=false`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     socket.on("room:join", handleJoinRoom);
     return () => {
@@ -276,8 +292,8 @@ const fetchPatientInfo = async () => {
             <button><FaAsterisk /><sub><CiLock /></sub></button>
         </div>
         <div className="secondcolumn">
-            <button>2<sub>ABC</sub></button>
-            <button>5<sub>JKL</sub></button>
+            <button onClick={wantcallback}>2<sub>ABC</sub></button>
+            <button onClick={nocallback}>5<sub>JKL</sub></button>
             <button>8<sub>TUV</sub></button>
             <button>0<sub><IoBatteryChargingOutline /></sub></button>
         </div>

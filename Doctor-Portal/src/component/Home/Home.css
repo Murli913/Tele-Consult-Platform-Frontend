@@ -395,7 +395,14 @@ background: linear-gradient(to left, #365523, #f1f3f1); */
 }
 
 .homeoptions {
-  margin-left: 300px;
+  margin-left: 210px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bookedcalls {
+  margin-left: 250px;
 }
 
 

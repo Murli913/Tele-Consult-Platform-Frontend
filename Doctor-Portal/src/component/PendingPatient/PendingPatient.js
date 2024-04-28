@@ -27,12 +27,13 @@ const PendingPatient = () => {
       try {
         // Retrieve doctorId from localStorage
         const doctorId = localStorage.getItem('loggedInDoctorId');
+        console.log(typeof(doctorId));
         if (!doctorId) {
           console.error('Doctor ID not found.');
           return;
         }
         let response;
-          response = await axios.get(`http://localhost:8080/callhistory/waiting`);
+          response = await axios.get(`http://localhost:8080/callhistory/waiting?doctorId=${doctorId}`);
         setAppointmentList(response.data);
       } catch (error) {
         console.error('Error fetching appointments:', error);
