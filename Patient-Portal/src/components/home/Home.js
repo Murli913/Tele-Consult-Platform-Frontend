@@ -244,20 +244,6 @@ function HomePage() {
                             <button onClick={() => openModal(doctor)} className='view-btn'>View Statistics</button>
                     </div>
                     ))}
-
-                {/* {doctors.map((doctor, index) => (
-                    <div className='bt-content' key={index}>
-                        <h3 className='doc-name'>Dr. {doctor.name}</h3>
-                        <p><b>Gender:</b> {doctor.gender}</p>
-                        <p><b>Email:</b> {doctor.email}</p>
-                        <p><b>Phone Number:</b> {doctor.phoneNumber}</p>
-                        <p><b>Rating:</b>  <DisplayRating rating={doctor.totalRating} /></p>
-                        {console.log(doctor.rating)}
-                        <p><b>No. of Appointments:</b> {doctor.appointmentCount} </p>
-                    </div>
-                ))} */}
-
-
                 </div>                    
                 {renderModal()}
             </div>

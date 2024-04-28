@@ -1,181 +1,97 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import Button from "@material-ui/core/Button";
-// import IconButton from "@material-ui/core/IconButton";
-// import TextField from "@material-ui/core/TextField";
-// import AssignmentIcon from "@material-ui/icons/Assignment";
-// import PhoneIcon from "@material-ui/icons/Phone";
-// import Peer from "simple-peer";
-// import io from "socket.io-client";
-// import { CopyToClipboard } from "react-copy-to-clipboard";
-// import "./client.css";
-
-// // const socket = io.connect("http://localhost:5000");
-
-// function Client() {
-//   const [me, setMe] = useState("");
-//   const [stream, setStream] = useState(null);
-//   const [receivingCall, setReceivingCall] = useState(false);
-//   const [caller, setCaller] = useState("");
-//   const [callerSignal, setCallerSignal] = useState(null);
-//   const [callAccepted, setCallAccepted] = useState(false);
-//   const [idToCall, setIdToCall] = useState("");
-//   const [callEnded, setCallEnded] = useState(false);
-//   const [name, setName] = useState("");
-//   const myVideo = useRef(null);
-//   const userVideo = useRef(null);
-//   const connectionRef = useRef(null);
-
-//   useEffect(() => {
-//     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-//       .then((stream) => {
-//         setStream(stream);
-//         if (myVideo.current) myVideo.current.srcObject = stream;
-//       })
-//       .catch((error) => console.error("Error accessing media devices:", error));
-
-//     socket.on("me", (id) => {
-//       setMe(id);
-//     });
-
-//     socket.on("callUser", (data) => {
-//       setReceivingCall(true);
-//       setCaller(data.from);
-//       setName(data.name);
-//       setCallerSignal(data.signal);
-//     });
-
-//     return () => {
-//       socket.disconnect();
-//     };
-//   }, []);
-
-//   const callUser = (id) => {
-//     const peer = new Peer({
-//       initiator: true,
-//       trickle: false,
-//       stream: stream,
-//     });
-
-//     peer.on("signal", (data) => {
-//       socket.emit("callUser", {
-//         userToCall: id,
-//         signalData: data,
-//         from: me,
-//         name: name
-//       });
-//     });
-
-//     peer.on("stream", (stream) => {
-//       if (userVideo.current) userVideo.current.srcObject = stream;
-//     });
-
-//     socket.on("callAccepted", (signal) => {
-//       setCallAccepted(true);
-//       peer.signal(signal);
-//     });
-
-//     connectionRef.current = peer;
-//   };
-
-//   const answerCall = () => {
-//     setCallAccepted(true);
-//     const peer = new Peer({
-//       initiator: false,
-//       trickle: false,
-//       stream: stream,
-//     });
-
-//     peer.on("signal", (data) => {
-//       socket.emit("answerCall", { signal: data, to: caller });
-//     });
-
-//     peer.on("stream", (stream) => {
-//       if (userVideo.current) userVideo.current.srcObject = stream;
-//     });
-
-//     peer.signal(callerSignal);
-//     connectionRef.current = peer;
-//   };
-
-//   const leaveCall = () => {
-//     setCallEnded(true);
-//     if (connectionRef.current) connectionRef.current.destroy();
-//   };
-
-//   return (
-//     <>
-//       <h1 style={{ textAlign: "center", color: "#fff" }}>Zoomish</h1>
-//       <div className="container">
-        
-//       <div className="video-container">
-//           <div className="video">
-//             {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "300px" }} />}
-//           </div>
-//           <div className="video">
-//             {callAccepted && !callEnded ?
-//               <video playsInline ref={userVideo} autoPlay style={{ width: "300px" }} /> :
-//               null}
-//           </div>
-//         </div>
+import React, { useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import "./client.css";
+import { IoMdCall } from "react-icons/io";
+import { GoDotFill } from "react-icons/go";
+import DisplayRating from '../rating/rating';
 
 
-//         <div className="myId">
-//           <TextField
-//             id="filled-basic"
-//             label="Name"
-//             variant="filled"
-//             value={name}
-//             onChange={(e) => setName(e.target.value)}
-//             style={{ marginBottom: "20px" }}
-//           />
-//           {console.log(me)}
-//           {console.log(me)}
-//           <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-//             <Button variant="contained" color="primary" startIcon={<AssignmentIcon fontSize="large" />}>
-//                 Copy ID
-//             </Button>
-//           </CopyToClipboard>
+const Patientscreen = () => {
+    const [doctors, setDoctors] = useState([]);
+    const [apts, setApts] = useState([]);
 
-//           <TextField
-//             id="filled-basic"
-//             label="ID to call"
-//             variant="filled"
-//             value={idToCall}
-//             onChange={(e) => setIdToCall(e.target.value)}
-//           />
-//           <div className="call-button">
-//             {callAccepted && !callEnded ?
-//               (
-//                 <Button variant="contained" color="secondary" onClick={leaveCall}>
-//                   End Call
-//                 </Button>
-//               ) :
-//               (
-//                 <IconButton color="primary" aria-label="call" onClick={() => callUser(idToCall)}>
-//                   <PhoneIcon fontSize="large" />
-//                 </IconButton>
-//               )
-//             }
-//             {idToCall}
-//           </div>
-//         </div>
+    useEffect(() => {
+        fetchOnlineDoctors();
+    }, []);
 
-        
+    useEffect(() => {
+        fetchPatAptToday();
+    }, []);
 
-//         <div>
-//           {receivingCall && !callAccepted ?
-//             (
-//               <div className="caller">
-//                 <h1>{name} is calling...</h1>
-//                 <Button variant="contained" color="primary" onClick={answerCall}>
-//                   Answer
-//                 </Button>
-//               </div>
-//             ) : null}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+    const fetchPatAptToday = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const pid = localStorage.getItem('patientId');
+            console.log(pid);
+            const response = await axios.get(`http://localhost:8080/patient/today-apt`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                params : {
+                    patientId : pid
+                }
+            });
+            setApts(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error fetching doctors:', error);
+        }
+    };
+    
+    
+    const fetchOnlineDoctors = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:8080/patient/online-doc`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setDoctors(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error fetching doctors:', error);
+        }
+    };
 
-// export default Client;
+
+  return (
+    <div className="calldoc">
+        <div className="today-apt">
+            <h2 style={{'color':'var(--body_color)', 'margin-bottom':'25px'}}>Today's Appointments</h2>
+            {apts.map((apt, index) => (
+                <div key={index} className="apts">
+                    <h4>Dr. {apt.doctorName}</h4>
+                    <p><b>Purpose: </b>{apt.reason}</p>
+                    <p><b>Date: </b>{apt.callDate}</p>
+                    <p><b>Time: </b>{apt.callTime}</p>
+                    <button><IoMdCall /></button>
+                </div>
+            ))}
+        </div>
+        <div className="on-doc">
+            <h3 className="on-doc-head">Online Doctors</h3>
+                {doctors.map((doctor, index) => (
+                    <div key={index} className="doc-list">
+                    <div className="icon">
+                        <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf1y2A8q1zP66KMRjOJZfXsbZKVuv1QmlyIOGTVH0J8A&s"} className="doc-icon" alt={doctor.name} />
+                        <div className="call-icon">
+                            <IoMdCall />
+                        </div>
+                    </div>
+                    <div className="doc-cont">
+                        <div className="doc-cont-top">
+                        <h4>Dr. {doctor.name}</h4>
+                        <div className="on-status"><GoDotFill /></div>
+                        </div>
+                        <p><b>Rating: </b><DisplayRating rating={doctor.totalRating} /></p>
+                    </div>
+                    </div>
+                ))}
+        </div>
+    </div>
+  );
+};
+
+export default Patientscreen;

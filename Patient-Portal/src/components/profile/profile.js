@@ -43,6 +43,7 @@ function ProfilePage() {
 
   const handleUpdateDetails = () => {
     const token = localStorage.getItem('token');
+    const patientId = localStorage.getItem('patientId');
     axios.put(`http://localhost:8080/patient/upd-pat`, {
       headers: {
         'Authorization': `Bearer ${token}`
