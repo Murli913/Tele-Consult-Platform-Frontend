@@ -229,3 +229,11 @@
 .login-box.active .toggle-right{
     transform: translateX(200%);
 }
+.image img {
+    width: 400px; /* Adjust width as needed */
+    height: 500px; /* Maintain aspect ratio */
+    object-fit: cover;
+    float: right;
+  
+   /* Ensure the image covers the container */
+}

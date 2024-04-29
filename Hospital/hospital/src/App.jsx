@@ -23,6 +23,20 @@ import ViewPatientHistory from './Senior-Doctor/components/Pages/ViewPatientHist
 import DoctorUnderSenior from './Senior-Doctor/components/Pages/DoctorUnderSenior/DoctorUnderSenior'
 import UpdateAppointment from './Senior-Doctor/components/Pages/UpdateAppointment/UpdateAppointment'
 import ViewPatientUnderDoctor from './Senior-Doctor/components/ViewPatientUnderDoctor/ViewPatientUnderDoctor'
+import PHomePage from './Patient/components/home/PHome'
+import PHistory from './Patient/components/history/Phistory'
+import PBookNow from './Patient/components/book/Pbook'
+import PProfilePage from './Patient/components/profile/Pprofile'
+import PNavbar from './Patient/components/navbar/Pnavbar'
+import PSidebar from './Patient/components/sidebar/Psidebar'
+import LobbyScreen from './Doctor/component/Lobby/Lobby'
+import Home from './Doctor/component/Home/Home'
+import Appointment from './Doctor/component/Appointment/Appointment'
+import Prescription from './Doctor/component/Prescription/Prescription'
+import RoomPage from './Doctor/component/Room/Room'
+import PRoomPage from './Doctor/component/Proom/Proom'
+import Patientscreen from './Doctor/component/Patient/Patient'
+import IncomingCall from './Doctor/component/IncomingCall/Incomincall'
 
 
 
@@ -54,6 +68,32 @@ const App = () => {
       <Route path="/saddappointment" element={<AddAppointment />} />
       <Route path="/viewpatienthistory/:id"   element={<ViewPatientHistory />} />
        </Route>
+
+
+//patient
+
+
+        <Route path="/ploginpage" element={<PLoginPage />} />
+        <Route path="/home" element={<PHomePage />} />
+        <Route path="/history" element={<PHistory />} />
+        <Route path="/book" element={<PBookNow />} />
+        {/* <Route path='/client' element={<Client />} /> */}
+        <Route path='/profile' element={<PProfilePage />} />
+      
+
+//Doctor
+
+           <Route path="/dhome" element={<Home/>}/>
+          <Route path="/call" element={<LobbyScreen />} />
+          <Route path="/appointments" element={<Appointment/>} />
+          <Route path="/prescription" element={<Prescription/>} />
+          <Route path="/d/room/:roomId" element={<RoomPage />} />
+          <Route path="/p/room/:roomId" element={<PRoomPage />} />
+          <Route path="/patient" element={<Patientscreen/>} />
+          <Route path="/incomingcall" element={<IncomingCall/>}></Route>
+          <Route path="/dlogin" element={<DoctorLogin />} /> 
+
+
     </Routes>
   </BrowserRouter>
   )

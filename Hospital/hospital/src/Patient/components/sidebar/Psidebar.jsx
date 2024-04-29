@@ -1,4 +1,4 @@
-import './sidebar.css';
+import './Psidebar.css';
 import { MdDashboard } from "react-icons/md";
 import { GoHistory } from "react-icons/go";
 import { GoPlusCircle } from "react-icons/go";

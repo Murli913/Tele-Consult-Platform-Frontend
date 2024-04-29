@@ -13,33 +13,33 @@ const DoctorLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Send login request to backend
     try {
-      const response = await fetch('http://localhost:8080/auth/doc/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email:email.current.value, password:password.current.value }),
-      });
+        const response = await fetch('http://localhost:8080/auth/doc/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email.current.value, password: password.current.value }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-      const data = await response.json();
-      const token = data.token;
-      const message = data.message;
+        if (!response.ok) {
+            const errorMessage = await response.text(); // Get error message from response body
+            throw new Error(errorMessage || 'Login failed');
+        }
 
-      // Set doctor's ID in localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('email', message);
-      console.log(token + " " + email);
-      navigate('/home');
-     // Redirect to Home.js or any desired route
+        const data = await response.json();
+        const token = data.token;
+        const message = data.message;
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('email', message);
+
+        navigate('/home');
     } catch (error) {
-      setError('Invalid phone number or password');
+        console.error('Login error:', error.message);
+        setError('Invalid email or password');
     }
-  };
+};
 
   return (
     <div className='dcontainer'>

@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import DisplayRating from '../rating/rating';
+import PNavbar from '../navbar/Pnavbar';
+import PSidebar from '../sidebar/Psidebar';
 
 
 function PBookNow() {
@@ -184,6 +186,9 @@ function PBookNow() {
     
 
     return (
+        <>
+      <PNavbar/>
+      <PSidebar/>
         <div className="book-content">
             <h2 className='head'>Book Appointment</h2>
             <form className='form' onSubmit={handleSubmit}>
@@ -239,6 +244,7 @@ function PBookNow() {
             </form>
             <ToastContainer />
         </div>
+        </>
     );
 }
 

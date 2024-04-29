@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import './Home.css';
+import "./Home.css";
 import { IoCloseCircle } from "react-icons/io5";
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import DisplayRating from '../rating/rating';
+import PNavbar from '../navbar/Pnavbar';
+import PSidebar from '../sidebar/Psidebar';
 
 function PHomePage() {
     const navigate=useNavigate();
@@ -185,7 +187,11 @@ function PHomePage() {
 
 
     return (
+        <>
+        <PNavbar/>
+        <PSidebar/>
         <div className="home-content">
+           
             <div className="top-content">
                 <div className="top-left">
                     <h3 className='head'>Upcoming Appointments</h3>
@@ -262,6 +268,7 @@ function PHomePage() {
                 {renderModal()}
             </div>
         </div>
+        </>
     );
 }
 

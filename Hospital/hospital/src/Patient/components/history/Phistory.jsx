@@ -4,6 +4,8 @@ import { IoCloseCircle } from "react-icons/io5";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DisplayRating from '../rating/rating';
+import PNavbar from '../navbar/Pnavbar';
+import PSidebar from '../sidebar/Psidebar';
 
 
 function PHistory() {
@@ -77,6 +79,10 @@ function PHistory() {
         const appointment = selectedAppointment;
 
         return (
+            <>
+            <PNavbar/>
+            <PSidebar/>
+           
             <div className="modal-overlay">
                 <div className="modal">
                     <div className="modal-header">
@@ -109,10 +115,14 @@ function PHistory() {
                     </div>
                 </div>
             </div>
+            </>
         );
     };
 
     return (
+        <>
+        <PNavbar/>
+        <PSidebar/>
         <div className="history-content">
         <h2 className="history-title">Previous Consultations</h2>
         {pastAppointments.length !== 0 ? (
@@ -135,6 +145,7 @@ function PHistory() {
         )}
         {renderModal()}
     </div>
+    </>
     );
 }
 
