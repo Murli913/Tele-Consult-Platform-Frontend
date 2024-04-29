@@ -89,6 +89,11 @@ button:hover {
   justify-content: space-evenly;
 }
 
+.callended{
+  color: #f1f1f1;
+  margin-left: 88px;
+}
+
 .duo {
   display: flex;
   margin-top: 20px;

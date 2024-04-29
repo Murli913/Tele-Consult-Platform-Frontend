@@ -1,40 +1,173 @@
-.container {
-	display: grid;
-	grid-template-columns: 7fr 3fr;
+.calldoc{
+    position: fixed;
+    top: 90px;
+    margin-left: 230px;
+    margin-right: 20px;
+    background-color: var(--div_background);
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px var(--div_shadow);
+    width: calc(100% - 250px); ;
+    height: calc(100vh - 135px);
+    text-align: center;
+    display: flex;
+    padding: 7px 0px;
 }
 
-.myId {
-	margin-right: 5rem;
-	border-radius: 5px;
-	background: #c9d6ff; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(
-		to right,
-		#e2e2e2,
-		#c9d6ff
-	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-	padding: 2rem;
-	display: grid;
-	justify-content: center;
-	align-content: center;
+.today-apt{
+	width: 75%;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	align-items: center;
 }
 
-.call-button {
-	text-align: center;
-	margin-top: 2rem;
+.on-doc-head{
+	width: 100%;
+	padding : 25px 10px;
+    margin: 0px;
+    position: sticky;
+	top: 0px;
+	background-color: var(--div_background);
+	color: var(--body_color);
+	z-index: 1000;
 }
 
-.video-container {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	justify-content: center;
-	align-content: center;
-	margin-top: 10rem;
-	margin-left: 10rem;
+.on-doc{
+	width: 25%;
+	border-left: 1px solid lightgray;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.on-doc::-webkit-scrollbar  {
+    width: 4px; 
+    background-color: transparent; 
+    scroll-margin-right: 30px;   
 }
 
-.caller {
-	text-align: center;
-	color: #fff;
+.on-doc::-webkit-scrollbar-track  {
+    background: transparent; 
+}
+
+.on-doc::-webkit-scrollbar-thumb {
+    background: #b9b9b9; 
+    border-radius: 5px; 
+}
+
+.on-doc::-webkit-scrollbar-thumb:hover {
+    background: #999; 
+}
+
+
+.doc-list{
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border: 1px solid lightgray;
+	width: 85%;
+	border-radius: 12px;
+	margin-bottom: 10px;
+	color: var(--body_color);
+}
+
+.doc-cont{
+	text-align: left;
+	padding: 7px;
+}
+
+.doc-cont-top{
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.on-status svg{
+	color: rgb(18, 180, 18);
+	width: 16px;
+}
+
+.icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+	border-radius: 50%;	
+}
+
+.doc-icon {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
+	border-radius: 50%;
+}
+
+.call-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #90d46b;
+    width: 100%;
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.call-icon svg{
+	color: black;
+}
+
+.icon:hover .doc-icon{
+	cursor: pointer;
+	transform: rotateY(180deg);
+}
+
+.icon:hover .call-icon{
+	cursor: pointer; 
+	transform: rotateY(0deg);
+   	opacity: 1;
+
+}
+
+.doc-cont h4, .apts h4{
+	margin: 0px 0px 2px 0px;
+}
+.doc-cont p, .apts p{
+	margin: 2px 0px;
+}
+
+.apts{
+	width: 90%;
+	background-color: var(--tile_color);
+	display: flex;
+	justify-content: space-around;
+	gap: 40px;
+	align-items: center;
+	padding: 15px;
+	border: 1px solid lightgray;
+	border-radius: 12px;
+}
+
+
+.apts button{
+	border: none;
+	padding: 12px 25px;
+	/* margin: 0px 0px 0px 40px; */
+	background-color: #fff;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.apts button:hover {
+	cursor: pointer;
+	background-color: var(--title_btn_hover);
 }

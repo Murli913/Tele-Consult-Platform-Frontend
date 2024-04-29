@@ -388,10 +388,23 @@ background: linear-gradient(to left, #365523, #f1f3f1); */
 .homecontent {
   display: flex;
   /* border: 2px solid black; */
+  flex-direction: column;
   width: 76%;
   height: 1000px;
   margin-left: 50px;
 }
+
+.homeoptions {
+  margin-left: 210px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bookedcalls {
+  margin-left: 250px;
+}
+
 
 .homescreen {
   margin: 5px;
@@ -400,21 +413,31 @@ background: linear-gradient(to left, #365523, #f1f3f1); */
   height: 300px;
   border-radius: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: row;
   background-image: url('./flag.jpg');
   background-size: cover;
   align-items: center;
 }
 
-.modi{
+/* .modi{
   margin-left: 520px;
+  margin-bottom: 10px;
+} */
+
+.mimg {
+  margin-right: 0px;
   margin-bottom: 10px;
 }
 
-.homescreen p{
+.welcome {
+  margin-left: 10px;
+}
+.welcome p{
   font-size: 25px;
   animation: typing 2s steps(25, end);
   overflow: hidden;
+  font-weight: 400;
   white-space: nowrap;
 }
 

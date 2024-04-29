@@ -101,6 +101,8 @@ const Appointment = () => {
       appointment.patient.name.toLowerCase().includes(query)
     );
   });
+
+  
   
   return (
     <div className='outer1'>
@@ -133,8 +135,8 @@ const Appointment = () => {
         {filteredPatients.map(appointment => (
           <div key={appointment.id} className="card">
             <div className="left">
-              <div>Patient id: PID{appointment.patient.id}</div><br/>
-              <div>Patient Name: {appointment.patient.name}</div><br/>
+              <div>Patient id: PID{appointment.patient?.id}</div><br/>
+              <div>Patient Name: {appointment.patient?.name}</div><br/>
               <div>Date: {appointment.callDate}</div>
             </div>
             <div className="right">

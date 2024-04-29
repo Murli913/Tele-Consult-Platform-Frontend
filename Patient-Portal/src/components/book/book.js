@@ -152,7 +152,7 @@ function BookNow() {
         }).format(sltime);
         console.log(callTime);
         try {
-            await axios.post('http://localhost:8080/patient/book-apt', {
+            const response = await axios.post('http://localhost:8080/patient/book-apt', {
                 patient : {id: patientId},
                 doctor: {id: selectedDoctor},
                 callDate,
@@ -167,17 +167,12 @@ function BookNow() {
             setSelectedDoctor('');
             setSelectedDate('');
             setSelectedTimeSlot(''); // or null, depending on how you handle it
-            // Handle success
-            // setPopupMessage('Appointment booked successfully');
-            // setTimeout(() => {
-            //     setPopupMessage('');
-            // }, 1000);
-            console.log("Successful");
-            toast.success("Appointment Booked Succesfully");
+            if(response.data === "Appointment booked successfully")
+                toast.success("Appointment Booked Succesfully");
+            else toast.error("Slot has been booked Just Now!");
         } catch (error) {
-            toast.error("Error occurred while deleting doctor");
+            toast.error("Error booking appointment");
             console.error('Error booking appointment:', error);
-            // Handle error
         }
     };
     

@@ -4,6 +4,7 @@ import './SideNav.css'; // Import CSS file for styling (create this file in your
 import { MdHome } from "react-icons/md";
 import { FaHistory } from "react-icons/fa";
 import { MdOutlinePhoneCallback } from "react-icons/md";
+import { MdPendingActions } from "react-icons/md";
 
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -24,7 +25,7 @@ const SideNav = () => {
           <li className={location.pathname === '/home' ? 'active' : ''}><Link to="/home"> Home<MdHome /></Link> </li>
           {/* Add 'active' class to the <li> if the current location matches */}
           <li className={location.pathname === '/appointments' ? 'active' : ''}><Link to="/appointments">Appointment<FaHistory /></Link></li>
-          <li className={location.pathname === '/patienthistory' ? 'active' : ''}><Link to="/home">Patient History<i className="fas fa-history"></i></Link></li>
+          {<li className={location.pathname === '/pendingpatient' ? 'active' : ''}><Link to="/pendingpatient">PendingPatient<MdPendingActions /></Link></li>}
           <li className={location.pathname === '/incomingcall' ? 'active' : ''}><Link to="/incomingcall">Incoming Calls<MdOutlinePhoneCallback /></Link></li>
         </ul>
       </div>

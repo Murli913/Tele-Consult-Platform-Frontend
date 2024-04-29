@@ -13,6 +13,9 @@ import Prescription from './component/Prescription/Prescription';
 import IncomingCall from './component/IncomingCall/Incomincall';
 import PRoomPage from './component/Proom/Proom';
 import Appointment from './component/Appointment/Appointment';
+import PendingPatient from './component/PendingPatient/PendingPatient';
+import Patientcall from './component/Patient/Patientcall';
+import Patientlobby from './component/Patient/Patientlobby';
 
 function App() {
   const location = useLocation();
@@ -20,9 +23,9 @@ function App() {
   return (
     <div className="App">
       
-      {location.pathname !== "/patient" && location.pathname !== "/" && !location.pathname.startsWith("/p/room/") && <Navbar /> }
+      {!location.pathname.startsWith ("/patient") && location.pathname !== "/" && !location.pathname.startsWith("/p/room/") && <Navbar /> }
       <div style={{ display: 'flex' }}>
-        {location.pathname !== "/patient" && location.pathname !== "/" && !location.pathname.startsWith("/p/room/") && <SideNav />}
+        {!location.pathname.startsWith ("/patient") && location.pathname !== "/" && !location.pathname.startsWith("/p/room/") && <SideNav />}
         
         <Routes>
           <Route path="/home" element={<Home/>}/>
@@ -32,6 +35,9 @@ function App() {
           <Route path="/d/room/:roomId" element={<RoomPage />} />
           <Route path="/p/room/:roomId" element={<PRoomPage />} />
           <Route path="/patient" element={<Patientscreen/>} />
+          <Route path="/patient/patientcall" element={<Patientcall/>}/>
+          <Route path="/pendingpatient" element={<PendingPatient/>} />
+          <Route path="/patient/pcall" element={<Patientlobby/>} />
           <Route path="/incomingcall" element={<IncomingCall/>}></Route>
           <Route path="/" element={<DoctorLogin />} /> {/* Render DoctorLogin component inside a route */}
         </Routes>

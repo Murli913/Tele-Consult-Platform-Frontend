@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './profile.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 function ProfilePage() {
   const navigate=useNavigate();
@@ -41,7 +42,26 @@ function ProfilePage() {
   }, []);  // Empty dependency array ensures useEffect runs only once after initial render
 
   const handleUpdateDetails = () => {
-    // Handle update details logic here
+    const token = localStorage.getItem('token');
+    const patientId = localStorage.getItem('patientId');
+    axios.put(`http://localhost:8080/patient/upd-pat`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: {
+        'patientId' : patientId,
+        'email' : email,
+        'phoneNumber' : phoneNumber,
+        'name' : name,
+        'password' : password
+      }
+    })
+    .then(response => {
+      toast.success("Details Updated Successfully!");
+    })
+    .catch(error => {
+      toast.error("Error updating the details!");
+    })
   };
 
   return (
@@ -65,6 +85,7 @@ function ProfilePage() {
       ) : (
         <p>Loading...</p>
       )}
+      <ToastContainer />  
     </div>
   );
 }
