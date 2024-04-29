@@ -96,7 +96,7 @@ const handleEndCall = () => {
       // Set a delay of 2 seconds before making the next API call
       setTimeout(() => {
         const doctorId = localStorage.getItem('loggedInDoctorId');
-        axios.put(`http://localhost:8080/doctor/${doctorId}/reject-call`);
+        axios.put(`http://localhost:8080/doctor/${doctorId}/rejectcall`)
       }, 2000); // Delay of 2000 milliseconds (2 seconds)
     })
     .catch(error => {
