@@ -89,7 +89,7 @@ const Sidebar = () => {
             </li>
            
             <li className="menu-item">
-              <Link to="/viewAppointment" className="menu-link">
+              <Link to="/viewAppointments" className="menu-link">
                 <span className="menu-link-icon">
                   <SiAsciidoctor size={20} />
                 </span>
@@ -118,6 +118,14 @@ const Sidebar = () => {
                   <FaUserDoctor size={20} />
                 </span>
                 <span className="menu-link-text">Senior Doctor</span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link to="/authentication" className="menu-link">
+                <span className="menu-link-icon">
+                  <FaUserDoctor size={20} />
+                </span>
+                <span className="menu-link-text">Authentication</span>
               </Link>
             </li>
           

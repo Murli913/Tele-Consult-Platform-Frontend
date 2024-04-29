@@ -24,7 +24,7 @@ const handleLogin = async () => {
   console.log(password.current.value);
   
   try {
-    const response = await fetch("http://localhost:8080/auth/login", {
+    const response = await fetch("http://localhost:8080/auth/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

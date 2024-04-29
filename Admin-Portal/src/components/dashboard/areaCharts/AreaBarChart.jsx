@@ -24,7 +24,7 @@ const AreaBarChart = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/callhistory/all", {
+        const response = await axios.get("http://localhost:8080/callhistory/admin/all", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
