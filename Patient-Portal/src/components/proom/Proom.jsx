@@ -1,41 +1,57 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState,useRef} from "react";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import peer from "../../Webrtc/peer";
 import { useSocket } from "../../Webrtc/SocketProvider";
-import "./Proomstyle.css";
+import "./proom.css";
 import axios from "axios";
-import { MdHome } from "react-icons/md";
+import { BsRecordCircle } from "react-icons/bs";
+import { FaRegStopCircle } from "react-icons/fa";
+import { IoMdMic } from "react-icons/io";
+import { IoMdMicOff } from "react-icons/io";
+import { MdDownloading } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
+import { IoSend } from "react-icons/io5";
+import DisplayRating from '../rating/rating';
 import { MdCallEnd } from "react-icons/md";
-import { SlOptions } from "react-icons/sl";
-import { IoIosCall } from "react-icons/io";
-import { CiLock } from "react-icons/ci";
-import { IoBatteryChargingOutline } from "react-icons/io5";
-import { PiVibrate } from "react-icons/pi";
-import { FaAsterisk } from "react-icons/fa";
-import { RiDualSim1Line } from "react-icons/ri";
-import { RiDualSim2Line } from "react-icons/ri";
-import { FaSignal } from "react-icons/fa";
-import { MdBattery5Bar } from "react-icons/md";
-import { MdPhoneMissed } from "react-icons/md";
-import { FaPhoneVolume } from "react-icons/fa6";
-import { FaRecordVinyl } from "react-icons/fa";
+import { CallRating } from '../rating/callrating';
 
 const PRoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
-  const [isAudioOn, setIsAudioOn] = useState(true);
   const [timer, setTimer] = useState(null);
+  const [isAudioOn, setIsAudioOn] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
-
+  const [recording, setRecording] = useState(null); 
+  const [isrd, setrd] = useState(false);
+  const [endcall, setendcall] = useState(false);
+  const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [storedRating, setStoredRating] = useState(0);
+
+  const handleEndCallModal = () => {
+    setShowModal(true);
+  };
+
+  const handleRatingChange = (newRating) => {
+    setStoredRating(newRating);
+  };
+
+  const handleSubmitRating = () => {
+    handleEndCall();
+    console.log("Rating submitted:", storedRating);
+    setShowModal(false);
+  };
+
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
     setRemoteSocketId(id);
   }, []);
+
 
   useEffect(() => {
     if (remoteSocketId) {
@@ -77,11 +93,12 @@ socket.on("navigate:home", () => {
   clearInterval(timer);
   setTimer(null);
 
-  navigate("/patient"); // Adjust path as per your routing setup
+  navigate("/client"); // Adjust path as per your routing setup
 });
 const cid = localStorage.getItem('CallId');
   console.log(cid);
-const handleEndCall = () => {
+
+  const handleEndCall = () => {
   // Emit end call event to the server
   const now = new Date();
   const endtime = new Intl.DateTimeFormat("en-US", {
@@ -96,7 +113,7 @@ const handleEndCall = () => {
       // Set a delay of 2 seconds before making the next API call
       setTimeout(() => {
         const doctorId = localStorage.getItem('loggedInDoctorId');
-        axios.put(`http://localhost:8080/doctor/${doctorId}/rejectcall`)
+        axios.put(`http://localhost:8080/doctor/${doctorId}/reject-call`);
       }, 2000); // Delay of 2000 milliseconds (2 seconds)
     })
     .catch(error => {
@@ -202,104 +219,139 @@ const handleEndCall = () => {
     handleNegoNeedFinal,
   ]);
 
+  const toggleRecording = () => {
+    if (!isrd) {
+      handleStartRecording();
+    } else {
+      handleStopRecording();
+    }
+};
+
+  const handleStartRecording = () => {
+    // Check if MediaRecorder is available and myStream is set
+    setrd(true);
+    if (MediaRecorder.isTypeSupported('audio/webm') && myStream && remoteStream) {
+      const combinedStream = new MediaStream([...myStream.getAudioTracks(), ...remoteStream.getAudioTracks()]);
+      const mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'audio/webm' });
+
+      // Event handler for when data is available
+      mediaRecorder.ondataavailable = (event) => {
+        setRecording(event.data);
+      };
+
+      // Start recording
+      mediaRecorder.start();
+
+      // Save MediaRecorder instance to reference
+      mediaRecorderRef.current = mediaRecorder;
+    } else {
+      console.error('MediaRecorder is not supported or myStream is not set');
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+    }
+    setrd(false);
+  };
+
+  const handleDownloadRecording = () => {
+    if (recording) {
+      const blob = new Blob([recording], { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'recording.webm';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  };
+
+
   return (
-    // <div className="Proomcnt">
-    //   <h1>Room Page</h1>
-    //   <h4>{remoteSocketId ? "Connected" : "Dialling...."}</h4>
-    //   {remoteSocketId && myStream && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
-    //   {myStream && <IconButton onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</IconButton>}
-    //   {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
-    //   {remoteSocketId && myStream && <button onClick={handleEndCall}>End Call</button>}
-    //   {myStream && (
-    //     <>
-    //       <h1>My Stream</h1>
-    //       <ReactPlayer
-    //         playing
-    //         muted
-    //         height="0px"
-    //         width="0px"
-    //         url={myStream}
-    //       />
-    //     </>
-    //   )}
-    //   {remoteStream && (
-    //     <>
-    //       <h1>Remote Stream</h1>
-    //       <ReactPlayer
-    //         playing
-    //         muted
-    //         height="0px"
-    //         width="0px"
-    //         url={remoteStream}
-    //       />
-    //     </>
-    //   )}
-    // </div>
-    <div className="pouter">
-        <div className="rfeaturephn">
-        <div className="rPatientCnt">
-          <div className="rfnavbar">
-            <div className="rsimcards">
-              <RiDualSim1Line />
-              <RiDualSim2Line />
-              <MdPhoneMissed />
-            </div>
-            <div className="rbattery">
-              <FaSignal />
-              <MdBattery5Bar />
-            </div>
-          </div>
-          <div className="callstatus">
-            <h4>{remoteSocketId ? "Connected" : "Dialling...."}</h4>
-            <FaPhoneVolume />
-          </div>
-      <div className="timer">
-        {remoteSocketId && myStream && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
+    <div className="cont">
+      <div className="player-container">
+      <h3 className="wait-to-join">{remoteSocketId ? "" : "Please wait for doctor to join!"}</h3>
+      <div className="avatar"><RxAvatar /></div>
+      <div className="duration">
+        {myStream && remoteSocketId && <p style={{'color':'var(--body_color)', 'font-size':'18px'}}>{formatTime(elapsedTime)}</p>}
       </div>
-      <div className="calloptions">
-        {myStream && <button onClick={toggleAudioStream}>{isAudioOn ?  <i class="fa-solid fa-microphone-slash"></i> : <i class="fa-solid fa-microphone"></i>}</button>}
-        {myStream && <button><FaRecordVinyl /></button>}
-        {remoteSocketId && myStream && <button onClick={handleEndCall}>End</button>}
-        {remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
+      {!endcall && (
+        <div className="trio">
+        {myStream && <button className="str" onClick={toggleAudioStream}>{isAudioOn ? <IoMdMic />  : <IoMdMicOff />}</button>}
+        {myStream && <button className="str" color="primary" aria-label="record" onClick={toggleRecording}>
+                              {isrd ? <FaRegStopCircle /> : <BsRecordCircle />}
+                          </button>}
+        {myStream && <button className="str" onClick={handleDownloadRecording}><MdDownloading /></button>}
+        </div>
+      )}
+      {!endcall && remoteSocketId && !myStream && 
+      <div className="joining">
+        <h4 style={{'color':'var(--body_color)'}}>Please Join The Call!</h4>
+        <button onClick={handleCallUser} className="join-call">Join Call</button>
       </div>
+      }
+      {!endcall && (
+        <div className="duo">
+          {remoteSocketId && myStream && <button className="endbtn" onClick={handleEndCallModal}><MdCallEnd /></button>}
+          {myStream && <button className="sendbtn" onClick={sendStreams}><IoSend /></button>}
         </div>
-        <div className="rnumpad">
-          <div className="rmainpad">
-                <div className="racceptside">
-                  <button><SlOptions /></button>
-                  <button className="racpt"><IoIosCall /></button>
-                </div>
-                <div className="rokside">
-                  <button><MdHome /></button>
-                </div>
-                <div className="rrejectside">
-                  <button><SlOptions /></button>
-                  <button className="rrejt"><MdCallEnd /></button>
-                </div>
-          </div>
-          <div className="rdialpad">
-            <div className="rfirstcolumn"> 
-                <button>1<sub>#/?</sub></button>
-                <button>4<sub>GHI</sub></button>
-                <button>7<sub>PQRS</sub></button>
-                <button><FaAsterisk /><sub><CiLock /></sub></button>
+      )}
+      {endcall && <div className="callended">Call Ended</div>}
+      {myStream && (
+        < >
+          <ReactPlayer
+            playing
+            height="0px"
+            width="200px"
+            url={myStream}
+          />
+        </>
+      )}
+      {remoteStream && (
+        <>
+          <ReactPlayer
+            playing
+            height="0px"
+            width="200px"
+            url={remoteStream}
+          />
+        </>
+      )}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-header" style={{'display':'flex', 'alignItems':'center','justify-content':'center'}}>
+              <h2 className='doc-name'>Feedback</h2>
             </div>
-            <div className="rsecondcolumn">
-                <button>2<sub>ABC</sub></button>
-                <button>5<sub>JKL</sub></button>
-                <button>8<sub>TUV</sub></button>
-                <button>0<sub><IoBatteryChargingOutline /></sub></button>
+            <div className="modal-body-up">
+              <div className="modal-info-up submit-modal">
+                <p>Please Give Your Valuable Rating!</p>
+                <CallRating onRatingChange={handleRatingChange} />
+                <button onClick={handleSubmitRating}>Submit</button>
+              </div>
             </div>
-            <div className="rthirdcolumn">
-                <button>3<sub>DEF</sub></button>
-                <button>6<sub>MNO</sub></button>
-                <button>9<sub>WXYZ</sub></button>
-                <button>#<sub><PiVibrate /></sub></button>
-            </div> 
           </div>
         </div>
+      )}
+      </div>
+      <div className="side-area">
+        <div className="doc-details">
+          <h3>Doctor Details</h3>
+          <p><b>Name: </b>Dr. Arjun Reddy</p>
+          <p><b>Email: </b>Arjun@gmail.com</p>
+          <p><b>Phone Number: </b>9876543556</p>
+          <p><b>Appointment Count: </b>12</p>
+          <p><b>Rating: </b><DisplayRating rating={4.5} /></p>
         </div>
+        <div className="pnotes">
+          <h3>Notes</h3>
+          <input type="text" name="pnotes" id="" className="pat-notes"/>
         </div>
+      </div>
+    </div>
   );
 };
 
