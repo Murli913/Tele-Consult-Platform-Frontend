@@ -1,0 +1,197 @@
+1. Top Level Agents
+
+
+In agents declared at the top level of a Pipeline, an agent is allocated and then the timeout option is applied. The time to allocate the agent is not included in the limit set by the timeout option.
+
+pipeline {
+    agent any
+    options {
+        // Timeout counter starts AFTER agent is allocated
+        timeout(time: 1, unit: 'SECONDS')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
+
+
+2. Stage Agents
+
+In agents declared within a stage, the options are invoked before allocating the agent and before checking any when conditions. In this case, when using timeout, it is applied before the agent is allocated. The time to allocate the agent is included in the limit set by the timeout option.
+
+pipeline {
+    agent none
+    stages {
+        stage('Example') {
+            agent any
+            options {
+                // Timeout counter starts BEFORE agent is allocated
+                timeout(time: 1, unit: 'SECONDS')
+            }
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
+
+
+
+
+
+3. node
+
+agent { node { label 'labelName' } } behaves the same as agent { label 'labelName' }, but node allows for additional options (such as customWorkspace).
+
+
+
+
+
+4. Supported Credentials Type
+
+
+Secret Text
+The environment variable specified will be set to the Secret Text content.
+
+Secret File
+The environment variable specified will be set to the location of the File file that is temporarily created.
+
+Username and password
+The environment variable specified will be set to username:password and two additional environment variables will be automatically defined: MYVARNAME_USR and MYVARNAME_PSW respectively.
+
+SSH with Private Key
+The environment variable specified will be set to the location of the SSH key file that is temporarily created and two additional environment variables will be automatically defined: MYVARNAME_USR and MYVARNAME_PSW (holding the passphrase).
+
+
+5. Available Parameters
+
+
+string
+A parameter of a string type, for example: parameters { string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '') }.
+
+text
+A text parameter, which can contain multiple lines, for example: parameters { text(name: 'DEPLOY_TEXT', defaultValue: 'One\nTwo\nThree\n', description: '') }.
+
+booleanParam
+A boolean parameter, for example: parameters { booleanParam(name: 'DEBUG_BUILD', defaultValue: true, description: '') }.
+
+choice
+A choice parameter, for example: parameters { choice(name: 'CHOICES', choices: ['one', 'two', 'three'], description: '') }. The first value is the default.
+
+password
+A password parameter, for example: parameters { password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') }.
+
+Example 10. Parameters, Declarative Pipeline
+pipeline {
+    agent any
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+    }
+    stages {l
+        stage('Example') {
+            steps {
+                echo "Hello ${params.PERSON}"
+
+                echo "Biography: ${params.BIOGRAPHY}"
+
+                echo "Toggle: ${params.TOGGLE}"
+
+                echo "Choice: ${params.CHOICE}"
+
+                echo "Password: ${params.PASSWORD}"
+            }
+        }
+    }
+}
+
+6. Triggers, Declarative Pipeline
+
+// Declarative //
+pipeline {
+    agent any
+    triggers {
+        cron('H */4 * * 1-5')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
+
+7. Supported Tools
+
+maven
+jdk
+gradle
+Example 13. Tools, Declarative Pipeline
+pipeline {
+    agent any
+    tools {
+        maven 'apache-maven-3.0.1' 
+    }
+    stages {
+        stage('Example') {
+            steps {
+                sh 'mvn --version'
+            }
+        }
+    }
+}
+
+8. Example 14. Input Step, Declarative Pipeline
+pipeline {
+    agent any
+    stages {
+        stage('Example') {
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                }
+            }
+            steps {
+                echo "Hello, ${PERSON}, nice to meet you."
+            }
+        }
+    }
+}
+
+
+9. 
+Example 30. One-axis with 3 cells, each cell runs three stages - "build", "test", and "deploy"
+matrix {
+    axes {
+        axis {
+            name 'PLATFORM'
+            values 'linux', 'mac', 'windows'
+        }
+    }
+    stages {
+        stage('build') {
+            // ...
+        }
+        stage('test') {
+            // ...
+        }
+        stage('deploy') {
+            // ...
+        }
+    }
+}

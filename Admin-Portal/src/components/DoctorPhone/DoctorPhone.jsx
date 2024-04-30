@@ -18,8 +18,9 @@ import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
 import SendIcon from '@material-ui/icons/Send';
-
-
+import { MdCallEnd } from "react-icons/md";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const socket = io.connect('http://localhost:5000');
 
 function DoctorPhone() {
@@ -29,7 +30,7 @@ function DoctorPhone() {
     const [caller, setCaller] = useState("");
     const [callerSignal, setCallerSignal] = useState();
     const [callAccepted, setCallAccepted] = useState(false);
-    const [idToCall, setIdToCall] = useState("");
+   
     const [callEnded, setCallEnded] = useState(false);
     const [name, setName] = useState("");
     const [isMuted, setIsMuted] = useState(false);
@@ -39,6 +40,11 @@ function DoctorPhone() {
     const [messageInput, setMessageInput] = useState("");
     const [recording, setRecording] = useState(false);
     const [currentTime, setCurrentTime] = useState(""); // State for current time
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [fileSuccess, setFileSuccess] = useState("");
+    const [fileError, setFileError] = useState("");
+    const [receivedFiles, setReceivedFiles] = useState([]);
+    const [idToCall, setIdToCall] = useState(""); // Added idToCall state
 
     const recorderRef = useRef(null);
     const myVideo = useRef();
@@ -92,6 +98,18 @@ function DoctorPhone() {
         socket.on("stopRecording", () => {
             stopRecording();
         });
+        
+        socket.on("fileSuccess", (message) => {
+            setFileSuccess(message);
+        });
+
+        socket.on("fileError", (message) => {
+            setFileError(message);
+        });
+
+        socket.on("fileLink", (file) => {
+            setReceivedFiles(prevFiles => [...prevFiles, file]);
+        });
 
         // Update current time every second
         const intervalId = setInterval(() => {
@@ -107,6 +125,9 @@ function DoctorPhone() {
             socket.off("message");
             socket.off("startRecording");
             socket.off("stopRecording");
+            socket.off("fileSuccess");
+            socket.off("fileError");
+            socket.off("fileLink");
             clearInterval(intervalId); // Clear interval when component unmounts
         };
     }, []);
@@ -252,16 +273,35 @@ function DoctorPhone() {
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     };
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
+
+    const sendFile = () => {
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(selectedFile);
+            reader.onload = () => {
+                socket.emit("sendFile", reader.result);
+                setFileSuccess("send sucess");
+                toast.success("Send successfully");
+                setFileError("");
+            };
+        } else {
+            setFileError("Please select a file.");
+            toast.error("Error occured while sending");
+        }
+    };
+
 
     return (
         <div className="App">
-            App
            <header className="App-header">
                 <img src="https://blog.logrocket.com/wp-content/uploads/2023/12/img1-Basic-React-Native-app-set-up-Expo.png" alt="logo" />
-                <h1 className='top-text'>Video Call</h1>
+                <h2 className='top-text'>Authentication Call</h2>
                 <h5  style={{
                         position: 'absolute',
-                        top: 'calc(-30px + 1em)',
+                        top: 'calc(-22px + 1em)',
                         left: '44%',
                         transform: 'translateX(-50%)',
                         zIndex: 1, fontWeight: 'bold',
@@ -277,21 +317,23 @@ function DoctorPhone() {
                     onChange={(e) => setName(e.target.value)}
                     style={{
                         position: 'absolute',
-                        top: 'calc(120px + 1em)',
+                        top: 'calc(75px + 1em)',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         zIndex: 1,
+                        width: '300px'
                     }}
                 />
                 <CopyToClipboard text={me} style={{
                     position: 'absolute',
-                    top: 'calc(220px + 1em)',
+                    top: 'calc(160px + 1em)',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     zIndex: 1,
+                    width: '250px'
                 }}>
                     <Button variant="contained" color="primary" startIcon={<AssignmentIcon fontSize="large" />}>
-                        Copy ID
+                        Doctor Caller ID
                     </Button>
                 </CopyToClipboard>
 
@@ -303,21 +345,22 @@ function DoctorPhone() {
                     onChange={(e) => setIdToCall(e.target.value)}
                     style={{
                         position: 'absolute',
-                        top: 'calc(260px + 1em)',
+                        top: 'calc(200px + 1em)',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         zIndex: 1,
+                        width: '300px'
                     }}
                 />
-
-                {stream && <video playsInline muted ref={myVideo} autoPlay style={{
+{/*this is working only*/ }
+                 <video playsInline muted ref={myVideo} autoPlay style={{
                     position: 'absolute',
-                    top: 'calc(340px + 1em)',
+                    top: 'calc(270px + 1em)',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     zIndex: 1,
                     width: "300px"
-                }} />}
+                }} />
 
                 {callAccepted && !callEnded && userVideo.current ? (
                     <video playsInline ref={userVideo} autoPlay style={{
@@ -329,111 +372,91 @@ function DoctorPhone() {
                         width: "300px"
                     }} />
                 ) : null}
+                
+                <input type="file" onChange={handleFileChange} style={{
+                    position: 'absolute',
+                    top: 'calc(538px + 1em)',
+                    left: '55%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 1,
+                    width: '400px', // Increase width
+                    height: '100px', // Increase height
+                  // Hide the default file input button
+                    cursor: 'pointer',
+                }} />
+
+                <Button variant="contained" color="primary" onClick={sendFile} style={{
+                    position: 'absolute',
+                    top: 'calc(530px + 1em)',
+                    left: '55%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 1,
+                }}>
+                    Send File
+                </Button>
+                {fileSuccess && (
+                    <p style={{ color: 'green', position: 'absolute', top: 'calc(400px + 1em)', left: '50%', transform: 'translateX(-50%)' }}>{fileSuccess}</p>
+                )}
+                {fileError && (
+                    <p style={{ color: 'red', position: 'absolute', top: 'calc(400px + 1em)', left: '50%', transform: 'translateX(-50%)' }}>{fileError}</p>
+                )}
 
                 {callAccepted && !callEnded ? (
-                    <Button variant="contained" color="secondary" onClick={leaveCall} style={{
+                    <IconButton  color="primary"  aria-label="call" onClick={leaveCall} style={{
                         position: 'absolute',
-                        top: 'calc(600px + 1em)',
-                        left: '50%',
+                        top: 'calc(760px + 1em)',
+                        left: '43%',
                         transform: 'translateX(-50%)',
                         zIndex: 1,
                     }}>
-                        End Call
-                    </Button>
+                       <MdCallEnd fontSize="large" style={{ fontSize: '40px' , color: 'red' }} />
+
+                       
+                    </IconButton>
                 ) : (
-                    <div>
-                        <IconButton color="primary" aria-label="call" onClick={() => callUser(idToCall)} style={{
-                            position: 'absolute',
-                            top: 'calc(600px + 1em)',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1,
-                        }}>
-                            <PhoneIcon fontSize="large" />
-                        </IconButton>
-                        <IconButton color="primary" aria-label="toggle-audio" onClick={toggleAudio} style={{
-                            position: 'absolute',
-                            top: 'calc(780px + 1em)',
-                            left: '43%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1,
-                        }}>
-                            {isMuted ? <MicOffIcon fontSize="large" /> : <MicIcon fontSize="large" />}
-                        </IconButton>
-                        <IconButton color="primary" aria-label="toggle-video" onClick={toggleVideo} style={{
-                            position: 'absolute',
-                            top: 'calc(780px + 1em)',
-                            left: '47%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1,
-                        }}>
-                            {isVideoOn ? <VideocamIcon fontSize="large" /> : <VideocamOffIcon fontSize="large" />}
-                        </IconButton>
-                        <IconButton color="primary" aria-label="toggle-screen-share" onClick={toggleScreenSharing} style={{
-                            position: 'absolute',
-                            top: 'calc(780px + 1em)',
-                            left: '57%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1,
-                        }}>
-                            {isScreenSharing ? <StopScreenShareIcon fontSize="large" /> : <ScreenShareIcon fontSize="large" />}
-                        </IconButton>
-                    </div>
+                    <IconButton color="primary" aria-label="call" onClick={() => callUser(idToCall)} style={{
+                        position: 'absolute',
+                        top: 'calc(760px + 1em)',
+                        left: '43%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 1,
+                    }}>
+                        <PhoneIcon fontSize="large" />
+                    </IconButton>
+                    
                 )}
-
-                {receivingCall && !callAccepted ? (
-                    <div className="caller">
-                        <h1 style={{
-                            position: 'absolute',
-                            top: 'calc(600px + 1em)',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1,
-                            fontWeight: 'bold',
-                            color: 'black',
-                        }}>{name} is calling...</h1>
-                        <Button variant="contained" color="primary" onClick={answerCall} style={{
-                            position: 'absolute',
-                            top: 'calc(800px + 1em)',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1,
-                        }}>
-                            Answer
-                        </Button>
-                    </div>
-                ) : null}
-
-                <div className="chat-box" id="chat-box" style={{
+                           <div>
+                           <div className="chat-box" id="chat-box" style={{
                     position: 'absolute',
-                    bottom: '20px',
+                    bottom: '50px',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     zIndex: 1,
                     width: '19%',
-                    height: '100px',
+                    height: '180px',
                     overflowY: 'scroll',
-                    border: '1px solid #00000',
-                    borderRadius: '5px',
-                    padding: '10px'
+                    border: '1px solid black', // Set border color to black
+                    borderRadius: '15px',
+                    padding: '20px'
+                   
                 }}>
 
                     {messages.map((message, index) => (
                         <div key={index} style={{ fontWeight: 'bold', color: 'black', marginBottom: '5px' }}>
-                            <strong>{message.from}: </strong> {message.text}
+                            <h20>{message.from}: </h20> {message.text}
                         </div>
                     ))}
 
                 </div>
                 <div style={{
                     position: 'absolute',
-                    bottom: '20px',
+                    bottom: '75px',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     zIndex: 1,
                     display: 'flex',
                     justifyContent: 'center',
-                    width: '80%',
+                    width: '72%',
                     marginTop: '10px',
 
                 }}>
@@ -449,18 +472,96 @@ function DoctorPhone() {
                         <SendIcon />
                     </IconButton>
                 </div>
-
-                <IconButton color="primary" aria-label="start-recording" onClick={recording ? stopRecording : startRecording} style={{
+                       
+                        <IconButton color="primary" aria-label="toggle-audio" onClick={toggleAudio} style={{
+                            position: 'absolute',
+                            top: 'calc(760px + 1em)',
+                            left: '51%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                        }}>
+                            {isMuted ? <MicOffIcon fontSize="large" /> : <MicIcon fontSize="large" />}
+                        </IconButton>
+                        <IconButton color="primary" aria-label="toggle-video" onClick={toggleVideo} style={{
+                            position: 'absolute',
+                            top: 'calc(760px + 1em)',
+                            left: '47%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                        }}>
+                            {isVideoOn ? <VideocamIcon fontSize="large" /> : <VideocamOffIcon fontSize="large" />}
+                        </IconButton>
+                        <IconButton color="primary" aria-label="toggle-screen-share" onClick={toggleScreenSharing} style={{
+                            position: 'absolute',
+                            top: 'calc(760px + 1em)',
+                            left: '58%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                        }}>
+                            {isScreenSharing ? <StopScreenShareIcon fontSize="large" /> : <ScreenShareIcon fontSize="large" />}
+                        </IconButton>
+                        <IconButton color="primary" aria-label="start-recording" onClick={recording ? stopRecording : startRecording} style={{
                     position: 'absolute',
-                    top: 'calc(780px + 1em)',
-                    left: '52%',
+                    top: 'calc(760px + 1em)',
+                    left: '54%',
                     transform: 'translateX(-50%)',
                     zIndex: 1,
                 }}>
                     {recording ? <StopIcon fontSize="large" /> : <FiberManualRecordIcon fontSize="large" />}
                 </IconButton>
+                    </div>
+
+
+                {receivingCall && !callAccepted ? (
+                    <div className="caller">
+                        <h1 style={{
+                            position: 'absolute',
+                            top: 'calc(400px + 1em)',
+                            left: '20%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                            fontWeight: 'bold',
+                            color: 'black',
+                        }}>{name} is calling...</h1>
+                        <Button variant="contained" color="primary" onClick={answerCall} style={{
+                            position: 'absolute',
+                            top: 'calc(550px + 1em)',
+                            left: '20%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                        }}>
+                            Answer
+                        </Button>
+                    </div>
+                ) : null}
+
+     
+
+          
+                {/* <div style={{
+                    position: 'absolute',
+                    top: 'calc(300px + 1em)',
+                    left: '70%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 1,
+                }}>
+                    <h1>files </h1>
+                    {receivedFiles.length > 0 && (
+                        <div>
+                            <h3>Received Files:</h3>
+                            <ul>
+                                {receivedFiles.map((file, index) => (
+                                    <li key={index}>
+                                        <a href={`http://localhost:5000/uploads/${file.filename}`} download>{file.filename}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div> */}
 
             </header>
+            <ToastContainer/>
         </div>
     );
 }

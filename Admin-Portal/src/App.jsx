@@ -21,6 +21,9 @@ import ViewDoctorHistory from "./components/ViewDoctorHistory/ViewDoctorHistory"
 import UpdateDoctorDetails from "./components/UpdateDoctorDetails/UpdateDoctorDetails";
 import ViewAppointments from "./components/ViewAppointment/ViewAppointment";
 import Authentication from "./components/Authentication/Authentication";
+import DoctorPhone from "./components/DoctorPhone/DoctorPhone";
+import Message from "./components/Message/Message";
+import { ContactUs } from "./components/email/email";
 
 
 function App() {
@@ -42,7 +45,9 @@ function App() {
         <Routes>
         
         <Route path="/" element={<Login />} />
-        
+        <Route path="/doctorphone" element={<DoctorPhone/>} />
+        <Route path="/message" element={<Message />} />
+        <Route path="/email" element={<ContactUs />} />
           <Route element={<BaseLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/viewAppointments" element={<ViewAppointments />} />
@@ -57,7 +62,9 @@ function App() {
             <Route path="/updatedoctordetails" element={<UpdateDoctorDetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/authentication" element={<Authentication />} />
+          
             <Route path="*" element={<PageNotFound />} />
+            
           </Route>
           
                 </Routes>
