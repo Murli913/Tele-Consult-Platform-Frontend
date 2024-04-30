@@ -6,8 +6,8 @@ const cors = require('cors');
 const twilio = require('twilio'); 
 
 //twilio requirements -- Texting API 
-// const accountSid = 'AC9df5732424b6dd695b57fce8faad5456';
-// const authToken = 'f477972279d01c5c2c6ea2c07423b1e8'; 
+const accountSid = '';
+const authToken = ''; 
 const client = new twilio(accountSid, authToken);
 
 const app = express(); //alias
