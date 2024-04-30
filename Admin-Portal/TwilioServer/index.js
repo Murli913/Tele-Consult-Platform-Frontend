@@ -12,7 +12,7 @@ const client = new twilio(accountSid, authToken);
 
 const app = express(); //alias
 
-app.use(cors()); //Blocks browser from restricting any data
+app.use(cors());
 
 //Welcome Page for the Server 
 app.get('/', (req, res) => {
