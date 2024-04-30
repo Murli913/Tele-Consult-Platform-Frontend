@@ -1,39 +1,39 @@
-//Dependencies: 
-//yarn add express cors twilio 
-
-const express = require('express'); 
+// Dependencies
+const express = require('express');
 const cors = require('cors');
-const twilio = require('twilio'); 
+const twilio = require('twilio');
 
-//twilio requirements -- Texting API 
-const accountSid = '';
-const authToken = ''; 
-const client = new twilio(accountSid, authToken);
+// Load environment variables
+require('dotenv').config(); // Load environment variables from a .env file
 
-const app = express(); //alias
+const app = express();
 
-app.use(cors()); //Blocks browser from restricting any data
+app.use(cors());
 
-//Welcome Page for the Server 
 app.get('/', (req, res) => {
-    res.send('Welcome to the Express Server')
-})
-
-app.get('/send-text', (req, res) => {
-    //Welcome Message
-    res.send('Hello to the Twilio Server');
-
-    //_GET Variables
-    const recipient = req.query.recipient;
-    const textmessage = req.query.textmessage;
-
-    //Send Text
-    const recipientPhoneNumber = '+91' + recipient.replace(/\D/g, ''); // Remove non-numeric characters and prepend country code
-    client.messages.create({
-        body: textmessage,
-        to: recipientPhoneNumber,
-        from: '+14242519807' // Your Twilio phone number
-    }).then((message) => console.log(message.body));
+  res.send('Welcome to the Express Server');
 });
 
-app.listen(4000, () => console.log("Running on Port 4000"))
+app.get('/send-text', (req, res) => {
+  res.send('Hello to the Twilio Server');
+
+  const recipient = req.query.recipient;
+  const textmessage = req.query.textmessage;
+
+  const recipientPhoneNumber = '+91' + recipient.replace(/\D/g, '');
+
+  // Use environment variables for account SID and auth token
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+  // Create Twilio client with environment variables
+  const client = twilio(accountSid, authToken);
+
+  client.messages.create({
+    body: textmessage,
+    to: recipientPhoneNumber,
+    from: '+14242519807' // Your Twilio phone number
+  }).then((message) => console.log(message.body));
+});
+
+app.listen(4000, () => console.log('Running on Port 4000'));
