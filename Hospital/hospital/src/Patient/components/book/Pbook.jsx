@@ -39,9 +39,10 @@ function PBookNow() {
         try {
             const token = localStorage.getItem('token');
             const response = await axios.get(`http://localhost:8080/patient/getsnrdoctors`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials: true
             });
             setDoctors(response.data);
         } catch (error) {
@@ -58,9 +59,10 @@ function PBookNow() {
                     doctorId: selectedDoctor,
                     date: selectedDate
                 },
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials: true
             });
             console.log('Response from server:', response.data); // Log response data
             if (Array.isArray(response.data)) {
@@ -157,9 +159,10 @@ function PBookNow() {
                 callTime,
                 reason
             }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials: true
             });
             setSelectedDoctor('');
             setSelectedDate('');
@@ -190,66 +193,66 @@ function PBookNow() {
 
                 {/* Second Card - Form */}
                 <div className="bg-white rounded-lg shadow-lg">
-    <h2 className="text-2xl font-semibold mb-4 p-4">Book Appointment</h2>
-    <div className="p-4">
-        <div className="form-group">
-            <label htmlFor="cause" className="font-semibold mb-2">Cause/Reason*</label>
-            <input
-                type="text"
-                id="cause"
-                name="cause"
-                placeholder="Reason for appointment"
-                value={reasonVal}
-                onChange={handleReasonChange}
-                required
-                className="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-md"
-            />
-        </div>
-        <div className="form-group">
-            <label htmlFor="selectDoctor" className="font-semibold mb-2">Select a Doctor*</label>
-            <div className="doctors-list flex overflow-x-auto border border-gray-300 rounded-md p-2">
-                {doctors.map(doctor => (
-                    <div
-                        key={doctor.id}
-                        className={`doctor ${selectedDoctor === doctor.id ? 'selected' : ''} min-w-40 m-2 p-2 border border-gray-300 rounded-md cursor-pointer`}
-                        onClick={() => handleDoctorChange(doctor.id)}
-                    >
-                        <h4>Dr. {doctor.name}</h4>
-                        <p>Rating: <DisplayRating rating={doctor.totalRating} /></p>
-                    </div>
-                ))}
+        <h2 className="text-2xl font-semibold mb-4 p-4">Book Appointment</h2>
+        <div className="p-4">
+            <div className="form-group">
+                <label htmlFor="cause" className="font-semibold mb-2">Cause/Reason*</label>
+                <input
+                    type="text"
+                    id="cause"
+                    name="cause"
+                    placeholder="Reason for appointment"
+                    value={reasonVal}
+                    onChange={handleReasonChange}
+                    required
+                    className="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-md"
+                />
             </div>
+            <div className="form-group">
+                <label htmlFor="selectDoctor" className="font-semibold mb-2">Select a Doctor*</label>
+                <div className="doctors-list flex overflow-x-auto border border-gray-300 rounded-md p-2">
+                    {doctors.map(doctor => (
+                        <div
+                            key={doctor.id}
+                            className={`doctor ${selectedDoctor === doctor.id ? 'selected' : ''} min-w-40 m-2 p-2 border border-gray-300 rounded-md cursor-pointer`}
+                            onClick={() => handleDoctorChange(doctor.id)}
+                        >
+                            <h4>Dr. {doctor.name}</h4>
+                            <p>Rating: <DisplayRating rating={doctor.totalRating} /></p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="form-group">
+                <label htmlFor="selectDate" className="font-semibold mb-2">Select a Date*</label>
+                <input
+                    type="date"
+                    id="selectDate"
+                    name="selectDate"
+                    min={minDate}
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    required
+                    className="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-md mb-4 md:mb-0"
+                />
+            </div>
+            <div className="form-group flex flex-col md:flex-row items-center">
+                <label htmlFor="selectTimeSlot" className="font-semibold  w-100 mb-2 md:mr-4">Select a Time Slot*</label>
+                <select
+                    id="selectTimeSlot"
+                    name="selectTimeSlot"
+                    onChange={handleTimeSlotChange}
+                    required
+                    className="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-md mb-4 md:mb-0"
+                >
+                    <option value="">Select a time slot</option>
+                    {timeSlots.map(slot => (
+                        <option key={slot} value={slot}>{slot}</option>
+                    ))}
+                </select>
+            </div>
+            <button className="bg-orange-500 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 hover:bg-orange-600 transition duration-300 w-full" type="submit" onClick={handleSubmit}>Book Appointment<GoPlusCircle /></button>
         </div>
-        <div className="form-group">
-            <label htmlFor="selectDate" className="font-semibold mb-2">Select a Date*</label>
-            <input
-                type="date"
-                id="selectDate"
-                name="selectDate"
-                min={minDate}
-                value={selectedDate}
-                onChange={handleDateChange}
-                required
-                className="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-md mb-4 md:mb-0"
-            />
-        </div>
-        <div className="form-group flex flex-col md:flex-row items-center">
-            <label htmlFor="selectTimeSlot" className="font-semibold  w-100 mb-2 md:mr-4">Select a Time Slot*</label>
-            <select
-                id="selectTimeSlot"
-                name="selectTimeSlot"
-                onChange={handleTimeSlotChange}
-                required
-                className="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-md mb-4 md:mb-0"
-            >
-                <option value="">Select a time slot</option>
-                {timeSlots.map(slot => (
-                    <option key={slot} value={slot}>{slot}</option>
-                ))}
-            </select>
-        </div>
-        <button className="bg-orange-500 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 hover:bg-orange-600 transition duration-300 w-full" type="submit">Book Appointment<GoPlusCircle /></button>
-    </div>
 </div>
 
 

@@ -1,0 +1,22 @@
+.group_call_button {
+  width: 200px;
+  height: 40px;
+  padding: 0px;
+  border: none;
+  border-radius: 50px;
+  background-color: #e71212;
+  text-align: center;
+  box-shadow: rgba(41, 40, 40, 0.46) 0px 7px 49px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group_call_button svg{
+  font-size: 25px;
+}
+
+.group_call_button:hover {
+  cursor: pointer;
+  background-color: #d11a1a;
+}

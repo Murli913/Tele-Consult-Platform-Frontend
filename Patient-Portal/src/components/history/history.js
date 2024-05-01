@@ -37,12 +37,13 @@ function History() {
             console.log(pid);
             console.log(token);
             const response = await axios.get(`http://localhost:8080/patient/past-apt`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // },
                 params:{
                     patientId : pid
-                }
+                },
+                withCredentials: true
             });
             console.log(response);
             if (response.data.length === 0) {

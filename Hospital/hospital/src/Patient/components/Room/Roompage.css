@@ -1,0 +1,70 @@
+.cont{
+  position: fixed;
+    top: 90px;
+    margin-left: 230px;
+    margin-right: 20px;
+    background-color: var(--div_background);
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px var(--div_shadow);
+    width: calc(100% - 250px);
+    height: calc(100vh - 135px);
+    text-align: center;
+    display: flex;
+    padding: 7px 0px;
+}
+
+
+
+.side-area{
+  width: 40%;
+  margin: 10px;
+  padding: 0px;
+}
+
+.doc-details{
+  height: 38%;
+  border: 1.5px solid lightgray;
+  border-radius: 20px;
+  color: var(--body_color);
+  text-align: left;
+}
+
+.pnotes{
+  height: 58%;
+  border: 1.5px solid lightgray;
+  border-radius: 20px;
+  margin-top: 20px;
+  color: var(--body_color);
+}
+
+.pnotes input{
+  height: 200px;
+  background-color: rgb(240, 240, 240);
+  color: var(--body_color);
+}
+
+.doc-details{
+  p {
+    margin: 15px;
+    font-size: 16px;    
+  }
+  h3 {
+    margin: 15px 170px;
+  }
+}
+
+
+.submit-modal button{
+  width: 50px;
+  padding: 12px 30px;
+  border: none;
+  background-color: #cbe263;
+  border: 50px;
+}
+
+.submit-modal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

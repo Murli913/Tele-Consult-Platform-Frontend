@@ -26,9 +26,10 @@ function PProfilePage() {
     // console.log("Token:", token);
 
     axios.get(`http://localhost:8080/patient/patient-details/${email}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      // headers: {
+      //   'Authorization': `Bearer ${token}`
+      // }
+      withCredentials: true
     })
     .then(response => {
       // console.log(response.data);

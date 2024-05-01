@@ -35,14 +35,16 @@ function PNavbar() {
         navigate("/");
     }
 
+    function handleTalkWithDoc() {
+        navigate("/client");
+    }
+    
     return (
         <nav className="bg-gradient-to-r from-purple-500 to-blue-500 p-4 flex justify-between items-center relative">
             <div className="flex items-center space-x-4">
                 <Link to="/home" className='text-white text-2xl font-bold hover:text-yellow-300 transition duration-300 animate-bounce'>e<span className="text-yellow-300">Swasthya</span></Link>
             </div>
-            <button className='btn-talk flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-3 py-2 transition duration-300 ease-in absolute left-1/2 transform -translate-x-1/2'>
-                <MdPhoneInTalk className="text-lg" /> Talk with DOC!
-            </button>
+            <Link to="/client" className='btn-talk flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-3 py-2 transition duration-300 ease-in absolute left-1/2 transform -translate-x-1/2'>Talk with DOC! <MdPhoneInTalk className="text-lg" /></Link>
             <div className="dark-mode-toggle absolute right-20">
                 <input
                     type='checkbox'

@@ -36,12 +36,13 @@ function PHistory() {
             const token = localStorage.getItem('token');
 
             const response = await axios.get(`http://localhost:8080/patient/past-apt`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // },
                 params: {
                     patientId: pid
-                }
+                },
+                withCredentials: true
             });
 
             if (response.data.length === 0) {
@@ -71,8 +72,8 @@ function PHistory() {
 
         return (
             <>
-                <PNavbar />
-                <PSidebar />
+                {/* <PNavbar />
+                <PSidebar /> */}
                 <div className="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div className="modal w-3/4 md:w-2/4 bg-white rounded-lg p-8">
         <div className="flex justify-between items-center">

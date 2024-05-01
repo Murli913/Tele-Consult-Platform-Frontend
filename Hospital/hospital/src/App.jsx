@@ -29,6 +29,7 @@ import PBookNow from './Patient/components/book/Pbook'
 import PProfilePage from './Patient/components/profile/Pprofile'
 import PNavbar from './Patient/components/navbar/Pnavbar'
 import PSidebar from './Patient/components/sidebar/Psidebar'
+import PClient from './Patient/components/client/client'
 import LobbyScreen from './Doctor/component/Lobby/Lobby'
 import Home from './Doctor/component/Home/Home'
 import Appointment from './Doctor/component/Appointment/Appointment'
@@ -37,6 +38,8 @@ import RoomPage from './Doctor/component/Room/Room'
 import PRoomPage from './Doctor/component/Proom/Proom'
 import Patientscreen from './Doctor/component/Patient/Patient'
 import IncomingCall from './Doctor/component/IncomingCall/Incomincall'
+import PLobbyScreen from './Patient/components/Lobby/Lobby';
+import PPRoomPage from './Patient/components/Room/Room';
 
 
 
@@ -77,9 +80,10 @@ const App = () => {
         <Route path="/home" element={<PHomePage />} />
         <Route path="/history" element={<PHistory />} />
         <Route path="/book" element={<PBookNow />} />
-        {/* <Route path='/client' element={<Client />} /> */}
+        <Route path='/client' element={<PClient />} />
         <Route path='/profile' element={<PProfilePage />} />
-      
+        <Route path='/pcall' element={<PLobbyScreen/>}/>
+        <Route path="/bp/room/:roomId" element={<PPRoomPage/>}/>
 
 //Doctor
 

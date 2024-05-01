@@ -1,0 +1,84 @@
+.player-container {
+  background-color: var(--room_call_color);
+  width:60%;
+  color: white;
+  border: var(--room_doc_border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.avatar {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.bottom-player{
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.avatar svg {
+  color: rgb(59, 199, 255);
+  font-size: 180px;
+}
+
+.duration1 {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.trio1 {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+  align-items: center;
+}
+
+.str{
+  background-color: transparent ;
+}
+
+.str:hover{
+  background-color: transparent;
+}
+
+.str svg{
+  color: var(--room_svg);
+  font-size: 30px;
+  
+}
+
+.str svg:hover{
+  cursor: pointer;
+  color: rgb(212, 212, 212);
+}
+
+.group_call_title {
+  font-size: 10px;
+  margin-top: 50px;
+}
+
+.group_call_videos_container {
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}

@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "react-toastify": "^10.0.5"
+    "peer": "^1.0.2",
+    "peerjs": "^1.5.2",
+    "react-redux": "^9.1.1",
+    "react-toastify": "^10.0.5",
+    "redux": "^5.0.1",
+    "redux-devtools-extension": "^2.13.9"
   }
 }

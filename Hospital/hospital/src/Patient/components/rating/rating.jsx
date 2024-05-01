@@ -4,7 +4,7 @@ import StarRatings from 'react-star-ratings';
 const starRatingStyle = {
   display: 'inline-block',
   marginRight: '10px',
-  fontSize: '20px',
+  fontSize: '15px',
 };
 
 class DisplayRating extends Component {

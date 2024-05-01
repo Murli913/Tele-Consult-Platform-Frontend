@@ -38,9 +38,10 @@ function PHomePage() {
         const email = localStorage.getItem('email');
         
         axios.get(`http://localhost:8080/patient/patient-details/${email}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+        //   headers: {
+        //     'Authorization': `Bearer ${token}`
+        //   }
+        withCredentials: true
         })
         .then(response => {
           localStorage.setItem('patientId', response.data.id);
@@ -55,12 +56,13 @@ function PHomePage() {
             const pid = localStorage.getItem('patientId');
             const token = localStorage.getItem('token');
             const response = await axios.get(`http://localhost:8080/patient/up-apt`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // },
                 params:{
                     patientId : pid
-                }
+                },
+                withCredentials: true
             });
             if (response.data.length === 0) {
                 console.log("No Upcoming Appointments");
@@ -77,12 +79,14 @@ function PHomePage() {
             const pid = localStorage.getItem('patientId');
             const token = localStorage.getItem('token');
             const response = await axios.get(`http://localhost:8080/patient/past-apt`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // },
                 params:{
                     patientId : pid
-                }
+                },
+
+                withCredentials: true
             });
             if (response.data.length === 0) {
                 console.log("No Past Appointments");
@@ -109,9 +113,10 @@ function PHomePage() {
         try {
             const token = localStorage.getItem('token');
             const response = await axios.get(`http://localhost:8080/patient/getsnrdoctors`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials: true
             });
             setDoctors(response.data);
         } catch (error) {
@@ -184,11 +189,11 @@ function PHomePage() {
                 <p><span className="font-semibold">Date:</span> {appointment.callDate}</p>
                 <p><span className="font-semibold">Time:</span> {appointment.callTime}</p>
               </div>
-              <button className="text-blue-500 hover:text-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none">
+              {/* <button className="text-blue-500 hover:text-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </button>
+              </button> */}
             </div>
           </li>
         ))}
@@ -215,11 +220,11 @@ function PHomePage() {
                                 <p><span className="font-semibold">Time:</span> {appointment.callTime}</p>
                                 <p><span className="font-semibold">Duration:</span> {appointment.duration}</p>
                             </div>
-                            <button className="text-blue-500 hover:text-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none">
+                            {/* <button className="text-blue-500 hover:text-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
-                            </button>
+                            </button> */}
                         </div>
                     </li>
                 ))}

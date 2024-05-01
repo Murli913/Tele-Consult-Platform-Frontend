@@ -4,13 +4,14 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { SocketProvider } from './Doctor/Webrtc/SocketProvider.jsx'
+import store from './Patient/components/store/store.jsx';
+import { Provider } from 'react-redux';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
- 
-    <SocketProvider>
-    <App />
-    </SocketProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
    
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

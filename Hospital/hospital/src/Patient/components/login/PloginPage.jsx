@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './loginPage.css';
 import { FaGooglePlusG } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
 function PLoginPage() {
@@ -39,12 +40,12 @@ function PLoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
+      const response = await axios.post('http://localhost:8080/auth/login', {
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
 
       if (!response.ok) {

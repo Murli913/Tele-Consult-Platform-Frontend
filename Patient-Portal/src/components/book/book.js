@@ -36,9 +36,10 @@ function BookNow() {
         try {
             const token = localStorage.getItem('token');
             const response = await axios.get(`http://localhost:8080/patient/getsnrdoctors`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials : true
             });
             setDoctors(response.data);
         } catch (error) {
@@ -55,10 +56,12 @@ function BookNow() {
                     doctorId: selectedDoctor,
                     date: selectedDate
                 },
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials: true
             });
+
             console.log('Response from server:', response.data); // Log response data
             if (Array.isArray(response.data)) {
                 const fetchedTimeSlots = response.data;
@@ -159,9 +162,10 @@ function BookNow() {
                 callTime,
                 reason
             }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                // headers: {
+                //     'Authorization': `Bearer ${token}`
+                // }
+                withCredentials: true
             });
             // Reset form fields
             setSelectedDoctor('');

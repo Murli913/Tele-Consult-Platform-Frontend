@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { checkValidData } from '../../../utils/validate';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 const LoginSD = () => {
  
@@ -19,23 +20,27 @@ const LoginSD = () => {
     console.log(password.current.value);
     // Authentication
     try {
-      const response = await fetch("http://localhost:8080/auth/srdoc/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const emailValue = email.current.value.toString();
+      const passwordValue = password.current.value.toString();
+
+      const response = await axios.post(
+        "http://localhost:8080/auth/srdoc/login",
+        {
+          email: emailValue,
+          password: passwordValue,
         },
-        body: JSON.stringify({
-          email: email.current.value,
-          password: password.current.value,
-        }),
-      });
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-      const data = await response.json();
-      const token = data.token;
-      const message = data.message;
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("API Called!!");
+      console.log(response.data.token);
+      const token = response.data.token;
+      console.log(token);
+      const message = response.data.message;
       console.log(token + " " + message);
       localStorage.setItem("token", token);
       localStorage.setItem("email", message);
@@ -46,6 +51,7 @@ const LoginSD = () => {
      
     } catch (error) {
       toast.error("Error occurred while login");
+      console.log(error);
       setErrorMessage("Invalid Email or password");
     }
 };
