@@ -40,13 +40,14 @@ function PLoginPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/login', {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
         credentials: 'include',
-      });
+    });
 
       if (!response.ok) {
         throw new Error('Login failed');
