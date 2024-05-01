@@ -31,6 +31,7 @@ const Patientcall = () => {
   const navigate = useNavigate();
   const authtoken = localStorage.getItem('token');
 
+useEffect(() => {
 const fetchPatientInfo = async () => {
   try {
     const response = await axios.get(`http://localhost:8080/doctor?phoneNumber=${email}`, {
@@ -48,6 +49,16 @@ const fetchPatientInfo = async () => {
     // Handle error (e.g., show error message)
   }
 };
+fetchPatientInfo();
+},[email]);
+
+const handleMakeCall = async() => {
+  try{
+    navigate("/patient");
+  } catch {
+    console.log("sorry error in navigating");
+  }
+}
 
 const handleAccept = async (patientName, doctorName) => {
     try {
@@ -68,6 +79,8 @@ const handleAccept = async (patientName, doctorName) => {
         minute: "2-digit",
         second: "2-digit"
       }).format(now);
+
+      await axios.put(`http://localhost:8080/callhistory/putacptstatus?ptnphonenumber=${email}`);
       
       console.log("IST Time:", istDateTime); 
       const payload = {
@@ -93,11 +106,21 @@ const handleAccept = async (patientName, doctorName) => {
       } else {
         patientEmail = `${patientName.replace(/\s+/g, '').toLowerCase()}@gmail.com`;
       }
-      navigate('/patient/pcall', { state: { patientEmail, doctorName} }); // Pass the added entry ID to the call page
+      navigate('/patient/redirected', { state: { patientEmail, doctorName} }); // Pass the added entry ID to the call page
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleReject = async() => {
+    try{
+      await axios.put(`http://localhost:8080/callhistory/putrjctstatus?pntphonenumber=${email}`);
+    } catch {
+      console.log("sorry couldnt update");
+    }
+  }
+
+  
 
   return (
     <div className="pouter">
@@ -126,11 +149,11 @@ const handleAccept = async (patientName, doctorName) => {
       </form>
       <div className="incomingstatus">
         <div>
-          <button onClick={fetchPatientInfo}>My calls</button>
+          <button onClick={handleMakeCall}>Make a Call</button>
           <p className="patientIdLabel1">{pincome.pincomingcall}</p>
           <div className="callbuttons">
             <button onClick={() => handleAccept(patientName, doctorName)}>Accept</button>
-            <button>Reject</button>
+            <button onClick={handleReject}>Reject</button>
           </div>
         </div>
       </div>

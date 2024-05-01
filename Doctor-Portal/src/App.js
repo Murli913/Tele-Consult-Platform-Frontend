@@ -16,8 +16,13 @@ import Appointment from './component/Appointment/Appointment';
 import PendingPatient from './component/PendingPatient/PendingPatient';
 import Patientcall from './component/Patient/Patientcall';
 import Patientlobby from './component/Patient/Patientlobby';
-
+import Patientredirected from './component/Patient/Patientredirected';
+import { useEffect } from 'react';
+import { connectWithWebSocket } from './component/utils/wssConnection/wssConnection';
 function App() {
+  useEffect(() => {
+    connectWithWebSocket();
+  }, []);
   const location = useLocation();
 
   return (
@@ -38,6 +43,7 @@ function App() {
           <Route path="/patient/patientcall" element={<Patientcall/>}/>
           <Route path="/pendingpatient" element={<PendingPatient/>} />
           <Route path="/patient/pcall" element={<Patientlobby/>} />
+          <Route path="/patient/redirected" element={<Patientredirected/>} />
           <Route path="/incomingcall" element={<IncomingCall/>}></Route>
           <Route path="/" element={<DoctorLogin />} /> {/* Render DoctorLogin component inside a route */}
         </Routes>

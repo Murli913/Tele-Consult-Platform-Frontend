@@ -7,6 +7,11 @@
 background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to left, #365523, #f1f3f1);
 }
+
+.dashboard_content_container
+{
+  width: 23%;
+}
 .RoomCnt {
   display: flex;
   margin: 0px;
@@ -41,7 +46,7 @@ button:hover {
 
 .Input {
   width: 25%;
-  margin-left: 50px;
+  margin-left: 150px;
   margin-top:7px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -70,6 +75,19 @@ button:hover {
   margin-top: 70px;
   display: flex;
   justify-content: space-around;
+}
+
+.consent{
+  display: flex;
+  margin-top: 10px;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left:300px;
+  flex-direction: row;
+  width: 900px;
+  justify-content: space-between;
 }
 
 .avatar svg {
