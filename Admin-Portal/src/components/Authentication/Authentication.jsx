@@ -26,6 +26,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { MdCallEnd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const socket = io.connect('http://localhost:5000');
 
 const Authentication = () => {
@@ -47,7 +48,8 @@ const Authentication = () => {
     const [fileSuccess, setFileSuccess] = useState("");
     const [fileError, setFileError] = useState("");
     const [receivedFiles, setReceivedFiles] = useState([]);
-    const [idToCall, setIdToCall] = useState(""); // Added idToCall state
+    const [idToCall, setIdToCall] = useState("");
+    const [recordings, setRecordings] = useState([]); // Added idToCall state
 const navigate=useNavigate();
     const recorderRef = useRef(null);
     const myVideo = useRef();
@@ -61,6 +63,13 @@ const navigate=useNavigate();
                 myVideo.current.srcObject = stream;
             }
         });
+        axios.get("http://localhost:5000/recordingsList")
+            .then(response => {
+                setRecordings(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching recordings:", error);
+            });
 
         socket.on("me", (id) => {
             setMe(id);
@@ -265,12 +274,32 @@ const navigate=useNavigate();
             recorderRef.current.stopRecording(() => {
                 const blob = recorderRef.current.getBlob();
                 downloadRecording(blob);
+                saveRecording(blob);
                 setRecording(false);
                 recorderRef.current = null;
             });
         }
     };
-
+    const saveRecording = (blob) => {
+        const formData = new FormData();
+        formData.append('recording', blob, 'recording.webm');
+    
+        fetch('http://localhost:5000/saveRecording', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Optionally handle response from server
+            setFileSuccess("Recording saved successfully.");
+        })
+        .catch(error => {
+            console.error('Error saving recording:', error);
+            setFileError("Failed to save recording.");
+        });
+    };
+    
+    
     const downloadRecording = (blob) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -491,6 +520,32 @@ const navigate=useNavigate();
                 ) : null}
                 </div>
 
+                <h3 style={{
+                            position: 'absolute',
+                            top: 'calc(540px + 1em)',
+                            left: '40%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                            fontWeight: 'bold',
+                            color: 'black',
+                        }}> Received Recordings:</h3>
+            <ul style={{
+                            position: 'absolute',
+                            top: 'calc(570px + 1em)',
+                            left: '35%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1,
+                            fontWeight: 'bold',
+                            color: 'black',
+                        }}>
+                {recordings.map((recording, index) => (
+                    <li key={index}>
+                        <a href={recording.url} target="_blank" rel="noopener noreferrer">
+                            {recording.filename}
+                        </a>
+                    </li>
+                ))}
+            </ul>
              
                 <div style={{
                     position: 'absolute',

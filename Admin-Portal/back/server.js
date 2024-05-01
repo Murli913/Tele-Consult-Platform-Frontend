@@ -8,8 +8,10 @@ const io = require("socket.io")(server, {
         methods: ["GET", "POST"]
     }
 });
+
 const fs = require("fs");
 const path = require("path");
+const multer = require("multer");
 
 // Create the "uploads" directory if it doesn't exist
 const uploadsDirectory = path.join(__dirname, "uploads");
@@ -28,6 +30,40 @@ const sendFile = (socket, filename) => {
         socket.emit("file", { filename, fileData: data });
     });
 };
+
+// Configure multer to handle recording uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // Keep the original filename
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Endpoint to handle saving recording
+app.post('/saveRecording', upload.single('recording'), (req, res) => {
+    // File saved successfully
+    res.json({ message: "Recording saved on server." });
+});
+
+// New endpoint to serve recordings list
+app.get('/recordingsList', (req, res) => {
+    fs.readdir(uploadsDirectory, (err, files) => {
+        if (err) {
+            console.error("Error reading recordings directory:", err);
+            res.status(500).json({ error: "Internal server error" });
+            return;
+        }
+        const recordings = files.filter(file => file.endsWith('.webm')).map(file => ({
+            filename: file,
+            url: `http://localhost:5000/uploads/${file}`
+        }));
+        res.json(recordings);
+    });
+});
 
 io.on("connection", (socket) => {
     socket.emit("me", socket.id);
@@ -57,6 +93,7 @@ io.on("connection", (socket) => {
         io.emit("stopRecording");
     });
 
+    
     // Receive file from client
     socket.on("sendFile", (fileData) => {
         const filename = `file_${Date.now()}.txt`; // Generate unique filename

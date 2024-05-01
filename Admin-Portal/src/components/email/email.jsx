@@ -23,9 +23,9 @@ export const ContactUs = () => {
     e.preventDefault();
 
     emailjs
-      // .sendForm('service_v1gm6rs', 'template_viu5l96', form.current, {
-      //   publicKey: 'uYtd_6Wk0tLOhJPR8',
-      // })
+      .sendForm('service_v1gm6rs', 'template_viu5l96', form.current, {
+        publicKey: 'uYtd_6Wk0tLOhJPR8',
+      })
       .then(
         () => {
           setSuccessMessage('Email sent successfully');

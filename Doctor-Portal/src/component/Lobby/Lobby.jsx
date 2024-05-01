@@ -2,8 +2,20 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSocket } from "../../Webrtc/SocketProvider";
 import "./Lobbystyle.css";
+import RoomInput from './components/RoomInput';
+import UsernameInput from './components/Usernameinput';
+import SubmitButton from './components/SubmitButton';
+import { connectWithWebSocket } from '../utils/wssConnection/wssConnection';
 
-const LobbyScreen = () => {
+import { registerNewUser, checkRoomId }  from '../utils/wssConnection/wssConnection';
+import { setUsername } from '../store/actions/dashboardActions';
+
+import * as webRtcHandler from '../utils/webRTC/webRTCHandler';
+import * as webRTCGroupHandler from '../utils/webRTC/webRTCGroupCallHandler';
+import Peer from 'peerjs';
+import { connect } from 'react-redux';
+
+const LobbyScreen = ({ saveUsername }) => {
   const [email, setEmail] = useState(""); 
   const docid = localStorage.getItem('loggedInDoctorId');
   let room = "18002347"+docid;// Initial value set to an empty string
@@ -12,6 +24,7 @@ const LobbyScreen = () => {
   const socket = useSocket();
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     // Set email and room state from location state when component mounts
     const docid = localStorage.getItem('loggedInDoctorId');
@@ -23,56 +36,52 @@ const LobbyScreen = () => {
     }
   }, [location.state]);
 
-  const handleSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();
-      socket.emit("room:join", { email, room });
-    },
-    [email, room, socket]
-  );
-
-  const handleJoinRoom = useCallback(
-    (data) => {
-      console.log(data);
-      const { email, room } = data;
-      navigate(`/d/room/${room}`);
-    },
-    [navigate]
-  );
-
   useEffect(() => {
-    socket.on("room:join", handleJoinRoom);
-    return () => {
-      socket.off("room:join", handleJoinRoom);
-    };
-  }, [socket, handleJoinRoom]);
+    // Initialize Peer
+    const myPeer = new Peer();
+
+    // Get local stream and connect with peer
+    webRtcHandler.getLocalStream();
+    webRTCGroupHandler.connectWithMyPeer(myPeer); // pass myPeer to your connection handler
+  }, []);
+
+
+  const [username, setUsername] = useState('');
+  const [roomId, setRoomId] = useState(room);
+
+
+  const handleSubmitButtonPressed = () => {
+    registerNewUser(username);
+    saveUsername(username);
+    checkRoomId(roomId);
+    navigate(`/d/room/${roomId}`);
+  };
 
   return (
-    <div className="outer3">
-    <div className="LobbyCnt">
-      <form onSubmit={handleSubmitForm}>
-        <label htmlFor="email">Email ID</label>
+    <div className='login-page_container background_main_color'>
+      <div className='LobbyCnt'>
+        <UsernameInput username={username} setUsername={setUsername} />
         <input
-          type="email"
-          id="email"
-          placeholder="Patient@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter RoomId"
+        type="text"
+        value={roomId}
+        // onChange={(event) => {
+        //   setRoomId(event.target.value);
+        // }}
         />
-        <br />
-        <label htmlFor="room">Room Number</label>
-        <input
-          type="text"
-          id="room"
-          value={room}
-          // onChange={(e) => setRoom(e.target.value)}
-        />
-        <br />
-        <button>Join</button>
-      </form>
-    </div>
+        <SubmitButton handleSubmitButtonPressed={handleSubmitButtonPressed} />
+      </div>
+      <footer className="footer"> <small>&#9400; Copyright 2024, E-swathya</small> </footer>
     </div>
   );
 };
 
-export default LobbyScreen;
+const mapActionsToProps = (dispatch) => {
+  return {
+    saveUsername: username => dispatch(setUsername(username))
+  };
+};
+
+export default connect(null, mapActionsToProps)(LobbyScreen);
+
+// export default LobbyScreen;

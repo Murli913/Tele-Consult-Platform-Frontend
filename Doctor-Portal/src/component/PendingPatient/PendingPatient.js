@@ -59,18 +59,61 @@ const PendingPatient = () => {
         patientId,
         doctorId,
       });
+      let i = 0;
+      const startTime = Date.now();
+      while(true)
+      {
+        const responce1 = await axios.get(`http://localhost:8080/callhistory/ptacptstatus?patientId=${patientId}`);
+        if (Date.now() - startTime >= 12000) {
+          i = 0;
+          console.log("Loop ended after 120 seconds.");
+          break;
+        }
+        console.log(responce1);
+        if(responce1.data === 1)
+        {
+          i = 1;
+          break;
+        }
+        if(responce1 === -1)
+        {
+          i = 2;
+          break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
       let patientEmail;
       if (!patientName) {
         patientEmail = 'Patient@gmail.com';
       } else {
         patientEmail = `${patientName.replace(/\s+/g, '').toLowerCase()}@gmail.com`;
       }
-      navigate('/call', { state: { patientEmail, doctorName} }); 
+      if(i === 1)
+      {
+        navigate('/call', { state: { patientEmail, doctorName} }); 
+      }
+      else if(i === 0)
+      {
+        console.log("patient didnt lift the call");
+      }
+      else if(i === 2)
+      {
+        console.log("Patient is busy");
+      }
       console.log(response.data); // Log the response if needed
     } catch (error) {
       console.error('Error setting pincomingcall:', error);
     }
   };
+
+  const handledontcall = async(patientId) => {
+    try{
+      console.log(patientId);
+      await axios.put(`http://localhost:8080/callhistory/insertback?patientId=${patientId}`)
+    } catch{
+      console.log("Sorry we cant update");
+    }
+  }
 
   
   return (
@@ -91,6 +134,7 @@ const PendingPatient = () => {
             </div>
             <div className="right">
             <button className="viewbtn" onClick={() => handleCall(appointment.id,appointment.name)}>Call</button>
+            <button className="viewbtn" onClick={() => handledontcall(appointment.id)}>Dont Call</button>
             </div>
           </div>
         ))}
