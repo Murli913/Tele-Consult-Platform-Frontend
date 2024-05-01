@@ -1,39 +1,42 @@
-//Dependencies: 
-//yarn add express cors twilio 
+// Load environment variables
 
-const express = require('express'); 
+
+const express = require('express');
 const cors = require('cors');
-const twilio = require('twilio'); 
+const twilio = require('twilio');
 
-//twilio requirements -- Texting API 
-const accountSid = process.env.accountSid; 
-const authToken =  process.env.authToken;
-const client = new twilio(accountSid, authToken);
-
-const app = express(); //alias
-
+const app = express();
 app.use(cors());
 
-//Welcome Page for the Server 
+// const accountSid = process.env.accountSid;
+// const authToken = process.env.authToken;
+const accountSid = 'AC9df5732424b6dd695b57fce8faad5456';
+const authToken = '9e76b0d0eabaed32e82e6c7bac37240c'; 
+const client = new twilio(accountSid, authToken);
+
 app.get('/', (req, res) => {
-    res.send('Welcome to the Express Server')
-})
+    res.send('Welcome to the Express Server');
+});
 
 app.get('/send-text', (req, res) => {
-    //Welcome Message
     res.send('Hello to the Twilio Server');
 
-    //_GET Variables
     const recipient = req.query.recipient;
     const textmessage = req.query.textmessage;
 
-    //Send Text
-    const recipientPhoneNumber = '+91' + recipient.replace(/\D/g, ''); // Remove non-numeric characters and prepend country code
+    const recipientPhoneNumber = '+91' + recipient.replace(/\D/g, '');
+
     client.messages.create({
         body: textmessage,
         to: recipientPhoneNumber,
         from: '+14242519807' // Your Twilio phone number
-    }).then((message) => console.log(message.body));
+    }).then((message) => {
+        console.log(message.body);
+        res.send('Message sent successfully');
+    }).catch(error => {
+        console.error('Error sending message:', error);
+        res.status(500).send('Error sending message');
+    });
 });
 
-app.listen(4000, () => console.log("Running on Port 4000"))
+app.listen(4000, () => console.log("Running on Port 4000"));

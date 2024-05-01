@@ -34,7 +34,7 @@ const DoctorLogin = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('email', message);
 
-        navigate('/home');
+        navigate('/dhome');
     } catch (error) {
         console.error('Login error:', error.message);
         setError('Invalid email or password');
