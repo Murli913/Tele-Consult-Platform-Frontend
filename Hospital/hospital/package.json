@@ -46,6 +46,7 @@
     "react-simple-chatbot": "^0.6.1",
     "react-slick": "^0.30.2",
     "react-star-ratings": "^2.3.0",
+    "react-toastify": "^10.0.5",
     "recharts": "^2.12.5",
     "simple-peer": "^9.11.1",
     "slick-carousel": "^1.8.1",
