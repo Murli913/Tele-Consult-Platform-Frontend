@@ -67,17 +67,29 @@
     position: absolute;
     top: -90px;
     right: 0;
+    font-weight: bold;
+    fill: black;
   }
   .recharts-tooltip-label {
     color: var(--text-color-inverted);
     font-size: 14px;
     font-weight: 600;
+    font-weight: bold;
+    fill: black;
   }
 
   // Customize the X-axis and Y-axis labels
   .recharts-cartesian-axis-tick {
     fill: var(--text-color-inverted) !important;
-    font-size: 14px !important;
+    font-size: 20px !important;
+    font-weight: bold;
+    fill: black;
+     // Added to make the labels bold
+  }
+
+  .recharts-cartesian-axis-label {
+    fill: black !important; // Change the background to black
+    font-weight: bold; // Added to make the labels bold
   }
 }
 

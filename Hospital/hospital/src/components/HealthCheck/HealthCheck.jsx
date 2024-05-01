@@ -140,104 +140,113 @@ const HealthCheck = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="w-2/3 bg-white rounded-lg p-4 shadow-lg">
-      <div className="relative">
-  <h2 className="text-center text-2xl mb-4">Basics Health Check</h2>
-  <div className="flex justify-center items-center mb-2">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-8 w-8 mr-2 text-blue-500 animate-pulse"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path
-        fillRule="evenodd"
-        d="M10 2c-2.667 0-5 2.333-5 5 0 4 5 8 5 8s5-4 5-8c0-2.667-2.333-5-5-5zm-1 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm1-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm1-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-        clipRule="evenodd"
-      />
-    </svg>
-    <p className="text-blue-500 font-semibold">Performing health checks...</p>
+
+<div className="w-3/5 bg-white rounded-lg p-4 shadow-lg">
+  <div className="relative">
+    <h2 className="text-center text-2xl mb-4">Basics Health Check</h2>
+    <div className="flex justify-center items-center mb-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-8 w-8 mr-2 text-blue-500 animate-pulse"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M10 2c-2.667 0-5 2.333-5 5 0 4 5 8 5 8s5-4 5-8c0-2.667-2.333-5-5-5zm-1 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm1-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm1-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+          clipRule="evenodd"
+        />
+      </svg>
+      <p className="text-blue-500 font-semibold">Performing health checks...</p>
+    </div>
   </div>
-</div>
 
   <div className="space-y-2">
-    <label className="block">
-      Gender:
-      <select
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={gender}
-        onChange={(e) => setGender(e.target.value)}
-      >
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </label>
-    {/* Repeat for other input fields */}
-    <label className="block">
-      Age:
-      <input
-        type="number"
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={age}
-        onChange={(e) => setAge(parseInt(e.target.value))}
-      />
-    </label>
-    <label className="block">
-      Weight (kg):
-      <input
-        type="number"
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={weight}
-        onChange={(e) => setWeight(parseInt(e.target.value))}
-      />
-    </label>
-    <label className="block">
-      Height (feet):
-      <input
-        type="number"
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={feet}
-        onChange={(e) => setFeet(parseInt(e.target.value))}
-      />
-    </label>
-    <label className="block">
-      Height (inches):
-      <input
-        type="number"
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={inches}
-        onChange={(e) => setInches(parseInt(e.target.value))}
-      />
-    </label>
-    <label className="block">
-      Activity Level:
-      <select
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={activityLevel}
-        onChange={(e) => setActivityLevel(e.target.value)}
-      >
-        <option value="sedentary">Sedentary (little or no exercise)</option>
-        <option value="lightlyActive">Lightly active (exercise 1-3 days/week)</option>
-        <option value="moderatelyActive">Moderately active (exercise 3-5 days/week)</option>
-        <option value="veryActive">Very active (exercise 6-7 days/week)</option>
-        <option value="extraActive">Extra active (very hard exercise, physical job)</option>
-      </select>
-    </label>
-    <label className="block">
-      Resting Heart Rate:
-      <input
-        type="number"
-        className="block w-full border border-gray-300 rounded-md py-2 px-3"
-        value={restingHeartRate}
-        onChange={(e) => setRestingHeartRate(parseInt(e.target.value))}
-      />
-    </label>
-   
+    <div className="flex flex-wrap">
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Gender:
+        <select
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+      {/* Repeat for other input fields */}
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Age:
+        <input
+          type="number"
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={age}
+          onChange={(e) => setAge(parseInt(e.target.value))}
+        />
+      </label>
+      <br/>
+      <br/>
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Weight (kg):
+        <input
+          type="number"
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={weight}
+          onChange={(e) => setWeight(parseInt(e.target.value))}
+        />
+      </label>
+      <br/>
+      <br/>
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Height (feet):
+        <input
+          type="number"
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={feet}
+          onChange={(e) => setFeet(parseInt(e.target.value))}
+        />
+      </label>
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Height (inches):
+        <input
+          type="number"
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={inches}
+          onChange={(e) => setInches(parseInt(e.target.value))}
+        />
+      </label>
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Activity Level:
+        <select
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={activityLevel}
+          onChange={(e) => setActivityLevel(e.target.value)}
+        >
+          <option value="sedentary">Sedentary (little or no exercise)</option>
+          <option value="lightlyActive">Lightly active (exercise 1-3 days/week)</option>
+          <option value="moderatelyActive">Moderately active (exercise 3-5 days/week)</option>
+          <option value="veryActive">Very active (exercise 6-7 days/week)</option>
+          <option value="extraActive">Extra active (very hard exercise, physical job)</option>
+        </select>
+      </label>
+      <label className="block w-full sm:w-auto mb-1 sm:mb-0">
+        Resting Heart Rate:
+        <input
+          type="number"
+          className="block w-full sm:w-auto border border-gray-300 rounded-md py-2 px-3"
+          value={restingHeartRate}
+          onChange={(e) => setRestingHeartRate(parseInt(e.target.value))}
+        />
+      </label>
+    </div>
     <button onClick={calculateBMR} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center">
       <FontAwesomeIcon icon={faUtensils} className="mr-2" /> Calculate BMR and Generate Meal Plan
     </button>
   </div>
 </div>
+
+
+
 
 
       <div className="w-3/5 bg-white rounded-lg p-8 shadow-lg ml-8">

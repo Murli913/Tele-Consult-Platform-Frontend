@@ -3,14 +3,10 @@ import axios from 'axios';
 import './ViewAppointment.scss'; // Import the SCSS file for styling
 import { useNavigate } from 'react-router-dom';
 
-const ViewAppointment = () => {
+const ViewAppointments = () => {
+  console.log("hello"); 
   const navigate = useNavigate();
-  useEffect(() => {
-    if(localStorage.getItem("token") === null)
-    {
-      navigate("/");
-    }
-  }, []);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
@@ -23,12 +19,20 @@ const ViewAppointment = () => {
   const [availablePatientIds, setAvailablePatientIds] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    } else {
+      fetchAppointments();
+    }
+  }, [navigate]);
+  useEffect(() => {
     fetchAppointments();
   }, []);
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/callhistory/all', {
+      const response = await axios.get('http://localhost:8080/callhistory/admin/all', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
@@ -92,6 +96,7 @@ const ViewAppointment = () => {
 
   return (
     <div className="view-appointment">
+     
       <h1>View Appointment</h1>
       <div className="search-container">
         <select value={selectedDate} onChange={handleDateChange}>
@@ -147,4 +152,4 @@ const ViewAppointment = () => {
   );
 };
 
-export default ViewAppointment;
+export default ViewAppointments;

@@ -8,7 +8,7 @@ import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
 import { Dashboard, PageNotFound } from "./screens";
 import Login from "./components/Login/Login";
-import ViewAppointment from "./components/ViewAppointment/ViewAppointment";
+
 import PatientDetails from "./components/PatientDetails/PatientDetails";
 import DoctorDetails from "./components/DoctorDetails/DoctorDetails";
 import AddDoctor from "./components/AddDoctor/AddDoctor";
@@ -19,6 +19,12 @@ import Profile from "./components/Profile/Profile";
 import ViewPatientHistory from "./components/ViewPatientHistory/ViewPatientHistory";
 import ViewDoctorHistory from "./components/ViewDoctorHistory/ViewDoctorHistory";
 import UpdateDoctorDetails from "./components/UpdateDoctorDetails/UpdateDoctorDetails";
+import ViewAppointments from "./components/ViewAppointment/ViewAppointment";
+import Authentication from "./components/Authentication/Authentication";
+import DoctorPhone from "./components/DoctorPhone/DoctorPhone";
+import Message from "./components/Message/Message";
+import { ContactUs } from "./components/email/email";
+
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -39,9 +45,12 @@ function App() {
         <Routes>
         
         <Route path="/" element={<Login />} />
+        <Route path="/doctorphone" element={<DoctorPhone/>} />
+        <Route path="/message" element={<Message />} />
+        <Route path="/email" element={<ContactUs />} />
           <Route element={<BaseLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/viewAppointment" element={<ViewAppointment />} />
+            <Route path="/viewAppointments" element={<ViewAppointments />} />
             <Route path="/patientdetails" element={<PatientDetails />} />
             <Route path="/doctordetails" element={<DoctorDetails />} />
             <Route path="/adddoctor" element={<AddDoctor />} />
@@ -52,9 +61,13 @@ function App() {
             <Route path="/viewdoctorhistory" element={<ViewDoctorHistory />} />
             <Route path="/updatedoctordetails" element={<UpdateDoctorDetails />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/authentication" element={<Authentication />} />
+          
             <Route path="*" element={<PageNotFound />} />
+            
           </Route>
-        </Routes>
+          
+                </Routes>
 
         <button
           type="button"

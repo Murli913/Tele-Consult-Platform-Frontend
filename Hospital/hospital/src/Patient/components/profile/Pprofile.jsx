@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './profile.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PNavbar from '../navbar/Pnavbar';
+import PSidebar from '../sidebar/Psidebar';
 
 function PProfilePage() {
   const navigate=useNavigate();
@@ -45,6 +47,9 @@ function PProfilePage() {
   };
 
   return (
+    <>
+    <PNavbar/>
+    <PSidebar/>
     <div className="profile-page">
       <h2>Profile</h2>
       {/* <h1>Profile</h1> */}
@@ -66,6 +71,8 @@ function PProfilePage() {
         <p>Loading...</p>
       )}
     </div>
+    
+  </>
   );
 }
 

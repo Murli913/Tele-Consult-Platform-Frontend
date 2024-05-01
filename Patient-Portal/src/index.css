@@ -12,11 +12,14 @@
   --place_color: none;
   --book-color:white;
   --book-doc-color:rgb(250, 250, 250);
+  --room_call_color:white;
+  --room_doc_border: 1.5px solid lightgray;
+  --room_svg: black;
 } 
 
 [data-theme="dark"] {
   --body_background: #0b0514;
-  --body_color: white;
+  --body_color: rgb(232, 232, 232);
   --link_color: cyan;
   --div_background: #232029;
   --div_shadow: rgba(9, 9, 9, 0);
@@ -28,6 +31,9 @@
   --place_color: #c3c3c3;
   --book-color:#716d7b;
   --book-doc-color:#716d7b;
+  --room_call_color:black;
+  --room_doc_border: none;
+  --room_svg:white;
 }
 
 body {

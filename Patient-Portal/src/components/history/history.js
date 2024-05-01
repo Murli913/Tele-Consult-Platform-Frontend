@@ -22,7 +22,7 @@ function History() {
 
     const closeModal = () => {
         setSelectedAppointment(null);
-    };
+    };  
 
     useEffect(() => {
         fetchPastData();

@@ -29,7 +29,7 @@
 	top: 0px;
 	background-color: var(--div_background);
 	color: var(--body_color);
-	z-index: 1000;
+	z-index: 1;
 }
 
 .on-doc{
@@ -153,6 +153,7 @@
 	padding: 15px;
 	border: 1px solid lightgray;
 	border-radius: 12px;
+	margin-bottom: 20px;
 }
 
 
@@ -171,3 +172,41 @@
 	cursor: pointer;
 	background-color: var(--title_btn_hover);
 }
+
+
+.modal-info-up form {
+    display: flex;
+    flex-direction: column;
+  }
+
+.modal-info-up label {
+    margin-bottom: 10px;
+}
+
+.modal-info-up input[type="email"],
+.modal-info-up input[type="text"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 95%;
+}
+
+.modal-info-up button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+	width: 98%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.modal-info-up button:hover {
+    background-color: #0056b3;
+  }
+

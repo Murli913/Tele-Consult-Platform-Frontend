@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AreaCard from "./AreaCard";
-import "./SAreaCards.css";
+import "./AreaCards.scss";
 
 const AreaCards = () => {
   const navigate = useNavigate();

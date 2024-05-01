@@ -14,12 +14,12 @@ const Login = () => {
 
     const gotoP = () => {
         // Navigate to patient page
-        navigate("/patient");
+        navigate("/ploginpage");
     };
 
     const gotoD = () => {
         // Navigate to login doctor page
-        navigate("/loginsd");
+        navigate("/dlogin");
     };
 
     const gotomaindash = () => {

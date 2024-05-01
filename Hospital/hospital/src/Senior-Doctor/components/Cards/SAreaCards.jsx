@@ -14,102 +14,105 @@ const SAreaCards = () => {
   const [totalPatients, setTotalPatients] = useState(0);
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      navigate("/");
-    }
-    fetchDoctorId();
-    fetchTotalAppointmentsCount();
-    fetchTotalDoctorsCount();
-    fetchTotalPatientsCount();
-  }, []);
-
-  const fetchDoctorId = async () => {
-    try {
-      const email = localStorage.getItem("email");
-      const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
+    const fetchData = async () => {
+      try {
+        if (!localStorage.getItem("token")) {
+          navigate("/");
+          return;
         }
-      });
-      setDoctorId(result.data);
-    } catch (error) {
-      console.error('Error fetching doctor ID:', error);
-    }
-  };
-  console.log("doctorid", doctorId);
 
-  const fetchTotalAppointmentsCount = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/appointments/count`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-      setTotalAppointments(response.data);
-    } catch (error) {
-      console.error("Error fetching total appointments count:", error);
-    }
-  };
+        const email = localStorage.getItem("email");
+        const result = await axios.get(`http://localhost:8080/doctor/by-email/${email}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setDoctorId(result.data);
+      } catch (error) {
+        console.error('Error fetching doctor ID:', error);
+      }
+    };
 
-  const fetchTotalDoctorsCount = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-      setTotalDoctors(response.data);
-    } catch (error) {
-      console.error("Error fetching total doctors count:", error);
-    }
-  };
+    fetchData();
+  }, [navigate]);
 
-  const fetchTotalPatientsCount = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-      setTotalPatients(response.data);
-    } catch (error) {
-      console.error("Error fetching total patients count:", error);
+  useEffect(() => {
+    const fetchTotalAppointmentsCount = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/appointments/count`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setTotalAppointments(response.data);
+      } catch (error) {
+        console.error("Error fetching total appointments count:", error);
+      }
+    };
+
+    const fetchTotalDoctorsCount = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/doctor/under-senior/${doctorId}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setTotalDoctors(response.data.length);
+      } catch (error) {
+        console.error("Error fetching total doctors count:", error);
+      }
+    };
+
+    const fetchTotalPatientsCount = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/callhistory/doctor/${doctorId}/callhistory`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        setTotalPatients(response.data.length);
+      } catch (error) {
+        console.error("Error fetching total patients count:", error);
+      }
+    };
+
+    if (doctorId) {
+      fetchTotalAppointmentsCount();
+      fetchTotalDoctorsCount();
+      fetchTotalPatientsCount();
     }
-  };
+  }, [doctorId]);
 
   return (
     <section className="content-area-cards">
-    <SAreaCard
-      colors={["#e4e8ef", "#475be8"]}
-      percentFillValue={(totalAppointments / 100) * 100} // Example: assuming max 1000 appointments
-      cardInfo={{
-        title: "Appointment",
-        value: totalAppointments,
-        text: "Total Appointments.",
-      }}
-    />
-  
-    <SAreaCard
-      colors={["#e4e8ef", "#475be8"]}
-      percentFillValue={(totalDoctors.length / 100) * 100} // Example: assuming max 1000 doctors
-      cardInfo={{
-        title: "Doctors",
-        value: totalDoctors.length,
-        text: "Total Doctors.",
-      }}
-    />
-    
-    <SAreaCard
-      colors={["#e4e8ef", "#475be8"]}
-      percentFillValue={(totalPatients.length / 100) * 100} // Example: assuming max 1000 patients
-      cardInfo={{
-        title: "Patients",
-        value: totalPatients.length,
-        text: "Total Patients.",
-      }}
-    />
-  </section>
-  
+      <SAreaCard
+        colors={["#e4e8ef", "#475be8"]}
+        percentFillValue={(totalAppointments / 100) * 100} // Example: assuming max 1000 appointments
+        cardInfo={{
+          title: "Appointment",
+          value: totalAppointments,
+          text: "Total Appointments.",
+        }}
+      />
+      <SAreaCard
+        colors={["#e4e8ef", "#475be8"]}
+        percentFillValue={(totalDoctors / 100) * 100} // Example: assuming max 1000 doctors
+        cardInfo={{
+          title: "Doctors",
+          value: totalDoctors,
+          text: "Total Doctors.",
+        }}
+      />
+      <SAreaCard
+        colors={["#e4e8ef", "#475be8"]}
+        percentFillValue={(totalPatients / 100) * 100} // Example: assuming max 1000 patients
+        cardInfo={{
+          title: "Patients",
+          value: totalPatients,
+          text: "Total Patients.",
+        }}
+      />
+    </section>
   );
 };
 
