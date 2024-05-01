@@ -16,15 +16,20 @@ import { RxAvatar } from "react-icons/rx";
 import { IoSend } from "react-icons/io5";
 import Modal from 'react-modal';
 import { IoIosCloseCircle } from "react-icons/io";
+import { connect } from 'react-redux';
+import DashboardInformation from '../Dashboardinformation/Dashboardinformation';
+import { callStates } from '../store/actions/callActions';
+import GroupCall from '../GroupCall/GroupCall';
+import { connectWithWebSocket } from '../utils/wssConnection/wssConnection';
+import Peer from 'peerjs'; // Import PeerJS library
 Modal.setAppElement('#root');
 
-const RoomPage = () => {
+const RoomPage = (props) => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [patientName,setPatientName] = useState('');
   const [gender, setGender] = useState('');
-  const [remoteStream, setRemoteStream] = useState();
   const [patientId, setPatientId] = useState('');
   const [prescription, setPrescription] = useState('');
   const [callDate, setCallDate] = useState('');
@@ -41,7 +46,22 @@ const RoomPage = () => {
   const [endcall, setendcall] = useState(false);
   const [inputelapsed, setinputelapsed] = useState(60);
   const [inputtimer, setinputTimer] = useState(60);
+  const [shconsent, setshconsent] = useState(false);
+  const [rcdconsent, setrcdconsent] = useState(false);
+  const [callended, setcallended] = useState(false);
   const authtoken = localStorage.getItem('token');
+  const {
+    localStream,
+    remoteStream,
+    callState,
+    callerUsername,
+    callingDialogVisible,
+    callRejected,
+    hideCallRejectedDialog,
+    setDirectCallMessage,
+    message,
+    username
+  } = props;
 
   const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
@@ -50,7 +70,7 @@ const RoomPage = () => {
 
   useEffect(() => {
     let interval;
-    if (endcall) {
+    if (callended) {
       interval = setInterval(() => {
         setinputelapsed((prevTimer) => prevTimer - 1);
       }, 1000);
@@ -63,7 +83,7 @@ const RoomPage = () => {
   }, [inputelapsed, endcall]);
 
   useEffect(() => {
-    if (remoteSocketId) {
+    if (localStream) {
       const interval = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1); // Increment elapsed time every second
       }, 1000);
@@ -72,83 +92,83 @@ const RoomPage = () => {
       // Clean up the interval when component unmounts or remoteSocketId changes
       return () => clearInterval(interval);
     }
-  }, [remoteSocketId]);
+  }, [localStream]);
 
-  const handleUserJoined = useCallback(({ email, id }) => {
-    console.log(`Email ${email} joined room`);
-    setRemoteSocketId(id);
-  }, []);
+  // const handleUserJoined = useCallback(({ email, id }) => {
+  //   console.log(`Email ${email} joined room`);
+  //   setRemoteSocketId(id);
+  // }, []);
 
-  const handleCallUser = useCallback(async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: false,
-    });
-    const offer = await peer.getOffer();
-    socket.emit("user:call", { to: remoteSocketId, offer });
-    setMyStream(stream);
-  }, [remoteSocketId, socket]);
+  // const handleCallUser = useCallback(async () => {
+  //   const stream = await navigator.mediaDevices.getUserMedia({
+  //     audio: true,
+  //     video: false,
+  //   });
+  //   const offer = await peer.getOffer();
+  //   socket.emit("user:call", { to: remoteSocketId, offer });
+  //   setMyStream(stream);
+  // }, [remoteSocketId, socket]);
 
-  const handleIncommingCall = useCallback(
-    async ({ from, offer }) => {
-      setRemoteSocketId(from);
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: false,
-      });
-      setMyStream(stream);
-      console.log(`Incoming Call`, from, offer);
-      const ans = await peer.getAnswer(offer);
-      socket.emit("call:accepted", { to: from, ans });
-    },
-    [socket]
-  );
+  // const handleIncommingCall = useCallback(
+  //   async ({ from, offer }) => {
+  //     setRemoteSocketId(from);
+  //     const stream = await navigator.mediaDevices.getUserMedia({
+  //       audio: true,
+  //       video: false,
+  //     });
+  //     setMyStream(stream);
+  //     console.log(`Incoming Call`, from, offer);
+  //     const ans = await peer.getAnswer(offer);
+  //     socket.emit("call:accepted", { to: from, ans });
+  //   },
+  //   [socket]
+  // );
 
-  const sendStreams = useCallback(() => {
-    for (const track of myStream.getTracks()) {
-      peer.peer.addTrack(track, myStream);
-    }
-  }, [myStream]);
+//   const sendStreams = useCallback(() => {
+//     for (const track of myStream.getTracks()) {
+//       peer.peer.addTrack(track, myStream);
+//     }
+//   }, [myStream]);
 
-  const handleCallAccepted = useCallback(
-    ({ from, ans }) => {
-      peer.setLocalDescription(ans);
-      console.log("Call Accepted!");
+//   const handleCallAccepted = useCallback(
+//     ({ from, ans }) => {
+//       peer.setLocalDescription(ans);
+//       console.log("Call Accepted!");
       
-      sendStreams();
-    },
-    [sendStreams]
-  );
+//       sendStreams();
+//     },
+//     [sendStreams]
+//   );
 
-  const toggleAudioStream = () => {
-    if (myStream) {
-        myStream.getTracks().forEach((track) => {
-            if (track.kind === "audio") {
-                track.enabled = !track.enabled;
-            }
-        });
-        setIsAudioOn(!isAudioOn);
-    }
-};
+//   const toggleAudioStream = () => {
+//     if (myStream) {
+//         myStream.getTracks().forEach((track) => {
+//             if (track.kind === "audio") {
+//                 track.enabled = !track.enabled;
+//             }
+//         });
+//         setIsAudioOn(!isAudioOn);
+//     }
+// };
 
 // Register event handler for "navigate:home" outside of the handleEndCall function
-socket.on("navigate:home", () => {
-  if (myStream) {
-    myStream.getTracks().forEach(track => {
-      track.stop();
-    });
-    setMyStream(null);
-  }
+// socket.on("navigate:home", () => {
+//   if (myStream) {
+//     myStream.getTracks().forEach(track => {
+//       track.stop();
+//     });
+//     setMyStream(null);
+//   }
 
-  // Clear the remote stream
-  setRemoteStream(null);
+//   // Clear the remote stream
+//   setRemoteStream(null);
 
-  // Clear the timer
-  clearInterval(timer);
-  setTimer(null);
-  setendcall(true);
-  // navigate("/home"); 
-});
+//   // Clear the timer
+//   clearInterval(timer);
+//   setTimer(null);
+//   setendcall(true);
+//   // navigate("/home"); 
+// });
 const cid = localStorage.getItem('CallId');
 
 const handleEndCall = () => {
@@ -179,60 +199,60 @@ const handleEndCall = () => {
 
 
 
-  const handleNegoNeeded = useCallback(async () => {
-    const offer = await peer.getOffer();
-    socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
-  }, [remoteSocketId, socket]);
+  // const handleNegoNeeded = useCallback(async () => {
+  //   const offer = await peer.getOffer();
+  //   socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
+  // }, [remoteSocketId, socket]);
 
-  useEffect(() => {
-    peer.peer.addEventListener("negotiationneeded", handleNegoNeeded);
-    return () => {
-      peer.peer.removeEventListener("negotiationneeded", handleNegoNeeded);
-    };
-  }, [handleNegoNeeded]);
+  // useEffect(() => {
+  //   peer.peer.addEventListener("negotiationneeded", handleNegoNeeded);
+  //   return () => {
+  //     peer.peer.removeEventListener("negotiationneeded", handleNegoNeeded);
+  //   };
+  // }, [handleNegoNeeded]);
 
-  const handleNegoNeedIncomming = useCallback(
-    async ({ from, offer }) => {
-      const ans = await peer.getAnswer(offer);
-      socket.emit("peer:nego:done", { to: from, ans });
-    },
-    [socket]
-  );
+  // const handleNegoNeedIncomming = useCallback(
+  //   async ({ from, offer }) => {
+  //     const ans = await peer.getAnswer(offer);
+  //     socket.emit("peer:nego:done", { to: from, ans });
+  //   },
+  //   [socket]
+  // );
 
-  const handleNegoNeedFinal = useCallback(async ({ ans }) => {
-    await peer.setLocalDescription(ans);
-  }, []);
+  // const handleNegoNeedFinal = useCallback(async ({ ans }) => {
+  //   await peer.setLocalDescription(ans);
+  // }, []);
 
-  useEffect(() => {
-    peer.peer.addEventListener("track", async (ev) => {
-      const remoteStream = ev.streams;
-      console.log("GOT TRACKS!!");
-      setRemoteStream(remoteStream[0]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   peer.peer.addEventListener("track", async (ev) => {
+  //     const remoteStream = ev.streams;
+  //     console.log("GOT TRACKS!!");
+  //     setRemoteStream(remoteStream[0]);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    socket.on("user:joined", handleUserJoined);
-    socket.on("incomming:call", handleIncommingCall);
-    socket.on("call:accepted", handleCallAccepted);
-    socket.on("peer:nego:needed", handleNegoNeedIncomming);
-    socket.on("peer:nego:final", handleNegoNeedFinal);
+  // useEffect(() => {
+  //   socket.on("user:joined", handleUserJoined);
+  //   socket.on("incomming:call", handleIncommingCall);
+  //   socket.on("call:accepted", handleCallAccepted);
+  //   socket.on("peer:nego:needed", handleNegoNeedIncomming);
+  //   socket.on("peer:nego:final", handleNegoNeedFinal);
 
-    return () => {
-      socket.off("user:joined", handleUserJoined);
-      socket.off("incomming:call", handleIncommingCall);
-      socket.off("call:accepted", handleCallAccepted);
-      socket.off("peer:nego:needed", handleNegoNeedIncomming);
-      socket.off("peer:nego:final", handleNegoNeedFinal);
-    };
-  }, [
-    socket,
-    handleUserJoined,
-    handleIncommingCall,
-    handleCallAccepted,
-    handleNegoNeedIncomming,
-    handleNegoNeedFinal,
-  ]);
+  //   return () => {
+  //     socket.off("user:joined", handleUserJoined);
+  //     socket.off("incomming:call", handleIncommingCall);
+  //     socket.off("call:accepted", handleCallAccepted);
+  //     socket.off("peer:nego:needed", handleNegoNeedIncomming);
+  //     socket.off("peer:nego:final", handleNegoNeedFinal);
+  //   };
+  // }, [
+  //   socket,
+  //   handleUserJoined,
+  //   handleIncommingCall,
+  //   handleCallAccepted,
+  //   handleNegoNeedIncomming,
+  //   handleNegoNeedFinal,
+  // ]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -309,6 +329,42 @@ const handleEndCall = () => {
     }
 };
 
+  useEffect(()=> {
+    const getScheduleconsent = async() => {
+      while(true)
+      {
+        const responce1 = await axios.get(`http://localhost:8080/callhistory/getscheduleconsent?callId=${cid}`);
+        console.log(responce1);
+        if(responce1.data === true)
+        {
+          setshconsent(true);
+          break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+
+    getScheduleconsent();
+  },[shconsent])
+
+  useEffect(()=> {
+    const getRecordingconsent = async() => {
+      while(true)
+      {
+        const responce1 = await axios.get(`http://localhost:8080/callhistory/getrecordingconsent?callId=${cid}`);
+        console.log(responce1);
+        if(responce1.data === true)
+        {
+          setrcdconsent(true);
+          break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+
+    getRecordingconsent();
+  },[rcdconsent])
+
   const handleStartRecording = () => {
     // Check if MediaRecorder is available and myStream is set
     setrd(true);
@@ -381,60 +437,43 @@ const handleEndCall = () => {
       setPrescription1(prescriptionData);
       setIsModalOpen(true);
     };
+
+    useEffect(() => {
+      const getendcallstatus = async() => {
+        while(true)
+        {
+          const cid = localStorage.getItem('CallId');
+          const responce1 = await axios.get(`http://localhost:8080/callhistory/getendcallstatus?callid=${cid}`);
+          console.log(responce1.data);
+          if(responce1.data !== "")
+          {
+            setcallended(true);
+            break;
+          }
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
+      getendcallstatus();
+    },[callended])
   
 
   return (
     <div className="douter">
+      <div className="consent">
+        <p>Consent for Schedule: <span style={{ color: shconsent ? "green" : "red", fontWeight: "bold" }}>{shconsent ? "Approved" : "Not Approved"}</span></p>
+        <p>Consent for recording: <span style={{ color: rcdconsent ? "green" : "red", fontWeight: "bold" }}>{rcdconsent ? "Approved" : "Not Approved"}</span></p>
+      </div>
     <div className="RoomCnt">
-      
-      <div className="player-container">
-      <h4>{remoteSocketId ? "" : "No one in room"}</h4>
-      <div className="avatar"><RxAvatar /></div>
-      <div className="duration">
-      {myStream && remoteSocketId && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
-      </div>
-      {!endcall && (
-      <div className="trio">
-      {myStream && <IconButton className="str" onClick={toggleAudioStream}>{isAudioOn ?  <IoMdMicOff /> : <IoMdMic />}</IconButton>}
-      {myStream && <IconButton className="str" color="primary" aria-label="record" onClick={toggleRecording}>
-                            {isrd ? <FaRegStopCircle /> : <BsRecordCircle />}
-                        </IconButton>}
-      {myStream && <IconButton className="str" onClick={handleDownloadRecording}><MdDownloading /></IconButton>}
-      </div>
-      )}
-      {!endcall && remoteSocketId && !myStream && <button onClick={handleCallUser}>Call</button>}
-      {!endcall && (
-      <div className="duo">
-      {remoteSocketId && myStream && <button className="endbtn" onClick={handleEndCall}><ImPhoneHangUp /></button>}
-      {myStream && <button className="sendbtn" onClick={sendStreams}><IoSend /></button>}
-      </div>
-      )}
-      {endcall && <div className="callended">Call Ended</div>}
-      {myStream && (
-        < >
-          <ReactPlayer
-            playing
-            height="0px"
-            width="200px"
-            url={myStream}
-          />
-        </>
-      )}
-      {remoteStream && (
-        <>
-          <ReactPlayer
-            playing
-            height="0px"
-            width="200px"
-            url={remoteStream}
-          />
-        </>
-      )}
-      </div>
+    {/* <div className="duration">
+      {localStream && <p style={{color:"white"}}>{formatTime(elapsedTime)}</p>}
+      </div> */}
+        <div className='dashboard_content_container'>
+          <GroupCall />
+        </div>
       <div className="Input">
-      {endcall && <p style={{color:"black"}}>Closing in : {formatTime(inputelapsed)}</p>}
-      {remoteSocketId && (
-      <form onSubmit={handleSubmit}>
+      {callended && <p style={{color:"black"}}>Closing in : {formatTime(inputelapsed)}</p>}
+      
+        <form onSubmit={handleSubmit}>
         <label>
           <p>Patient Name:</p>
           <input
@@ -471,9 +510,7 @@ const handleEndCall = () => {
         </label>
         <button type="submit">Submit</button>
         
-      </form>
-      )}
-      {remoteSocketId && (
+        </form>
         <div className="schcall">
           <div className="inputforms">
           <input
@@ -490,14 +527,12 @@ const handleEndCall = () => {
             />
             </div>
             <div className="buttonsform">
-            <button onClick={handleScheduleCall}>Schedule Call</button>
+            {shconsent && <button onClick={handleScheduleCall}>Schedule Call</button>}
             <button onClick={fetchCallHistory}>Past calls </button>
             </div>
         </div>
-      )}
       </div>
-      {remoteSocketId && (
-        <div className="fetchcalls">
+      <div className="fetchcalls">
         {callHistory.map(appointment => (
           <div key={appointment.id} className="card1">
             <div className="left">
@@ -511,21 +546,20 @@ const handleEndCall = () => {
           </div>
         ))}
       </div>
-      )}
-    </div>
-    <Modal
-    className="modal"
-    overlayClassName="modal-overlay"
-    isOpen={isModalOpen}
-    onRequestClose={closeModal}>
-      <button className="close-button" onClick={closeModal}><IoIosCloseCircle /></button>
-      <div className="modalcontent">
-        <h2>Prescription</h2>
-        <p>{prescription1}</p> 
-      </div>
+      <Modal
+      className="modal"
+      overlayClassName="modal-overlay"
+      isOpen={isModalOpen}
+      onRequestClose={closeModal}>
+        <button className="close-button" onClick={closeModal}><IoIosCloseCircle /></button>
+        <div className="modalcontent">
+          <h2>Prescription</h2>
+          <p>{prescription1}</p> 
+        </div>
 
-    </Modal>
+      </Modal>
     </div>
+  </div>
   );
 };
 
@@ -540,6 +574,9 @@ const formatTime = (timeInSeconds) => {
 
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
+const mapStateToProps = ({ call, dashboard }) => ({
+  ...call,
+  ...dashboard
+});
 
-export default RoomPage;
-
+export default connect(mapStateToProps)(RoomPage);

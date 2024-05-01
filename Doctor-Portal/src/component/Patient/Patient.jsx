@@ -23,7 +23,8 @@ const Patientscreen = () => {
   const [newroom, setNewroom] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [pincome, setpincome] = useState([]);
-  const socket = useSocket();
+  const [doctorName, setDoctorName] = useState(null);
+  // const socket = useSocket();
   const navigate = useNavigate();
   const authtoken = localStorage.getItem('token');
 
@@ -121,7 +122,10 @@ const fetchPatientInfo = async () => {
             room = String(nr);
             console.log(room);
             setEmail("Patient@gmail.com");
-            socket.emit("room:join", { email: "Patient@gmail.com", room });
+            let patientEmail = "Patient@gmail.com";
+            let doctorName = room;
+            navigate('/patient/redirected', { state: { patientEmail, doctorName} })
+            // socket.emit("room:join", { email: "Patient@gmail.com", room });
           } else{
               let nr = responce0.data;
               console.log(nr);
@@ -130,7 +134,10 @@ const fetchPatientInfo = async () => {
               console.log(room);
               console.log(typeof(room))
               setEmail("Patient@gmail.com");
-              socket.emit("room:join", { email: "Patient@gmail.com", room });
+              let patientEmail = "Patient@gmail.com";
+              let doctorName = room;
+              navigate('/patient/redirected', { state: { patientEmail, doctorName} })
+              // socket.emit("room:join", { email: "Patient@gmail.com", room });
           }
           
         } else if(response0.data.length !== 0){
@@ -169,7 +176,10 @@ const fetchPatientInfo = async () => {
             room = String(nr1);
             console.log(room);
             setEmail(existingPatientId + "@gmail.com");
-            socket.emit("room:join", { email: existingPatientId + "@gmail.com", room});
+            let patientEmail = existingPatientId + "@gmail.com"
+            let doctorName = room;
+            navigate('/patient/redirected', { state: { patientEmail, doctorName} })
+            // socket.emit("room:join", { email: existingPatientId + "@gmail.com", room});
           } else{
               let nr1 = responde1.data;
               console.log(nr1);
@@ -178,14 +188,17 @@ const fetchPatientInfo = async () => {
               console.log(room);
               console.log(typeof(room))
               setEmail(existingPatientId + "@gmail.com");
-              socket.emit("room:join", { email: existingPatientId + "@gmail.com", room});
+              let patientEmail = existingPatientId + "@gmail.com"
+              let doctorName = room;
+              navigate('/patient/redirected', { state: { patientEmail, doctorName} })
+              // socket.emit("room:join", { email: existingPatientId + "@gmail.com", room});
             }
         }
       } catch (error) {
         console.error('Error:', error);
       }
     },
-    [email, socket, setEmail]
+    [email, setEmail]
   );
 
   const handleJoinRoom = useCallback(
@@ -212,7 +225,15 @@ const fetchPatientInfo = async () => {
 
   const wantcallback = async () => {
     try{
-      await axios.put(`http://localhost:8080/callhistory/callback?ptphonenumber=${email}&needcallback=true`);
+      const cbstatus = await axios.get(`http://localhost:8080/callhistory/ptcallback?ptphonenumber=${email}`)
+      console.log(cbstatus.data);
+      if(cbstatus.data === false)
+      {
+        await axios.put(`http://localhost:8080/callhistory/callback?ptphonenumber=${email}&needcallback=true`);
+      }
+      else{
+        console.log("you have already applied call back status");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -226,12 +247,12 @@ const fetchPatientInfo = async () => {
     }
   }
 
-  useEffect(() => {
-    socket.on("room:join", handleJoinRoom);
-    return () => {
-      socket.off("room:join", handleJoinRoom);
-    };
-  }, [socket, handleJoinRoom]);
+  // useEffect(() => {
+  //   socket.on("room:join", handleJoinRoom);
+  //   return () => {
+  //     socket.off("room:join", handleJoinRoom);
+  //   };
+  // }, [socket, handleJoinRoom]);
 
   return (
     <div className="pouter">

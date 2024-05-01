@@ -50,7 +50,7 @@
   .rPatientCnt {
       width: 200px;
       margin: 5px;
-      padding: 0px 0px 20px 0px;
+      padding: 0px 0px 0px 0px;
       border-top: 30px solid #000000;
       border-bottom: 25px solid #000000;
       border-left: 10px solid #000000;
@@ -102,14 +102,14 @@
     .timer p {
         font-size: 15px;
     }
-    .calloptions {
-        margin-top: 5px;
+    .pcalloptions {
+        margin-top: 70px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
 
-    .calloptions button {
+    .pcalloptions button {
         font-size: 15px;
         background-color: transparent;
         color:black;
