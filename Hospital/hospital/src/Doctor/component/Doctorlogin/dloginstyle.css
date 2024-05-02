@@ -11,27 +11,27 @@
     max-width: 800px;
   }
   
-  h2 {
+  .dcontainer  h2 {
     text-align: center;
     margin-bottom: 20px;
   }
   
-  form {
+  .dcontainer  form {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
   
-  label {
+  .dcontainer  label {
     font-size: 18px;
     font-weight: bold;
     
     margin-bottom: 8px;
   }
   
-  input[type="text"],
-  input[type="password"] {
+  .dcontainer  input[type="text"],
+  .dcontainer  input[type="password"] {
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
@@ -40,12 +40,12 @@
     transition: border-color 0.3s;
   }
   
-  input[type="text"]:focus,
-  input[type="password"]:focus {
+  .dcontainer  input[type="text"]:focus,
+  .dcontainer input[type="password"]:focus {
     border-color: #007bff;
   }
   
-  button[type="submit"] {
+  .dcontainer  button[type="submit"] {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -56,7 +56,7 @@
     transition: background-color 0.3s;
   }
   
-  button[type="submit"]:hover {
+  .dcontainer  button[type="submit"]:hover {
     background-color: #0056b3;
   }
   

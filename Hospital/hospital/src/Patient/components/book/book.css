@@ -72,7 +72,7 @@
 }
 
 
-input[type="text"]{
+.form-group input[type="text"]{
     color: var(--body_color);
     padding: 10px;
     /* margin-left: 60px; */
@@ -83,7 +83,7 @@ input[type="text"]{
     background-color: var(--book-color);
 }
 
-input[type="date"], select{
+.form-group input[type="date"], select{
     /* padding: 10px; */
     color: var(--body_color);
     background-color: var(--book-color);
@@ -92,16 +92,16 @@ input[type="date"], select{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-input::placeholder{
+.form-group input::placeholder{
     color: var(--place_color);
 }
 
-select:hover, input[type="date"]{
+.form-group select:hover,.form-group  input[type="date"]{
     cursor: pointer;
 }
 
 
-input[type="date"]{
+.form-group input[type="date"]{
     padding: 10px 25px;
 }
 

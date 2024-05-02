@@ -23,24 +23,24 @@ background: linear-gradient(to left, #365523, #f1f3f1);
   }
 
   
-  form {
+  .LobbyCnt  form {
     display: flex;
     flex-direction: column;
   }
   
-  label {
+  .LobbyCnt  label {
     margin-bottom: 10px;
   }
   
-  input[type="email"],
-  input[type="text"] {
+  .LobbyCnt  input[type="email"],
+  .LobbyCnt  input[type="text"] {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
-  button {
+  .LobbyCnt  button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -49,7 +49,7 @@ background: linear-gradient(to left, #365523, #f1f3f1);
     cursor: pointer;
   }
   
-  button:hover {
+  .LobbyCnt  button:hover {
     background-color: #0056b3;
   }
   

@@ -30,6 +30,42 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+
+    label {
+      display: inline-block;
+      font-weight: bold;
+      width: 120px;
+      text-align: right; /* Align label text to the right */
+      margin-right: 20px;
+    }
+    
+    /* Adjusted margin to reduce the gap */
+    label[for="time"] {
+      margin-right: 50px;
+    }
+    
+    /* Reduce margin between Date label and Date input field */
+    label[for="date"],
+    label[for="endTime"] {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+    input[type="text"],
+    input[type="date"],
+    input[type="time"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: calc(50% - 130px); /* Equal width for both input fields */
+    }
+    
+    /* Add gap between label and input field for End Time */
+    label[for="endTime"] {
+      margin-right: 50px; /* Adjust as needed */
+    }
+  
+
   }
   
   .form-group {
@@ -38,39 +74,6 @@
     align-items: center;
   }
   
-  label {
-    display: inline-block;
-    font-weight: bold;
-    width: 120px;
-    text-align: right; /* Align label text to the right */
-    margin-right: 20px;
-  }
-  
-  /* Adjusted margin to reduce the gap */
-  label[for="time"] {
-    margin-right: 50px;
-  }
-  
-  /* Reduce margin between Date label and Date input field */
-  label[for="date"],
-  label[for="endTime"] {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  input[type="text"],
-  input[type="date"],
-  input[type="time"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: calc(50% - 130px); /* Equal width for both input fields */
-  }
-  
-  /* Add gap between label and input field for End Time */
-  label[for="endTime"] {
-    margin-right: 50px; /* Adjust as needed */
-  }
   
   /* Adjusted width for the submit and cancel buttons */
   .btn-submit,
